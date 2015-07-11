@@ -4,6 +4,9 @@ import android.net.Uri;
 import android.view.View;
 import android.widget.TextView;
 
+import com.easylink.library.adapter.ExAdapter;
+import com.easylink.library.adapter.ExViewHolder;
+import com.easylink.library.adapter.ExViewHolderBase;
 import com.easylink.nj.R;
 import com.easylink.nj.bean.HotCityItem;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -11,15 +14,15 @@ import com.facebook.drawee.view.SimpleDraweeView;
 /**
  * Created by KEVIN.DAI on 15/7/10.
  */
-public class CityAdapter extends com.easylink.nj.adapter.ExAdapter<HotCityItem> {
+public class CityAdapter extends ExAdapter<HotCityItem> {
 
     @Override
-    protected com.easylink.nj.adapter.ExViewHolder getViewHolder(int position) {
+    protected ExViewHolder getViewHolder(int position) {
 
         return new CityViewHolder();
     }
 
-    private class CityViewHolder extends com.easylink.nj.adapter.ExViewHolderBase {
+    private class CityViewHolder extends ExViewHolderBase {
 
         private SimpleDraweeView sdvPhoto;
         private TextView tvName;

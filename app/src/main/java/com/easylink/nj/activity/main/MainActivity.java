@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.easylink.library.http.task.HttpTask;
 import com.easylink.nj.BuildConfig;
 import com.easylink.nj.R;
 import com.easylink.nj.adapter.CityAdapter;
@@ -28,6 +29,7 @@ public class MainActivity extends BaseActivity<List<HotCityItem>> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
+        HttpTask ht = new HttpTask();
     }
 
     @Override

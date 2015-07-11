@@ -1,27 +1,22 @@
 package com.easylink.nj;
 
-import android.app.Application;
-import android.content.Context;
-
+import com.easylink.library.context.ExApplication;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 /**
  * Created by KEVIN.DAI on 15/7/8.
  */
-public class EasyApplication extends Application {
-
-    private static Context mContext = null;
+public class EasyApplication extends ExApplication {
 
     @Override
     public void onCreate() {
 
         super.onCreate();
-        mContext = getApplicationContext();
-        Fresco.initialize(this);
+        initApplication();
     }
 
-    public static Context getContext() {
+    private void initApplication() {
 
-        return mContext;
+        Fresco.initialize(this);
     }
 }

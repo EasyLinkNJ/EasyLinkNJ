@@ -1,4 +1,4 @@
-package com.easylink.nj.adapter;
+package com.easylink.library.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +10,8 @@ import java.util.List;
 public abstract class ExAdapter<T> extends BaseAdapter {
 
     private List<T> mData;
-    private com.easylink.nj.adapter.OnItemViewClickListener mOnItemViewClickLisn;
-    private com.easylink.nj.adapter.OnItemViewLongClickListener mOnItemViewLongClickLisn;
+    private OnItemViewClickListener mOnItemViewClickLisn;
+    private OnItemViewLongClickListener mOnItemViewLongClickLisn;
 
     protected ExAdapter() {
     }
@@ -55,7 +55,7 @@ public abstract class ExAdapter<T> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        com.easylink.nj.adapter.ExViewHolder viewHolder = null;
+        ExViewHolder viewHolder = null;
         if (convertView == null) {
 
             viewHolder = getViewHolder(position);
@@ -64,14 +64,14 @@ public abstract class ExAdapter<T> extends BaseAdapter {
             convertView.setTag(viewHolder);
         } else {
 
-            viewHolder = (com.easylink.nj.adapter.ExViewHolder) convertView.getTag();
+            viewHolder = (ExViewHolder) convertView.getTag();
         }
 
         viewHolder.invalidateConvertView(position);
         return convertView;
     }
 
-    protected abstract com.easylink.nj.adapter.ExViewHolder getViewHolder(int position);
+    protected abstract ExViewHolder getViewHolder(int position);
 
     public boolean isEmpty() {
 
@@ -156,12 +156,12 @@ public abstract class ExAdapter<T> extends BaseAdapter {
      * click listener part
 	 */
 
-    public void setOnItemViewClickListener(com.easylink.nj.adapter.OnItemViewClickListener lisn) {
+    public void setOnItemViewClickListener(OnItemViewClickListener lisn) {
 
         mOnItemViewClickLisn = lisn;
     }
 
-    public void setOnItemViewLongClickListener(com.easylink.nj.adapter.OnItemViewLongClickListener lisn) {
+    public void setOnItemViewLongClickListener(OnItemViewLongClickListener lisn) {
 
         mOnItemViewLongClickLisn = lisn;
     }
