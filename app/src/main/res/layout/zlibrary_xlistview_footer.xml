@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:progressView="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/xlistview_footer_content"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+	
+     <Button
+        android:id="@+id/btnReLoadMore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="加载失败，点击重试"
+        android:visibility="invisible" 
+        android:background="@drawable/zlibrary_selector_bg_loadmore"
+        android:textColor="#bdbdbb"
+        android:textSize="14dp" />       
+
+    <FrameLayout
+        android:id="@+id/flLoadingContent"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/xlistview_footer_hint_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/xlistview_footer_hint_normal"
+                android:textColor="#bdbdbb"
+                android:textSize="14dp" />
+
+            <ProgressBar
+                android:id="@+id/xlistview_footer_progressbar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:indeterminateOnly="true"
+                android:layout_toLeftOf="@+id/xlistview_footer_hint_textview"
+                android:visibility="invisible"/>
+        </RelativeLayout>
+    </FrameLayout>
+
+</FrameLayout>
