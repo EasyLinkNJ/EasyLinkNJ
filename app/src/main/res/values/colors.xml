@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- title bar -->
-    <color name="bg_title_bar">#CE93D8</color>
+    <color name="bg_title_bar">#ff33ccff</color>
     <!-- status bar -->
-    <color name="bg_status_bar">#CC65DD</color>
+    <color name="bg_status_bar">#ff3399ff</color>
 
     <color name="black_trans6">#0F000000</color>
     <color name="black_trans8">#14000000</color>

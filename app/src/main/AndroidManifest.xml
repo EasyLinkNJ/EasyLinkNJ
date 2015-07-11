@@ -9,11 +9,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/ex_theme">
+        android:theme="@style/app_theme">
         <activity
             android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ex_base_theme">
+            android:theme="@style/ex_theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,6 +22,7 @@
         </activity>
         <activity
             android:name=".activity.main.MainActivity"
+            android:theme="@style/app_theme_main"
             android:screenOrientation="portrait" />
     </application>
 

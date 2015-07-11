@@ -6,6 +6,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bg_title_bar"
-        android:scaleType="centerCrop" />
+        android:background="@mipmap/ic_splash"
+        android:scaleType="centerCrop"
+        />
 </FrameLayout>
