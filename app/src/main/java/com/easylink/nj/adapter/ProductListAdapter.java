@@ -15,7 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * 产品列表适配器
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class ProductListAdapter extends ExAdapter<Product>{
+public class ProductListAdapter extends ExAdapter<Product> {
 
     @Override
     protected ExViewHolder getViewHolder(int position) {
@@ -23,21 +23,22 @@ public class ProductListAdapter extends ExAdapter<Product>{
         return new ViewHolder();
     }
 
-    private final class ViewHolder extends ExViewHolderBase{
+    private final class ViewHolder extends ExViewHolderBase {
 
         private SimpleDraweeView mSdvCover;
-        private TextView mTvTitle, mTvDate;
+        private TextView mTvTitle, mTvPrice, mTvIntro;
 
         @Override
         public int getConvertViewRid() {
 
-            return R.layout.item_news_list;
+            return R.layout.item_product_list;
         }
 
         @Override
         public void initConvertView(View convertView) {
 
             convertView.setOnClickListener(new View.OnClickListener() {
+
                 @Override
                 public void onClick(View v) {
 
@@ -47,7 +48,8 @@ public class ProductListAdapter extends ExAdapter<Product>{
 
             mSdvCover = (SimpleDraweeView) convertView.findViewById(R.id.sdvCover);
             mTvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
-            mTvDate = (TextView) convertView.findViewById(R.id.tvDate);
+            mTvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
+            mTvIntro = (TextView) convertView.findViewById(R.id.tvIntro);
         }
 
         @Override
@@ -56,7 +58,8 @@ public class ProductListAdapter extends ExAdapter<Product>{
             Product product = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(product.getMainpic()));
             mTvTitle.setText(product.getTitle());
-//            mTvDate.setText(product.getPostdate());
+//            mTvPrice.setText(product.getPrice());
+//            mTvIntro.setText(product.get);
         }
 
     }

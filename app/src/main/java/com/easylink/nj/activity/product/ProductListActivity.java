@@ -37,6 +37,7 @@ public class ProductListActivity extends NjHttpActivity<ProductList> {
 
         mAdapter = new ProductListAdapter();
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+
             @Override
             public void onItemViewClick(int position, View clickView) {
 
