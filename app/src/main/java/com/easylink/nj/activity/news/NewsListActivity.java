@@ -20,7 +20,7 @@ import com.easylink.nj.httptask.NjHttpUtil;
  * 新闻列表
  * @author yihaibin
  */
-public class NewsActivity extends NjHttpActivity<NewsList>{
+public class NewsListActivity extends NjHttpActivity<NewsList>{
 
     private NewsListAdapter mAdapter;
 
@@ -42,7 +42,7 @@ public class NewsActivity extends NjHttpActivity<NewsList>{
 
                 News news = mAdapter.getItem(position);
                 if(news != null)
-                    NewsDetailActivity.startActivity(NewsActivity.this, news.getUrl());
+                    NewsDetailActivity.startActivity(NewsListActivity.this, news.getId());
             }
         });
     }
@@ -83,7 +83,7 @@ public class NewsActivity extends NjHttpActivity<NewsList>{
     public static void startActivity(Activity activity){
 
         Intent intent = new Intent();
-        intent.setClass(activity, NewsActivity.class);
+        intent.setClass(activity, NewsListActivity.class);
         activity.startActivity(intent);
     }
 

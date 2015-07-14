@@ -87,4 +87,18 @@ public class NewsDetail {
 
         this.mainpic = TextUtil.filterNull(mainpic);
     }
+
+    @Override
+    public String toString() {
+        return "NewsDetail{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", created='" + created + '\'' +
+                ", postdate='" + postdate + '\'' +
+                ", cate_id='" + cate_id + '\'' +
+                ", cate_name='" + cate_name + '\'' +
+                ", mainpic='" + mainpic + '\'' +
+                '}';
+    }
 }

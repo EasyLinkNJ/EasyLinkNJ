@@ -9,16 +9,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjActivity;
+import com.easylink.nj.activity.common.NjHttpActivity;
+import com.easylink.nj.bean.news.NewsDetail;
+import com.easylink.nj.bean.news.NewsList;
+import com.easylink.nj.httptask.NjHttpUtil;
 
 /**
  * 新闻详情
  * @author yihaibin
  */
-public class NewsDetailActivity extends NjActivity{
+public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
 
     private ProgressBar mPbLoading;
     private WebView mWebView;
@@ -27,7 +32,8 @@ public class NewsDetailActivity extends NjActivity{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_news_detail);
-        webViewLoadUrl(getIntent().getStringExtra("url"));
+//        webViewLoadUrl(getIntent().getStringExtra("url"));
+        loadDataFromServer(getIntent().getStringExtra("newsId"));
     }
 
     @Override
@@ -73,16 +79,28 @@ public class NewsDetailActivity extends NjActivity{
         });
     }
 
+    private void loadDataFromServer(String newsId) {
+
+        LogMgr.e("daisw","~~newsId: "+newsId);
+        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNewsDetail(newsId), NewsDetail.class);
+    }
+
+    @Override
+    public void invalidateContent(int what, NewsDetail newsDetail) {
+
+        LogMgr.d("daisw", "detail: " + newsDetail.toString());
+    }
+
     private void webViewLoadUrl(String url){
 
         mWebView.loadUrl(TextUtil.filterNull(url));
     }
 
-    public static void startActivity(Activity activity, String url){
+    public static void startActivity(Activity activity, String newsId){
 
         Intent intent = new Intent();
         intent.setClass(activity, NewsDetailActivity.class);
-        intent.putExtra("url", url);
+        intent.putExtra("newsId", newsId);
         activity.startActivity(intent);
     }
 }
