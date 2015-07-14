@@ -6,10 +6,10 @@ import java.util.List;
 
 /**
  */
-public class NewListData {
+public class NewsList {
 
     private String sum = TextUtil.TEXT_EMPTY;
-    private List<New> list;
+    private List<News> list;
 
 
     public String getSum() {
@@ -22,12 +22,12 @@ public class NewListData {
         this.sum = TextUtil.filterNull(sum);
     }
 
-    public List<New> getList() {
+    public List<News> getList() {
 
         return list;
     }
 
-    public void setList(List<New> list) {
+    public void setList(List<News> list) {
 
         this.list = list;
     }

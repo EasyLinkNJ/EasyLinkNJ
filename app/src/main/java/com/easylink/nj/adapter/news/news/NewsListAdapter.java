@@ -8,14 +8,14 @@ import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
 import com.easylink.nj.R;
-import com.easylink.nj.bean.news.New;
+import com.easylink.nj.bean.news.News;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * 新闻列表适配器
  * @author yihaibin
  */
-public class NewsListAdapter extends ExAdapter<New>{
+public class NewsListAdapter extends ExAdapter<News>{
 
     @Override
     protected ExViewHolder getViewHolder(int position) {
@@ -53,7 +53,7 @@ public class NewsListAdapter extends ExAdapter<New>{
         @Override
         public void invalidateConvertView() {
 
-            New news = getItem(mPosition);
+            News news = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(news.getMainpic()));
             mTvTitle.setText(news.getTitle());
             mTvDate.setText(news.getPostdate());

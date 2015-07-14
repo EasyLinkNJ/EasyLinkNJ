@@ -12,15 +12,15 @@ import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.adapter.news.news.NewsListAdapter;
-import com.easylink.nj.bean.news.New;
-import com.easylink.nj.bean.news.NewListData;
+import com.easylink.nj.bean.news.News;
+import com.easylink.nj.bean.news.NewsList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 /**
  * 新闻列表
  * @author yihaibin
  */
-public class NewsActivity extends NjHttpActivity<NewListData>{
+public class NewsActivity extends NjHttpActivity<NewsList>{
 
     private NewsListAdapter mAdapter;
 
@@ -40,7 +40,7 @@ public class NewsActivity extends NjHttpActivity<NewListData>{
             @Override
             public void onItemViewClick(int position, View clickView) {
 
-                New news = mAdapter.getItem(position);
+                News news = mAdapter.getItem(position);
                 if(news != null)
                     NewsDetailActivity.startActivity(NewsActivity.this, news.getUrl());
             }
@@ -64,11 +64,11 @@ public class NewsActivity extends NjHttpActivity<NewListData>{
 
     private void loadDataFromServer(){
 
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNews(), NewListData.class);
+        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNews(), NewsList.class);
     }
 
     @Override
-    public void invalidateContent(int what, NewListData data) {
+    public void invalidateContent(int what, NewsList data) {
 
         mAdapter.setData(data.getList());
         mAdapter.notifyDataSetChanged();
