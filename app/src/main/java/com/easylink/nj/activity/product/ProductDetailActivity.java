@@ -11,6 +11,7 @@ import com.easylink.nj.bean.product.ProductDetail;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 /**
+ * 产品详情
  * Created by KEVIN.DAI on 15/7/14.
  */
 public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
@@ -39,9 +40,15 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
     }
 
+    @Override
+    protected void onTipViewClick() {
+
+        loadDataFromServer();
+    }
+
     private void loadDataFromServer() {
 
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getProductDetail(), ProductDetail.class);
+        executeHttpTaskByUiSwitch(0, NjHttpUtil.getProductDetail(getIntent().getStringExtra("productId")), ProductDetail.class);
     }
 
     @Override
@@ -50,11 +57,12 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         LogMgr.i("daisw", "~~" + productDetail.getName());
     }
 
-    public static void startActivity(Activity act) {
+    public static void startActivity(Activity act, String productId) {
 
         if (act == null)
             return;
         Intent intent = new Intent(act, ProductDetailActivity.class);
+        intent.putExtra("productId", productId);
         act.startActivity(intent);
     }
 }

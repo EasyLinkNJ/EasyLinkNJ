@@ -40,10 +40,10 @@ public class NjHttpUtil extends BaseHttpUtil {
         return htp;
     }
 
-    public static HttpTaskParams getProductDetail() {
+    public static HttpTaskParams getProductDetail(String productId) {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_DETAIL);
-
+        htp.addParam("id", productId);
         setSignParam(htp);
 
         return htp;

@@ -11,7 +11,7 @@ import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
-import com.easylink.nj.adapter.news.NewsListAdapter;
+import com.easylink.nj.adapter.NewsListAdapter;
 import com.easylink.nj.bean.news.News;
 import com.easylink.nj.bean.news.NewsList;
 import com.easylink.nj.httptask.NjHttpUtil;
