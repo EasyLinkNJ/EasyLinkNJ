@@ -25,8 +25,8 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getNewsDetail(String newsId) {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS_DETAIL);
-        setSignParam(htp);
         htp.addParam("id", newsId);
+        setSignParam(htp);
 
         return htp;
     }

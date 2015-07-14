@@ -2,7 +2,6 @@ package com.easylink.nj.activity.news;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
@@ -13,10 +12,8 @@ import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjActivity;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.bean.news.NewsDetail;
-import com.easylink.nj.bean.news.NewsList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 /**
@@ -81,7 +78,6 @@ public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
 
     private void loadDataFromServer(String newsId) {
 
-        LogMgr.e("daisw","~~newsId: "+newsId);
         executeHttpTaskByUiSwitch(0, NjHttpUtil.getNewsDetail(newsId), NewsDetail.class);
     }
 
