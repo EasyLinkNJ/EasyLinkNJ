@@ -9,4 +9,7 @@ public interface HttpApi {
 
     String URL_NEWS = URL_BASE + "news/list";
     String URL_NEWS_DETAIL = URL_BASE +"news/detail";
+
+    String URL_PRODUCT_LIST = URL_BASE + "product/list";
+    String URL_PRODUCT_DETAIL = URL_BASE + "product/detail";
 }

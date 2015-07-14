@@ -1,4 +1,4 @@
-package com.easylink.nj.adapter.news.news;
+package com.easylink.nj.adapter.news;
 
 import android.net.Uri;
 import android.view.View;
