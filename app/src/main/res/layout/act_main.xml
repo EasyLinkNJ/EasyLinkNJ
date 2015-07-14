@@ -4,10 +4,24 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvGo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/tvNewsList"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#80ff0000"
+        android:gravity="center_vertical"
         android:text="新闻列表"
-        android:textColor="@color/black_trans87"
+        android:textColor="@color/white_trans87"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tvProductList"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/tvNewsList"
+        android:layout_marginTop="10dp"
+        android:background="#80ff0000"
+        android:gravity="center_vertical"
+        android:text="产品列表"
+        android:textColor="@color/white_trans87"
         android:textSize="20dp" />
 </RelativeLayout>

@@ -33,6 +33,14 @@
         <activity
             android:name=".activity.news.NewsDetailActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.ProductListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.ProductDetailActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
