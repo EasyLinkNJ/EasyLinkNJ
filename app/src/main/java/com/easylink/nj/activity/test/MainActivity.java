@@ -13,7 +13,7 @@ import com.easylink.nj.BuildConfig;
 import com.easylink.nj.R;
 import com.easylink.nj.adapter.CityAdapter;
 import com.easylink.nj.bean.HotCityItem;
-import com.easylink.nj.httptask.TestHtpUtil;
+import com.easylink.nj.httptask.TestHttpUtil;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class MainActivity extends BaseActivity<List<HotCityItem>> {
     @Override
     protected void initData() {
 
-        executeAPI(TestHtpUtil.getTestUrl(), 0, HotCityItem.class);
+        executeAPI(TestHttpUtil.getTestUrl(), 0, HotCityItem.class);
     }
 
     @Override

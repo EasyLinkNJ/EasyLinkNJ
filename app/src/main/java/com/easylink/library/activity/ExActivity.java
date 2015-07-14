@@ -29,7 +29,6 @@ import com.easylink.library.view.ExDecorView;
  */
 public abstract class ExActivity extends Activity {
 
-
 	private ExDecorView mExDecorView;
 	private HttpTaskExecuter mHttpTaskExecuter;
 

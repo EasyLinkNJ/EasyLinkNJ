@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class TextUtil {
 	
 	public static final String TEXT_EMPTY = "";
+	public static final String TEXT_ZERO = "0";
 	
 	public static String filterNull(String str){
 		

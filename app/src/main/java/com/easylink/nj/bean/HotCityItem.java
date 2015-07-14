@@ -1,7 +1,7 @@
 package com.easylink.nj.bean;
 
 
-import com.easylink.nj.utils.TextUtil;
+import com.easylink.library.util.TextUtil;
 
 /**
  * 200个热门城市
@@ -14,8 +14,8 @@ public class HotCityItem {
     private String photo = TextUtil.TEXT_EMPTY;
     private String pinyin = TextUtil.TEXT_EMPTY;
     private boolean is_hot;
-    private String lat = TextUtil.ZERO;
-    private String lng = TextUtil.ZERO;
+    private String lat = TextUtil.TEXT_ZERO;
+    private String lng = TextUtil.TEXT_ZERO;
 
     public String getLat() {
 
@@ -29,12 +29,12 @@ public class HotCityItem {
 
     public void setLat(String lat) {
 
-        this.lat = TextUtil.isEmpty(lat) ? TextUtil.ZERO : lat;
+        this.lat = TextUtil.isEmpty(lat) ? TextUtil.TEXT_ZERO : lat;
     }
 
     public void setLng(String lng) {
 
-        this.lng = TextUtil.isEmpty(lng) ? TextUtil.ZERO : lng;
+        this.lng = TextUtil.isEmpty(lng) ? TextUtil.TEXT_ZERO : lng;
     }
 
     public boolean isIs_hot() {

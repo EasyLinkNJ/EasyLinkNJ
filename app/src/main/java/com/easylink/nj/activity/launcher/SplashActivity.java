@@ -1,4 +1,4 @@
-package com.easylink.nj.activity;
+package com.easylink.nj.activity.launcher;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
