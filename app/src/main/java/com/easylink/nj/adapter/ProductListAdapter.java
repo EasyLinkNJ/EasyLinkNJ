@@ -58,8 +58,8 @@ public class ProductListAdapter extends ExAdapter<Product> {
             Product product = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(product.getMainpic()));
             mTvTitle.setText(product.getTitle());
-//            mTvPrice.setText(product.getPrice());
-//            mTvIntro.setText(product.get);
+//            mTvPrice.setText(product.getPrice());// TODO 接口返回price为空
+//            mTvIntro.setText(product.get);// TODO 接口没有返回相应字段
         }
 
     }

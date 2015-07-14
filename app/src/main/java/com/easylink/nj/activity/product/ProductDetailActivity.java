@@ -2,13 +2,16 @@ package com.easylink.nj.activity.product;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.easylink.library.util.LogMgr;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.bean.product.ProductDetail;
 import com.easylink.nj.httptask.NjHttpUtil;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * 产品详情
@@ -52,9 +55,17 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     }
 
     @Override
-    public void invalidateContent(int what, ProductDetail productDetail) {
+    public void invalidateContent(int what, ProductDetail data) {
 
-        LogMgr.i("daisw", "~~" + productDetail.getName());
+        SimpleDraweeView sdvCover = (SimpleDraweeView) findViewById(R.id.sdvCover);
+        sdvCover.setImageURI(Uri.parse(data.getMainpic()));
+
+        ((TextView) findViewById(R.id.tvTitle)).setText(data.getTitle());
+//        findViewById(R.id.tvPrice);// TODO 接口返回price为空
+        String mimeType = "text/html";
+        String encoding = "UNICODE";
+//        ((WebView) findViewById(R.id.wvIntro)).loadData(data.getContent_1(), mimeType, encoding);
+        LogMgr.i("daisw", "~~" + data.getContent_1());
     }
 
     public static void startActivity(Activity act, String productId) {
