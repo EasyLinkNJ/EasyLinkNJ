@@ -12,12 +12,25 @@ public class NjHttpUtil extends BaseHttpUtil {
      *
      * @retrn
      */
-    public static HttpTaskParams getNews() {
+    public static HttpTaskParams getNewsAll() {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS);
 //        htp.addParam("id", "1001");
 //        htp.addParam("cate_id", "123");
 //        htp.addParam("menu_id", "456");
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 获取前5条新闻
+     * @return
+     */
+    public static HttpTaskParams getNewsTop5(){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS);
+        htp.addParam("p", "1");
+        htp.addParam("ps", "5");
         setSignParam(htp);
         return htp;
     }

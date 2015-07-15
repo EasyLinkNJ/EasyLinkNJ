@@ -81,7 +81,7 @@ public class BaseHttpUtil implements HttpApi {
 
         param.addParam("appid", "100011");
         param.addParam("version", String.valueOf(AppInfoUtil.getVersionCode()));
-        param.addParam("time", String.valueOf(System.currentTimeMillis()/ 1000));
+        param.addParam("time", String.valueOf(System.currentTimeMillis() / 1000));
         param.addParam("sign", getHttpTaskParamsSign(param));
     }
 

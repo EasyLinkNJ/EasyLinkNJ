@@ -23,4 +23,7 @@
     <color name="white_trans54">#8aFFFFFF</color>
     <color name="white_trans87">#deFFFFFF</color>
     <color name="white_trans70">#BBFFFFFF</color>
+
+    <color name="gray_trans12">#1ECCCCCC</color>
+    <color name="gray_trans50">#80CCCCCC</color>
 </resources>

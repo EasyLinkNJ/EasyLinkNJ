@@ -29,8 +29,8 @@ public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_news_detail);
-//        webViewLoadUrl(getIntent().getStringExtra("url"));
-        loadDataFromServer(getIntent().getStringExtra("newsId"));
+        webViewLoadUrl(getIntent().getStringExtra("url"));
+//        loadDataFromServer(getIntent().getStringExtra("newsId"));
     }
 
     @Override
@@ -92,11 +92,11 @@ public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
         mWebView.loadUrl(TextUtil.filterNull(url));
     }
 
-    public static void startActivity(Activity activity, String newsId){
+    public static void startActivity(Activity activity, String url){
 
         Intent intent = new Intent();
         intent.setClass(activity, NewsDetailActivity.class);
-        intent.putExtra("newsId", newsId);
+        intent.putExtra("url", url);
         activity.startActivity(intent);
     }
 }

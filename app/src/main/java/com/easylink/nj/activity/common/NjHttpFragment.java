@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.easylink.library.activity.ExFragment;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
@@ -14,7 +15,7 @@ import com.easylink.nj.httptask.NjJsonListener;
 
 /**
  */
-public abstract class NjHttpActivity<T> extends NjActivity{
+public abstract class NjHttpFragment<T> extends ExFragment{
 
     private FrameLayout mFlFrame;
     private View mContentView;
@@ -25,15 +26,15 @@ public abstract class NjHttpActivity<T> extends NjActivity{
     private int mDisabledImageResId;
 
     @Override
-    public void setContentView(int layoutResId) {
+    protected void setFragmentContentView(int layoutResId) {
 
-        super.setContentView(inflateFrameView(getLayoutInflater().inflate(layoutResId, null)));
+        super.setFragmentContentView(inflateFrameView(getActivity().getLayoutInflater().inflate(layoutResId, null)));
     }
 
     @Override
-    public void setContentView(View view) {
+    protected void setFragmentContentView(View view) {
 
-        super.setContentView(inflateFrameView(view));
+        super.setFragmentContentView(inflateFrameView(view));
     }
 
     /**
@@ -43,13 +44,13 @@ public abstract class NjHttpActivity<T> extends NjActivity{
      */
     protected View inflateFrameView(View v){
 
-        mFlFrame = new FrameLayout(this);
+        mFlFrame = new FrameLayout(getActivity());
 
         mContentView = v;
         mFlFrame.addView(v, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
 
         //add tip view
-        mIvTip = new ImageView(this);
+        mIvTip = new ImageView(getActivity());
         mIvTip.setVisibility(View.INVISIBLE);//默认隐藏
         mIvTip.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         mIvTip.setOnClickListener(new View.OnClickListener() {
@@ -72,19 +73,10 @@ public abstract class NjHttpActivity<T> extends NjActivity{
 
         if(mLoadingDialog == null){
 
-            ProgressDialog pd = new ProgressDialog(this);
+            ProgressDialog pd = new ProgressDialog(getActivity());
             pd.setCanceledOnTouchOutside(false);
-            pd.setCancelable(true);
+            pd.setCancelable(false);
             pd.setMessage(getResources().getString(R.string.loading_wait));
-            pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-
-                    dialog.dismiss();
-                    finish();
-                }
-            });
-
             mLoadingDialog = pd;
         }
 

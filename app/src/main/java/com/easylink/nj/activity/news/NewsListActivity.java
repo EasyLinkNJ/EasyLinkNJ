@@ -64,7 +64,7 @@ public class NewsListActivity extends NjHttpActivity<NewsList>{
 
     private void loadDataFromServer(){
 
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNews(), NewsList.class);
+        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNewsAll(), NewsList.class);
     }
 
     @Override
