@@ -4,7 +4,7 @@
     <string name="news_detail">新闻详情</string>
     <string name="news_dynamics">新闻动态</string>
     <string name="loading_wait">正在加载，请稍后&#8230;</string>
-    <string name="look_more">查看更多</string>
+    <string name="look_more">查看更多   ></string>
 
     <string name="toast_exit_tip">再按一次退出应用</string>
 </resources>
