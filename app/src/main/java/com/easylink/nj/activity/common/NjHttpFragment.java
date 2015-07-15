@@ -1,11 +1,10 @@
 package com.easylink.nj.activity.common;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.easylink.library.activity.ExFragment;
 import com.easylink.library.http.params.HttpTaskParams;
@@ -20,7 +19,7 @@ public abstract class NjHttpFragment<T> extends ExFragment{
     private FrameLayout mFlFrame;
     private View mContentView;
     private ImageView mIvTip;
-    private Dialog mLoadingDialog;
+    private ProgressBar mPbLoading;
     private int mTipResId;
     private int mFailedImageResId;
     private int mDisabledImageResId;
@@ -44,10 +43,13 @@ public abstract class NjHttpFragment<T> extends ExFragment{
      */
     protected View inflateFrameView(View v){
 
+        FrameLayout.LayoutParams fllp = null;
         mFlFrame = new FrameLayout(getActivity());
 
+        //add content view
         mContentView = v;
-        mFlFrame.addView(v, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        fllp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        mFlFrame.addView(v, fllp);
 
         //add tip view
         mIvTip = new ImageView(getActivity());
@@ -60,34 +62,20 @@ public abstract class NjHttpFragment<T> extends ExFragment{
                 onTipViewClick();
             }
         });
-        mFlFrame.addView(mIvTip, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT));
+        fllp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+        mFlFrame.addView(mIvTip, fllp);
+
+        //add progress bar
+        mPbLoading = new ProgressBar(getActivity(), null, android.R.attr.progressBarStyleLarge);
+        mPbLoading.setVisibility(View.INVISIBLE);
+        fllp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        fllp.gravity = Gravity.CENTER;
+        mFlFrame.addView(mPbLoading, fllp);
 
         //设置网络错误提示图和为空图
         mFailedImageResId = R.mipmap.ic_launcher;
 //        mDisabledImageResId = R.drawable.ic_tip_null;
         return mFlFrame;
-    }
-
-    public void showLoadingDialog(){
-
-        if(mLoadingDialog == null){
-
-            ProgressDialog pd = new ProgressDialog(getActivity());
-            pd.setCanceledOnTouchOutside(false);
-            pd.setCancelable(false);
-            pd.setMessage(getResources().getString(R.string.loading_wait));
-            mLoadingDialog = pd;
-        }
-
-        if(!mLoadingDialog.isShowing())
-            mLoadingDialog.show();
-    }
-
-    public void dismissLoadingDialog(){
-
-        if(mLoadingDialog != null && mLoadingDialog.isShowing())
-            mLoadingDialog.dismiss();
     }
 
     public void executeHttpTaskByUiSwitch(final int what, HttpTaskParams params, Class<?> t){
@@ -118,12 +106,12 @@ public abstract class NjHttpFragment<T> extends ExFragment{
 
         ViewUtil.hideView(mContentView);
         ViewUtil.hideView(mIvTip);
-        showLoadingDialog();
+        ViewUtil.showView(mPbLoading);
     }
 
     public void switchContent(int what, T t){
 
-        dismissLoadingDialog();
+        ViewUtil.hideView(mPbLoading);
         ViewUtil.hideView(mIvTip);
         ViewUtil.showView(mContentView);
         invalidateContent(what, t);
@@ -133,7 +121,7 @@ public abstract class NjHttpFragment<T> extends ExFragment{
 
     public void switchFailed(int what, int failedCode, String msg){
 
-        dismissLoadingDialog();
+        ViewUtil.hideView(mPbLoading);
         ViewUtil.hideView(mContentView);
         ViewUtil.showImageView(mIvTip, mFailedImageResId);
     }
