@@ -35,6 +35,11 @@ public class NjHttpUtil extends BaseHttpUtil {
         return htp;
     }
 
+    /**
+     * 新闻详情
+     * @param newsId
+     * @return
+     */
     public static HttpTaskParams getNewsDetail(String newsId) {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS_DETAIL);

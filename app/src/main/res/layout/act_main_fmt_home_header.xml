@@ -21,34 +21,43 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/shape_circle_red"
+            android:drawablePadding="4dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:gravity="center"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:text="购买产品"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:background="@drawable/selector_bg_click_white"/>
         <TextView
             android:id="@+id/tvRepair"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/shape_circle_red"
+            android:drawablePadding="4dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:gravity="center"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:text="维修咨询"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:background="@drawable/selector_bg_click_white"/>
         <TextView
             android:id="@+id/tvReplace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawableTop="@drawable/shape_circle_red"
+            android:drawablePadding="4dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:gravity="center"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:text="配件替换"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:background="@drawable/selector_bg_click_white"/>
     </LinearLayout>
     <View
         android:layout_width="match_parent"

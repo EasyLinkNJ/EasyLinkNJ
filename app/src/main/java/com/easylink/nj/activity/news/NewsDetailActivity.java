@@ -8,19 +8,16 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
-import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjHttpActivity;
-import com.easylink.nj.bean.news.NewsDetail;
-import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.activity.common.NjActivity;
 
 /**
  * 新闻详情
  * @author yihaibin
  */
-public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
+public class NewsDetailActivity extends NjActivity {
 
     private ProgressBar mPbLoading;
     private WebView mWebView;
@@ -30,7 +27,7 @@ public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_news_detail);
         webViewLoadUrl(getIntent().getStringExtra("url"));
-//        loadDataFromServer(getIntent().getStringExtra("newsId"));
+//        loadDataFromServer(getIntent().getStringExtra("id"));
     }
 
     @Override
@@ -76,26 +73,28 @@ public class NewsDetailActivity extends NjHttpActivity<NewsDetail> {
         });
     }
 
-    private void loadDataFromServer(String newsId) {
+//    private void loadDataFromServer(String newsId) {
+//
+//        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNewsDetail(newsId), NewsDetail.class);
+//    }
 
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNewsDetail(newsId), NewsDetail.class);
-    }
-
-    @Override
-    public void invalidateContent(int what, NewsDetail newsDetail) {
-
-        LogMgr.d("daisw", "detail: " + newsDetail.toString());
-    }
+//    @Override
+//    public void invalidateContent(int what, NewsDetail newsDetail) {
+//
+//        LogMgr.d("daisw", "detail: " + newsDetail.toString());
+//        mWebView.loadData(newsDetail.getContent(), "text/html; charset=UTF-8", "utf-8");
+//    }
 
     private void webViewLoadUrl(String url){
 
         mWebView.loadUrl(TextUtil.filterNull(url));
     }
 
-    public static void startActivity(Activity activity, String url){
+    public static void startActivity(Activity activity, String id, String url){
 
         Intent intent = new Intent();
         intent.setClass(activity, NewsDetailActivity.class);
+        intent.putExtra("id", id);
         intent.putExtra("url", url);
         activity.startActivity(intent);
     }

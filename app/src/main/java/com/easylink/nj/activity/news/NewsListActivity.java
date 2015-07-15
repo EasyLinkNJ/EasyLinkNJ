@@ -42,7 +42,7 @@ public class NewsListActivity extends NjHttpActivity<NewsList>{
 
                 News news = mAdapter.getItem(position);
                 if(news != null)
-                    NewsDetailActivity.startActivity(NewsListActivity.this, news.getId());
+                    NewsDetailActivity.startActivity(NewsListActivity.this, news.getId(), news.getUrl());
             }
         });
     }

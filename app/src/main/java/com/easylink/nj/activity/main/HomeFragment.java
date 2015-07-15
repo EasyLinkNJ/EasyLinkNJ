@@ -51,7 +51,7 @@ public class HomeFragment extends NjHttpFragment<NewsList> {
 
                 News news = mAdapter.getItem(position);
                 if (news != null)
-                    NewsDetailActivity.startActivity(getActivity(), news.getUrl());
+                    NewsDetailActivity.startActivity(getActivity(), news.getId(), news.getUrl());
             }
         });
     }
@@ -90,8 +90,33 @@ public class HomeFragment extends NjHttpFragment<NewsList> {
     private View getHeadView(){
 
         LinearLayout ll = (LinearLayout) getActivity().getLayoutInflater().inflate(R.layout.act_main_fmt_home_header, null);
+
         ImageView cover = (ImageView) ll.findViewById(R.id.ivCover);
         cover.setImageResource(R.mipmap.ic_main_home_cover);
+
+        TextView tv = (TextView) ll.findViewById(R.id.tvShopping);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        tv = (TextView) ll.findViewById(R.id.tvRepair);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        tv = (TextView) ll.findViewById(R.id.tvReplace);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         return ll;
     }
 
