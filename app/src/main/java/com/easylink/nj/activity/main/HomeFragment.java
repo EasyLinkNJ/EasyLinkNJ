@@ -21,6 +21,7 @@ import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpFragment;
 import com.easylink.nj.activity.news.NewsDetailActivity;
 import com.easylink.nj.activity.news.NewsListActivity;
+import com.easylink.nj.activity.product.ProductListActivity;
 import com.easylink.nj.adapter.NewsListAdapter;
 import com.easylink.nj.bean.news.News;
 import com.easylink.nj.bean.news.NewsList;
@@ -99,6 +100,7 @@ public class HomeFragment extends NjHttpFragment<NewsList> {
             @Override
             public void onClick(View v) {
 
+                ProductListActivity.startActivity(getActivity());
             }
         });
 

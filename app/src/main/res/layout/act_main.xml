@@ -25,44 +25,44 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="主页"
-            android:textColor="@drawable/selector_color_main_tab"/>
+            android:textColor="@android:color/black"
+            android:drawableTop="@drawable/selector_ic_main_home"/>
         <TextView
             android:id="@+id/tvProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="产品"
-            android:textColor="@drawable/selector_color_main_tab"/>
+            android:textColor="@android:color/black"
+            android:drawableTop="@drawable/selector_ic_main_product"/>
         <TextView
             android:id="@+id/tvCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="购物车"
-            android:textColor="@drawable/selector_color_main_tab"/>
+            android:textColor="@android:color/black"
+            android:drawableTop="@drawable/selector_ic_main_cart"/>
         <TextView
             android:id="@+id/tvOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="订单"
-            android:textColor="@drawable/selector_color_main_tab"/>
+            android:textColor="@android:color/black"
+            android:drawableTop="@drawable/selector_ic_main_cart"/>
     </LinearLayout>
 </LinearLayout>
