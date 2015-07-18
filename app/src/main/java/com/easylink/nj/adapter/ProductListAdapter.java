@@ -26,7 +26,7 @@ public class ProductListAdapter extends ExAdapter<Product> {
     private final class ViewHolder extends ExViewHolderBase {
 
         private SimpleDraweeView mSdvCover;
-        private TextView mTvTitle, mTvPrice, mTvIntro;
+        private TextView mTvTitle, mTvPrice;
 
         @Override
         public int getConvertViewRid() {
@@ -49,7 +49,6 @@ public class ProductListAdapter extends ExAdapter<Product> {
             mSdvCover = (SimpleDraweeView) convertView.findViewById(R.id.sdvCover);
             mTvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             mTvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
-            mTvIntro = (TextView) convertView.findViewById(R.id.tvIntro);
         }
 
         @Override
@@ -59,7 +58,6 @@ public class ProductListAdapter extends ExAdapter<Product> {
             mSdvCover.setImageURI(Uri.parse(product.getMainpic()));
             mTvTitle.setText(product.getTitle());
             mTvPrice.setText(product.getPrice());// TODO 接口返回price为空
-//            mTvIntro.setText(product.get);// TODO 接口没有返回相应字段
         }
 
     }

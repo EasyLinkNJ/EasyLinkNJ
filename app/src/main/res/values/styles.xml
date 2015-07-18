@@ -13,11 +13,12 @@
         <item name="exTitleClickerBackground">@drawable/selector_bg_click_cover</item>
         <item name="exTitleClickerTextSize">@null</item>
         <item name="exTitleClickerHoriPadding">16dp</item>
+        <item name="android:windowBackground">@color/bg_app_main</item>
 
         <item name="exTitleBackIcon">@mipmap/ic_back_white</item>
         <item name="exTitleTextColor">@color/white_trans87</item>
         <item name="exTitleBackground">@color/bg_title_bar</item>
-        <item name="exBackground">@android:color/white</item>
+        <item name="exBackground">@color/bg_app_main</item>
         <item tools:targetApi="21" name="android:statusBarColor">@color/bg_status_bar</item>
         <item tools:targetApi="21" name="android:colorEdgeEffect">@color/bg_title_bar</item>
         <item tools:targetApi="19" name="android:windowTranslucentStatus">false</item>

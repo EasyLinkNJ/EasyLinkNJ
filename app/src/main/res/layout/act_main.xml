@@ -8,12 +8,14 @@
         android:id="@+id/vpContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_weight="0"
-        android:background="@color/list_split"/>
+        android:background="@color/list_split" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,44 +27,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="5dp"
+            android:drawableTop="@drawable/selector_ic_main_home"
             android:gravity="center"
-            android:textSize="14dp"
+            android:paddingBottom="5dp"
             android:text="主页"
             android:textColor="@color/black_trans87"
-            android:drawableTop="@drawable/selector_ic_main_home"/>
+            android:textSize="14dp" />
+
         <TextView
             android:id="@+id/tvProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="5dp"
+            android:drawableTop="@drawable/selector_ic_main_product"
             android:gravity="center"
-            android:textSize="14dp"
+            android:paddingBottom="5dp"
             android:text="产品"
             android:textColor="@color/black_trans87"
-            android:drawableTop="@drawable/selector_ic_main_product"/>
-        <TextView
-            android:id="@+id/tvCart"
+            android:textSize="14dp" />
+
+        <include
+            android:id="@+id/rlCart"
+            layout="@layout/view_cart_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:paddingBottom="5dp"
-            android:gravity="center"
-            android:textSize="14dp"
-            android:text="购物车"
-            android:textColor="@color/black_trans87"
-            android:drawableTop="@drawable/selector_ic_main_cart"/>
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/tvOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:paddingBottom="5dp"
+            android:drawableTop="@drawable/selector_ic_main_cart"
             android:gravity="center"
-            android:textSize="14dp"
+            android:paddingBottom="5dp"
             android:text="订单"
             android:textColor="@color/black_trans87"
-            android:drawableTop="@drawable/selector_ic_main_cart"/>
+            android:textSize="14dp" />
     </LinearLayout>
 </LinearLayout>

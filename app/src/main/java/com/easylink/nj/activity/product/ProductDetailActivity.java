@@ -6,12 +6,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
+import com.easylink.nj.activity.CartActivity;
 import com.easylink.nj.activity.common.NjHttpActivity;
+import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.product.ProductDetail;
 import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.utils.DBManager;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
@@ -19,6 +24,10 @@ import com.facebook.drawee.view.SimpleDraweeView;
  * Created by KEVIN.DAI on 15/7/14.
  */
 public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
+
+    private ProductDetail mDetail;
+    private TextView mTvCartCount;
+    private int mCartCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +45,28 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     @Override
     protected void initTitleView() {
 
+        // left view
         addTitleMiddleTextViewWithBack("产品详情");
-        addTitleRightImageView(R.mipmap.ic_main_cart_white, new View.OnClickListener() {
+
+        // right view
+        View vCart = ViewUtil.inflateLayout(R.layout.view_cart);
+
+        mTvCartCount = (TextView) vCart.findViewById(R.id.tvCount);
+        mCartCount = DBManager.getInstance().getCartCount();
+        if (mCartCount > 0) {
+
+            mTvCartCount.setText(String.valueOf(mCartCount));
+            ViewUtil.showView(mTvCartCount);
+        }
+
+        LayoutParams lp = new LayoutParams(getTitleViewLayoutParams().height, LayoutParams.MATCH_PARENT);
+        addTitleRightView(vCart, lp);
+        vCart.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                showToast("购物车");
+                CartActivity.startActivity(ProductDetailActivity.this);
             }
         });
     }
@@ -50,6 +74,43 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     @Override
     protected void initContentView() {
 
+        findViewById(R.id.tvBuy).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        findViewById(R.id.tvAdd).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                mCartCount++;
+                mTvCartCount.setText(String.valueOf(mCartCount));
+                ViewUtil.showView(mTvCartCount);
+
+                Cart cart = DBManager.getInstance().getCart(mDetail.getId());
+                if (cart == null) {//该产品在DB中不存在
+
+                    cart = new Cart();
+                    cart.name = mDetail.getTitle();
+                    cart.imgUrl = mDetail.getMainpic();
+                    cart.price = mDetail.getPrice();
+                    cart.productId = mDetail.getId();
+                    cart.introTitle_0 = mDetail.getCt_0();
+                    cart.intro_0 = mDetail.getContent_0();
+                    cart.time = System.currentTimeMillis();
+                    cart.count = mCartCount;
+                    cart.save();
+                } else {//存在，更新时间和数量
+
+                    cart.count = cart.count + 1;
+                    cart.time = System.currentTimeMillis();
+                    cart.save();
+                }
+            }
+        });
     }
 
     @Override
@@ -65,6 +126,8 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
     @Override
     public void invalidateContent(int what, ProductDetail data) {
+
+        mDetail = data;
 
         SimpleDraweeView sdvCover = (SimpleDraweeView) findViewById(R.id.sdvCover);
         sdvCover.setImageURI(Uri.parse(data.getMainpic()));

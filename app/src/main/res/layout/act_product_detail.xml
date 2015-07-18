@@ -101,6 +101,11 @@
             android:textColor="@color/white_trans87"
             android:textSize="15dp" />
 
+        <View
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="@android:color/white" />
+
         <TextView
             android:id="@+id/tvAdd"
             android:layout_width="0dp"

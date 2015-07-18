@@ -16,6 +16,7 @@ import com.easylink.library.plugin.DelayBackHandler;
 import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
+import com.easylink.nj.utils.DBManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,9 @@ import java.util.List;
 public class MainActivity extends ExFragmentActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, DelayBackHandler.OnDelayBackListener {
 
     private DelayBackHandler mBackKeyHandler;
-    private ExFragmentFixedPagerAdapter mPagerAdapter;
     private ViewPager mViewPager;
-    private TextView mTvHome, mTvProduct, mTvCart, mTvOrder, mTvCurrentSelected;
+    private View mTvHome, mTvProduct, mRlCart, mTvOrder, mTvCurrentSelected;
+    private TextView mTvCartCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +69,29 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
     private void initTabViews() {
 
-        mTvHome = (TextView) findViewById(R.id.tvHome);
+        mTvHome = findViewById(R.id.tvHome);
         mTvHome.setOnClickListener(this);
 
-        mTvProduct = (TextView) findViewById(R.id.tvProduct);
+        mTvProduct = findViewById(R.id.tvProduct);
         mTvProduct.setOnClickListener(this);
 
-        mTvCart = (TextView) findViewById(R.id.tvCart);
-        mTvCart.setOnClickListener(this);
+        mRlCart = findViewById(R.id.rlCart);
+        mRlCart.setOnClickListener(this);
+        mTvCartCount = (TextView) mRlCart.findViewById(R.id.tvCount);
+        int count = DBManager.getInstance().getCartCount();
+        if (count > 0) {
 
-        mTvOrder = (TextView) findViewById(R.id.tvOrder);
+            mTvCartCount.setText(String.valueOf(count));
+            ViewUtil.showView(mTvCartCount);
+        }
+
+        mTvOrder = findViewById(R.id.tvOrder);
         mTvOrder.setOnClickListener(this);
     }
 
     private void initViewPager() {
 
-        mPagerAdapter = new ExFragmentFixedPagerAdapter(getSupportFragmentManager());
+        ExFragmentFixedPagerAdapter mPagerAdapter = new ExFragmentFixedPagerAdapter(getSupportFragmentManager());
         mPagerAdapter.setFragments(getMainFragments());
         mPagerAdapter.setFragmentItemDestoryEnable(false);
 
@@ -94,9 +102,9 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         mViewPager.setPageMargin(DensityUtil.dip2px(6));
     }
 
-    private List<Fragment> getMainFragments(){
+    private List<Fragment> getMainFragments() {
 
-        ArrayList<Fragment> fragments = new ArrayList<Fragment>();
+        ArrayList<Fragment> fragments = new ArrayList();
         fragments.add(HomeFragment.newInstance(this));
         fragments.add(ProductListFragment.newInstance(this));
         fragments.add(CartListFragment.newInstance(this));
@@ -117,14 +125,14 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     @Override
     public void onPageSelected(int position) {
 
-        if(mTvCurrentSelected != null){
+        if (mTvCurrentSelected != null) {
 
             mTvCurrentSelected.setSelected(false);
             mTvCurrentSelected = null;
         }
 
-        TextView tvNewSelected = null;
-        switch (position){
+        View tvNewSelected = null;
+        switch (position) {
             case 0:
                 tvNewSelected = mTvHome;
                 break;
@@ -132,14 +140,14 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
                 tvNewSelected = mTvProduct;
                 break;
             case 2:
-                tvNewSelected = mTvCart;
+                tvNewSelected = mRlCart;
                 break;
             case 3:
                 tvNewSelected = mTvOrder;
                 break;
         }
 
-        if(tvNewSelected != null){
+        if (tvNewSelected != null) {
 
             tvNewSelected.setSelected(true);
             mTvCurrentSelected = tvNewSelected;
@@ -149,18 +157,18 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvHome:
-                mViewPager.setCurrentItem(0, false);
+                mViewPager.setCurrentItem(0, true);
                 break;
             case R.id.tvProduct:
-                mViewPager.setCurrentItem(1, false);
+                mViewPager.setCurrentItem(1, true);
                 break;
-            case R.id.tvCart:
-                mViewPager.setCurrentItem(2, false);
+            case R.id.rlCart:
+                mViewPager.setCurrentItem(2, true);
                 break;
             case R.id.tvOrder:
-                mViewPager.setCurrentItem(3, false);
+                mViewPager.setCurrentItem(3, true);
                 break;
         }
     }
@@ -174,10 +182,10 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     @Override
     public void onDelayBack(boolean preBack) {
 
-        if(preBack){
+        if (preBack) {
 
             showToast(R.string.toast_exit_tip);
-        }else{
+        } else {
 
             super.finish();
         }

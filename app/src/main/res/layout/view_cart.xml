@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/selector_bg_click_cover"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/ivCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_main_cart_white" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_alignRight="@id/ivCart"
+        android:layout_alignTop="@id/ivCart"
+        android:background="@drawable/shape_circle_red"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/white_trans87"
+        android:textSize="10dp"
+        android:visibility="gone" />
+</RelativeLayout>

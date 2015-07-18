@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="8dp">
+
+    <FrameLayout
+        android:id="@+id/flLeft"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="8dp"
+        android:paddingRight="4dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_card_item_round">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivPhotoLeft"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_launcher" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg_card_item_top_cover" />
+
+            <View
+                android:id="@+id/vDividerLeft"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_below="@id/ivPhotoLeft"
+                android:background="@color/black_trans12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vDividerLeft"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/tvTitleLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/black_trans87"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tvInfoLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_trans87"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#33000000"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="2px"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#33000000"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/flRight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="4dp"
+        android:paddingRight="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_card_item_round">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/ivPhotoRight"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:scaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_launcher" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg_card_item_top_cover" />
+
+            <View
+                android:id="@+id/vDividerRight"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_below="@id/ivPhotoRight"
+                android:background="@color/black_trans12" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vDividerRight"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/tvTitleRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:textColor="@color/black_trans87"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/tvInfoRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black_trans87"
+                    android:textSize="12dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#33000000"
+                        android:gravity="center"
+                        android:text="+"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="2px"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/white" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#33000000"
+                        android:gravity="center"
+                        android:text="-"
+                        android:textColor="@android:color/white"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

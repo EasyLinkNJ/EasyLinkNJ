@@ -4,6 +4,7 @@
     <color name="bg_title_bar">#3f51b5</color>
     <!-- status bar -->
     <color name="bg_status_bar">#303f9f</color>
+    <color name="bg_app_main">#FFEEEEEE</color>
 
     <color name="list_split">#B2CCCCCC</color>
     <color name="webview_progress">#FF00FF00</color>

@@ -6,7 +6,7 @@ import com.activeandroid.annotation.Column;
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
-public class CartItem extends Model {
+public class Cart extends Model {
 
     @Column(name = "productId")
     public String productId;
@@ -25,4 +25,10 @@ public class CartItem extends Model {
 
     @Column(name = "intro_0")
     public String intro_0;
+
+    @Column(name = "count")
+    public int count;
+
+    @Column(name = "time")
+    public long time;
 }
