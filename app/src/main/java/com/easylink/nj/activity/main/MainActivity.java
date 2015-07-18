@@ -6,14 +6,16 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.easylink.library.activity.ExFragmentActivity;
 import com.easylink.library.adapter.ExFragmentFixedPagerAdapter;
 import com.easylink.library.plugin.DelayBackHandler;
 import com.easylink.library.util.DensityUtil;
+import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.product.ProductListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,15 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     @Override
     protected void initTitleView() {
 
+        ImageView iv = new ImageView(this);
+        iv.setImageResource(R.mipmap.ic_logo);
+        LayoutParams lp1 = new LayoutParams(DensityUtil.dip2px(53), DensityUtil.dip2px(25));
+        lp1.leftMargin = DensityUtil.dip2px(8);
+        addTitleLeftView(iv, lp1);
+
+        LayoutParams lp = new LayoutParams(DensityUtil.dip2px(278), DensityUtil.dip2px(36));
+        lp.rightMargin = DensityUtil.dip2px(12);
+        addTitleRightView(ViewUtil.inflateLayout(R.layout.view_search), lp);
     }
 
     @Override
@@ -88,8 +99,8 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         ArrayList<Fragment> fragments = new ArrayList<Fragment>();
         fragments.add(HomeFragment.newInstance(this));
         fragments.add(ProductListFragment.newInstance(this));
-        fragments.add(HomeFragment.newInstance(this));
-        fragments.add(HomeFragment.newInstance(this));
+        fragments.add(CartListFragment.newInstance(this));
+        fragments.add(OrderListFragment.newInstance(this));
         return fragments;
     }
 

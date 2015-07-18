@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_bg_search"
+    android:drawablePadding="5dp"
+    android:drawableRight="@mipmap/ic_search_white"
+    android:paddingLeft="12dp"
+    android:paddingRight="8dp"
+    android:singleLine="true" />
