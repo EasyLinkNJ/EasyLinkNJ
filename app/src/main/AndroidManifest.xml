@@ -9,9 +9,19 @@
     <application
         android:name=".EasyApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/app_theme">
+
+        <!-- DB -->
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="EASY_LINK.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="${AA_DB_VERSION}" />
+
         <activity
             android:name=".activity.launcher.SplashActivity"
             android:screenOrientation="portrait"
@@ -25,8 +35,8 @@
 
         <activity
             android:name=".activity.main.MainActivity"
-            android:theme="@style/app_theme_main"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/app_theme_main" />
 
         <activity
             android:name=".activity.news.NewsListActivity"
