@@ -4,44 +4,113 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/sdvCover"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:background="@color/black_trans54"
-        android:scaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/ic_launcher" />
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llBtnDiv">
 
-    <TextView
-        android:id="@+id/tvTitle"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/sdvCover"
+                android:layout_width="match_parent"
+                android:layout_height="235dp"
+                android:scaleType="centerCrop"
+                fresco:placeholderImage="@mipmap/ic_launcher" />
+
+            <View
+                android:id="@+id/vDivider_1"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_below="@id/sdvCover"
+                android:background="@color/list_split" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vDivider_1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="东风大型拖拉机"
+                android:textColor="#242424"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvTitle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:text="￥8999.54"
+                android:textColor="#f0534c"
+                android:textSize="15dp" />
+
+            <View
+                android:id="@+id/vDivider_2"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_below="@id/tvPrice"
+                android:layout_marginTop="15dp"
+                android:background="@color/list_split" />
+
+            <TextView
+                android:id="@+id/tvIntroTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/vDivider_2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
+                android:textColor="#5a5a5a"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/tvIntro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvIntroTitle"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:lineSpacingExtra="3dp"
+                android:textColor="#5a5a5a"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/llBtnDiv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sdvCover"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="15dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="东风大型拖拉机"
-        android:textColor="@color/black_trans87"
-        android:textSize="15dp" />
+        android:layout_height="42dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvTitle"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:text="￥8999.54"
-        android:textColor="#f0534c"
-        android:textSize="15dp" />
+        <TextView
+            android:id="@+id/tvBuy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#fc9401"
+            android:gravity="center"
+            android:text="立即购买"
+            android:textColor="@color/white_trans87"
+            android:textSize="15dp" />
 
-    <WebView
-        android:id="@+id/wvIntro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tvPrice"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/tvAdd"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ec5355"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/white_trans87"
+            android:textSize="15dp" />
+    </LinearLayout>
 
 </RelativeLayout>

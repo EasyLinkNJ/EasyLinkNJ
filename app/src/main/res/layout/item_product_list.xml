@@ -10,7 +10,6 @@
         android:id="@+id/sdvCover"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_centerVertical="true"
         android:scaleType="centerCrop"
         fresco:placeholderImage="@mipmap/ic_launcher" />
 
@@ -19,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/sdvCover"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
         android:layout_toRightOf="@id/sdvCover"
         android:ellipsize="end"
         android:singleLine="true"
@@ -32,8 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/sdvCover"
         android:text="￥8999.54"
         android:textColor="#f0534c"
@@ -48,9 +48,10 @@
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/sdvCover"
         android:ellipsize="end"
-        android:lineSpacingExtra="1.5dp"
+        android:lineSpacingExtra="2dp"
         android:maxLines="3"
         android:text="产品特色：\n自动摇臂、低油耗、全自动收割、自动摇臂、低油耗、全自动收割、自动摇臂、低油耗、全自动收割、全自动收割、全自动收割..."
         android:textColor="@color/black_trans54"
-        android:textSize="11dp" />
+        android:textSize="11dp"
+        android:visibility="gone" />
 </RelativeLayout>

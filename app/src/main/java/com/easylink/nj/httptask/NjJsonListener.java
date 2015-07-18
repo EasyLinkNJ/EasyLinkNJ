@@ -4,7 +4,6 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.easylink.library.http.task.listener.HttpTaskStringListener;
-import com.easylink.library.util.LogMgr;
 
 import org.json.JSONObject;
 
@@ -39,8 +38,6 @@ public abstract class NjJsonListener<T> implements HttpTaskStringListener<NjJson
         try {
 
             JSONObject jsonObj = new JSONObject(jsonText);
-            if (LogMgr.isDebug())
-                LogMgr.d(jsonObj.toString());
 
             resp.setResult(jsonObj.getString("result"));
 
@@ -67,11 +64,6 @@ public abstract class NjJsonListener<T> implements HttpTaskStringListener<NjJson
         } catch (Exception e) {
 
             resp.setParseBrokenStatus();
-            if (LogMgr.isDebug()) {
-
-                LogMgr.d(e.getMessage());
-                e.printStackTrace();
-            }
         }
 
         return resp;
@@ -93,9 +85,6 @@ public abstract class NjJsonListener<T> implements HttpTaskStringListener<NjJson
                 onTaskResult(resp.getData());
 
             } catch (ClassCastException e) {
-
-                if (LogMgr.isDebug())
-                    LogMgr.d("~~onTaskResult ClassCastException: " + e.getMessage());
 
                 onTaskFailed(TASK_FAILED_RESPONSE_PARSE_ERROR, "");
                 return;

@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.View;
 import android.widget.TextView;
 
-import com.easylink.library.util.LogMgr;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.bean.product.ProductDetail;
@@ -36,6 +37,14 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     protected void initTitleView() {
 
         addTitleMiddleTextViewWithBack("产品详情");
+        addTitleRightImageView(R.mipmap.ic_main_cart_white, new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                showToast("购物车");
+            }
+        });
     }
 
     @Override
@@ -61,11 +70,11 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         sdvCover.setImageURI(Uri.parse(data.getMainpic()));
 
         ((TextView) findViewById(R.id.tvTitle)).setText(data.getTitle());
-//        findViewById(R.id.tvPrice);// TODO 接口返回price为空
-        String mimeType = "text/html";
-        String encoding = "UNICODE";
-//        ((WebView) findViewById(R.id.wvIntro)).loadData(data.getContent_1(), mimeType, encoding);
-        LogMgr.i("daisw", "~~" + data.getContent_1());
+        ((TextView) findViewById(R.id.tvPrice)).setText(data.getPrice());
+
+        ((TextView) findViewById(R.id.tvIntroTitle)).setText(data.getCt_0());
+        TextView tvIntro = (TextView) findViewById(R.id.tvIntro);
+        tvIntro.setText(Html.fromHtml(data.getContent_0()));
     }
 
     public static void startActivity(Activity act, String productId) {

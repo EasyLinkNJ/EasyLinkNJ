@@ -22,10 +22,12 @@ public class ProductDetail {
     private String cate_name;// 分类名称
     private String url;// 线上地址
 
+    private String ct_0;// 参数详情名称0
     private String ct_1;// 参数详情名称1，如 基本参数
     private String ct_2;// 参数详情名称2，如 性能特点
     private String ct_3;// 参数详情名称3，如 结构特点
     private String ct_4;// 参数详情名称4，如 施工案例
+    private String content_0;// 参数详情0
     private String content_1;// 参数详情1，如 基本参数
     private String content_2;// 参数详情2，如 性能特点
     private String content_3;// 参数详情3，如 结构特点
@@ -63,7 +65,7 @@ public class ProductDetail {
 
     public String getPrice() {
 
-        return price;
+        return "0".equals(price) ? "价格面议" : price;
     }
 
     public int getStock() {
@@ -133,7 +135,7 @@ public class ProductDetail {
 
     public void setPrice(String price) {
 
-        this.price = TextUtil.filterNull(price);
+        this.price = TextUtil.filterEmpty(price, "0");
     }
 
     public void setStock(int stock) {
@@ -251,32 +253,23 @@ public class ProductDetail {
         this.content_4 = TextUtil.filterNull(content_4);
     }
 
-    @Override
-    public String toString() {
+    public String getCt_0() {
 
-        return "ProductDetail{" +
-                "id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", name='" + name + '\'' +
-                ", model='" + model + '\'' +
-                ", brand_id='" + brand_id + '\'' +
-                ", cate_id='" + cate_id + '\'' +
-                ", price='" + price + '\'' +
-                ", stock=" + stock +
-                ", listorder=" + listorder +
-                ", mainpic='" + mainpic + '\'' +
-                ", smainpic='" + smainpic + '\'' +
-                ", brand_name='" + brand_name + '\'' +
-                ", cate_name='" + cate_name + '\'' +
-                ", url='" + url + '\'' +
-                ", ct_1='" + ct_1 + '\'' +
-                ", ct_2='" + ct_2 + '\'' +
-                ", ct_3='" + ct_3 + '\'' +
-                ", ct_4='" + ct_4 + '\'' +
-                ", content_1='" + content_1 + '\'' +
-                ", content_2='" + content_2 + '\'' +
-                ", content_3='" + content_3 + '\'' +
-                ", content_4='" + content_4 + '\'' +
-                '}';
+        return ct_0;
+    }
+
+    public String getContent_0() {
+
+        return content_0;
+    }
+
+    public void setCt_0(String ct_0) {
+
+        this.ct_0 = TextUtil.filterNull(ct_0);
+    }
+
+    public void setContent_0(String content_0) {
+
+        this.content_0 = TextUtil.filterNull(content_0);
     }
 }

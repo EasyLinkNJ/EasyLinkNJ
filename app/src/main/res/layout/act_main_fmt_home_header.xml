@@ -65,7 +65,7 @@
         android:background="@color/list_split"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="10dp"
         android:background="@color/gray_trans50"/>
     <View
         android:layout_width="match_parent"

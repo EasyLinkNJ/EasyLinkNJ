@@ -54,7 +54,7 @@ public class Product {
 
     public String getPrice() {
 
-        return price;
+        return "0".equals(price)?"价格面议":price;
     }
 
     public int getStock() {
@@ -124,7 +124,7 @@ public class Product {
 
     public void setPrice(String price) {
 
-        this.price = TextUtil.filterNull(price);
+        this.price = TextUtil.filterEmpty(price,"0");
     }
 
     public void setStock(int stock) {
