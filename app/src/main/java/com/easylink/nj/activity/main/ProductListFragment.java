@@ -13,7 +13,6 @@ import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpFragment;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.activity.product.ProductListActivity;
 import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.product.Product;
 import com.easylink.nj.bean.product.ProductList;
@@ -51,12 +50,6 @@ public class ProductListFragment extends NjHttpFragment<ProductList> {
         });
     }
 
-//    @Override
-//    public void initTitleView() {
-
-//        addTitleMiddleTextViewWithBack("产品列表");
-//    }
-
     @Override
     protected void initContentView() {
 
@@ -83,14 +76,6 @@ public class ProductListFragment extends NjHttpFragment<ProductList> {
         mAdapter.setData(data.getList());
         mAdapter.notifyDataSetChanged();
     }
-
-//    public static void startActivity(Activity act) {
-//
-//        if (act == null)
-//            return;
-//        Intent intent = new Intent(act, ProductListActivity.class);
-//        act.startActivity(intent);
-//    }
 
     public static ProductListFragment newInstance(FragmentActivity activity){
 

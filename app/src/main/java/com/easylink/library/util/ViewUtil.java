@@ -175,45 +175,6 @@ public class ViewUtil {
 		v.setImageDrawable(null);
 	}
 	
-//	public static void clearAndRecycleImageViewDrawable(ImageView v){
-//
-//		if(v == null)
-//			return;
-//
-//		if(v.getDrawable() instanceof BitmapDrawable){
-//
-//			BitmapDrawable bd = (BitmapDrawable) v.getDrawable();
-//			v.setImageDrawable(null);
-//			ImageUtil.recycleBitmap(bd.getBitmap());
-//		}else{
-//
-//			v.setImageDrawable(null);
-//		}
-//	}
-	
-	public static void measureView(View child) {
-
-        if(child == null)
-            return;
-
-		ViewGroup.LayoutParams p = child.getLayoutParams();
-		if (p == null) {
-			p = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-					ViewGroup.LayoutParams.WRAP_CONTENT);
-		}
-		int childWidthSpec = ViewGroup.getChildMeasureSpec(0, 0 + 0, p.width);
-		int lpHeight = p.height;
-		int childHeightSpec;
-		if (lpHeight > 0) {
-			childHeightSpec = MeasureSpec.makeMeasureSpec(lpHeight,
-					MeasureSpec.EXACTLY);
-		} else {
-			childHeightSpec = MeasureSpec.makeMeasureSpec(0,
-					MeasureSpec.UNSPECIFIED);
-		}
-		child.measure(childWidthSpec, childHeightSpec);
-	}
-
 	public static View inflateLayout(int resource) {
 		
 		return inflateLayout(resource, null);
@@ -283,28 +244,4 @@ public class ViewUtil {
         		LogMgr.e("ViewPager set duration failed");
         }
 	}
-
-	public static Bitmap view2Bitmap(View view) {  
-		
-		try{
-			int width = view.getWidth();
-			int height = view.getHeight();
-//			int widthSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
-//			int heightSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
-			view.measure(width, height);
-//			view.layout(0, 0, width, height);
-			Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-			Canvas canvas = new Canvas(bitmap);
-			view.draw(canvas);
-			return bitmap;
-		}catch(Throwable t){
-			
-			if(LogMgr.isDebug())
-				t.printStackTrace();
-			
-			System.gc();
-		}
-		
-		return null;
-    }  
 }

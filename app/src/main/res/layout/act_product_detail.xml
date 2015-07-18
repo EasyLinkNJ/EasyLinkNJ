@@ -22,7 +22,7 @@
         android:ellipsize="end"
         android:singleLine="true"
         android:text="东风大型拖拉机"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black_trans87"
         android:textSize="15dp" />
 
     <TextView

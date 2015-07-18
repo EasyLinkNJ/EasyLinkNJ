@@ -15,25 +15,15 @@
         <item name="exTitleClickerHoriPadding">16dp</item>
 
         <item name="exTitleBackIcon">@mipmap/ic_back_white</item>
-        <item name="exTitleTextColor">@android:color/white</item>
+        <item name="exTitleTextColor">@color/white_trans87</item>
         <item name="exTitleBackground">@color/bg_title_bar</item>
         <item name="exBackground">@android:color/white</item>
         <item tools:targetApi="21" name="android:statusBarColor">@color/bg_status_bar</item>
+        <item tools:targetApi="21" name="android:colorEdgeEffect">@color/bg_title_bar</item>
+        <item tools:targetApi="19" name="android:windowTranslucentStatus">false</item>
     </style>
 
     <style name="app_theme_main" parent="app_theme">
         <item name="exTitleBackIcon">@null</item>
     </style>
-    <!--
-    <style name="app_base_theme" parent="ex_theme">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowTranslucentStatus" tools:targetApi="19">true</item>
-    </style>
-
-    <style name="app_theme" parent="app_base_theme">
-        <item name="android:statusBarColor" tools:targetApi="21">@color/bg_status_bar</item>
-        <item name="android:colorControlHighlight" tools:targetApi="21">@color/bg_title_bar</item>
-        <item name="android:colorEdgeEffect" tools:targetApi="21">@color/bg_title_bar</item>
-    </style>
--->
 </resources>

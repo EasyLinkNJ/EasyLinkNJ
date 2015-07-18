@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_home_product"
-            android:drawablePadding="4dp"
+            android:drawablePadding="10dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="购买产品"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black_trans87"
             android:background="@drawable/selector_bg_click_white"/>
         <TextView
             android:id="@+id/tvRepair"
@@ -36,13 +36,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_home_repair"
-            android:drawablePadding="4dp"
+            android:drawablePadding="10dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="维修咨询"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black_trans87"
             android:background="@drawable/selector_bg_click_white"/>
         <TextView
             android:id="@+id/tvReplace"
@@ -50,13 +50,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_home_replace"
-            android:drawablePadding="4dp"
+            android:drawablePadding="10dp"
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:gravity="center"
             android:textSize="14dp"
             android:text="配件替换"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black_trans87"
             android:background="@drawable/selector_bg_click_white"/>
     </LinearLayout>
     <View
@@ -79,6 +79,6 @@
         android:paddingLeft="10dp"
         android:textSize="16dp"
         android:text="@string/news_dynamics"
-        android:textColor="@android:color/black"
+        android:textColor="@color/black_trans87"
         android:background="@color/gray_trans12"/>
 </LinearLayout>

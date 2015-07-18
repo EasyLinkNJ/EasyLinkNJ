@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.easylink.library.activity.ExFragmentActivity;
 import com.easylink.library.adapter.ExFragmentFixedPagerAdapter;
 import com.easylink.library.plugin.DelayBackHandler;
+import com.easylink.library.util.DensityUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.product.ProductListActivity;
 
@@ -79,6 +80,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.setOnPageChangeListener(this);
         mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setPageMargin(DensityUtil.dip2px(6));
     }
 
     private List<Fragment> getMainFragments(){
