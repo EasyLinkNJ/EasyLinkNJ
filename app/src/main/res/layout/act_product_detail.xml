@@ -87,7 +87,7 @@
     <LinearLayout
         android:id="@+id/llBtnDiv"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -100,7 +100,7 @@
             android:gravity="center"
             android:text="立即购买"
             android:textColor="@color/white_trans87"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
 
         <View
             android:layout_width="2px"
@@ -116,7 +116,7 @@
             android:gravity="center"
             android:text="加入购物车"
             android:textColor="@color/white_trans87"
-            android:textSize="15dp" />
+            android:textSize="14dp" />
     </LinearLayout>
 
 </RelativeLayout>

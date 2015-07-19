@@ -27,4 +27,6 @@
 
     <color name="gray_trans12">#1ECCCCCC</color>
     <color name="gray_trans50">#80CCCCCC</color>
+
+    <color name="bg_red">#ec5355</color>
 </resources>

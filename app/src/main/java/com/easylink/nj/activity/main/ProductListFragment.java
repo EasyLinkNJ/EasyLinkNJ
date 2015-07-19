@@ -30,7 +30,7 @@ public class ProductListFragment extends NjHttpFragment<ProductList> {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setFragmentContentView((ViewUtil.getCleanListView(getActivity(), R.id.lv)));
+        setFragmentContentView(ViewUtil.getCleanListView(getActivity(), R.id.lv));
         loadDataFromServer();
     }
 

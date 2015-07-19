@@ -34,6 +34,7 @@ public class OrderActivity extends NjActivity {
     private CartListAdapter mAdapter;
     private TextView mTvTitle, mTvBottomBar;
     private EditText mEtPersion, mEtPhone, mEtAddress;
+    private boolean isConfirmed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,15 +69,19 @@ public class OrderActivity extends NjActivity {
             ProductDetailActivity.startActivity(OrderActivity.this, cart.productId, true);
         } else if (vId == R.id.ivAdd) {// add view
 
+            if (isConfirmed)
+                return;
+
             cart.count = cart.count + 1;
             mAdapter.notifyDataSetChanged();
         } else if (vId == R.id.ivDelete) {// delete view
 
-            cart.count = cart.count - 1;
-            if (cart.count == 0) {
+            if (isConfirmed)
+                return;
 
+            cart.count = cart.count - 1;
+            if (cart.count == 0)
                 mAdapter.remove(cart);
-            }
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -90,7 +95,7 @@ public class OrderActivity extends NjActivity {
     @Override
     protected void initContentView() {
 
-        ListView lv = (ListView) findViewById(R.id.lvCart);
+        ListView lv = (ListView) findViewById(R.id.lvOrder);
 
         View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
         lv.addHeaderView(headerView);
@@ -103,14 +108,12 @@ public class OrderActivity extends NjActivity {
         mEtPhone = (EditText) headerView.findViewById(R.id.etTel);
         mEtAddress = (EditText) headerView.findViewById(R.id.etAddress);
         mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
-        mTvBottomBar.setTag(0);
         mTvBottomBar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
 
-                int tag = (Integer) v.getTag();
-                if (tag == 0) {
+                if (!isConfirmed) {
 
                     if (!isPersionUsable()) {
 
@@ -125,7 +128,7 @@ public class OrderActivity extends NjActivity {
 
                         showConfirmDialog();
                     }
-                } else if (tag == 1) {
+                } else {
 
                     showToast("已发送提醒");
                 }
@@ -140,15 +143,15 @@ public class OrderActivity extends NjActivity {
             @Override
             public void onViewClick(BaseDialog dialog, View v) {
 
+                isConfirmed = true;
+
                 saveUserInfo();
                 mTvTitle.setText("订单详情");
                 mTvBottomBar.setText("提醒客服处理");
-                mTvBottomBar.setTag(1);
                 mEtPersion.setEnabled(false);
                 mEtPhone.setEnabled(false);
                 mEtAddress.setEnabled(false);
                 dialog.dismiss();
-                // TODO 更换状态
             }
         }).show();
     }

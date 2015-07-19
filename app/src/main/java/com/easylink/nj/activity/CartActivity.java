@@ -8,7 +8,6 @@ import android.widget.ListView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.util.DensityUtil;
-import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjActivity;
 import com.easylink.nj.adapter.CartGridAdapter;
@@ -28,7 +27,7 @@ public class CartActivity extends NjActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(ViewUtil.getCleanListView(this, R.id.lv));
+        setContentView(R.layout.act_cart);
     }
 
     @Override
@@ -44,18 +43,24 @@ public class CartActivity extends NjActivity {
 
             }
         });
-        ListView lv = (ListView) findViewById(R.id.lv);
-        View v = new View(this);
-        v.setMinimumHeight(DensityUtil.dip2px(8));
-        lv.addFooterView(v);
-        lv.setAdapter(mAdapter);
     }
 
     @Override
     protected void initTitleView() {
 
         addTitleMiddleTextViewWithBack("购物车");
-        addTitleRightTextView("下单", new View.OnClickListener() {
+    }
+
+    @Override
+    protected void initContentView() {
+
+        ListView lv = (ListView) findViewById(R.id.lvCart);
+        View v = new View(this);
+        v.setMinimumHeight(DensityUtil.dip2px(7));
+        lv.addFooterView(v);
+        lv.setAdapter(mAdapter);
+
+        findViewById(R.id.tvBottomBar).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -63,11 +68,6 @@ public class CartActivity extends NjActivity {
                 OrderActivity.startActivity(CartActivity.this);
             }
         });
-    }
-
-    @Override
-    protected void initContentView() {
-
     }
 
     public static void startActivity(Activity act) {
