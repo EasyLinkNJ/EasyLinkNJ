@@ -7,4 +7,5 @@
     <string name="look_more">查看更多   ></string>
 
     <string name="toast_exit_tip">再按一次退出应用</string>
+    <string name="toast_network_failed">网络连接失败</string>
 </resources>

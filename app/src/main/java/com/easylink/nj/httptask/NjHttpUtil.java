@@ -12,12 +12,11 @@ public class NjHttpUtil extends BaseHttpUtil {
      *
      * @retrn
      */
-    public static HttpTaskParams getNewsAll() {
+    public static HttpTaskParams getNewsList(int page, int limitSize) {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS);
-//        htp.addParam("id", "1001");
-//        htp.addParam("cate_id", "123");
-//        htp.addParam("menu_id", "456");
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
         return htp;
     }
@@ -49,10 +48,19 @@ public class NjHttpUtil extends BaseHttpUtil {
         return htp;
     }
 
+    public static HttpTaskParams getProductList(int page, int limitSize) {
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        setSignParam(htp);
+
+        return htp;
+    }
+
     public static HttpTaskParams getProductList() {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
-
         setSignParam(htp);
 
         return htp;

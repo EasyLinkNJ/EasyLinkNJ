@@ -91,7 +91,8 @@ public abstract class NjHttpFragment<T> extends ExFragment{
             @Override
             public void onTaskResult(T result) {
 
-                switchContent(what, result);
+                invalidateContent(what, result);
+                switchContent(what);
             }
 
             @Override
@@ -109,12 +110,11 @@ public abstract class NjHttpFragment<T> extends ExFragment{
         ViewUtil.showView(mPbLoading);
     }
 
-    public void switchContent(int what, T t){
+    public void switchContent(int what){
 
         ViewUtil.hideView(mPbLoading);
         ViewUtil.hideView(mIvTip);
         ViewUtil.showView(mContentView);
-        invalidateContent(what, t);
     }
 
     public abstract void invalidateContent(int what, T t);
