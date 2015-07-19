@@ -36,6 +36,7 @@
         <activity
             android:name=".activity.main.MainActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:theme="@style/app_theme_main" />
 
         <activity
