@@ -12,7 +12,7 @@ import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpFragment;
-import com.easylink.nj.adapter.CartAdapter;
+import com.easylink.nj.adapter.CartGridAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.utils.DBManager;
@@ -35,7 +35,7 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
     protected void initData() {
 
         List<Cart> carts = DBManager.getInstance().getCarts();
-        CartAdapter mAdapter = new CartAdapter();
+        CartGridAdapter mAdapter = new CartGridAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 

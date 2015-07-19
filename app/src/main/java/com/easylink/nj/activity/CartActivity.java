@@ -11,7 +11,7 @@ import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjActivity;
-import com.easylink.nj.adapter.CartAdapter;
+import com.easylink.nj.adapter.CartGridAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.utils.DBManager;
 
@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class CartActivity extends NjActivity {
 
-    private CartAdapter mAdapter;
+    private CartGridAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class CartActivity extends NjActivity {
     protected void initData() {
 
         List<Cart> carts = DBManager.getInstance().getCarts();
-        mAdapter = new CartAdapter();
+        mAdapter = new CartGridAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
@@ -60,7 +60,7 @@ public class CartActivity extends NjActivity {
             @Override
             public void onClick(View v) {
 
-
+                OrderActivity.startActivity(CartActivity.this);
             }
         });
     }

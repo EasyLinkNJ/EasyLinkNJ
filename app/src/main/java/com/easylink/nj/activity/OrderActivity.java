@@ -2,16 +2,18 @@ package com.easylink.nj.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjActivity;
-import com.easylink.nj.adapter.CartAdapter;
+import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.utils.DBManager;
 
@@ -22,7 +24,8 @@ import java.util.List;
  */
 public class OrderActivity extends NjActivity {
 
-    private CartAdapter mAdapter;
+    private CartListAdapter mAdapter;
+    private TextView mTvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class OrderActivity extends NjActivity {
     protected void initData() {
 
         List<Cart> carts = DBManager.getInstance().getCarts();
-        mAdapter = new CartAdapter();
+        mAdapter = new CartListAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
@@ -44,25 +47,22 @@ public class OrderActivity extends NjActivity {
 
             }
         });
+
         ListView lv = (ListView) findViewById(R.id.lv);
-        View v = new View(this);
-        v.setMinimumHeight(DensityUtil.dip2px(8));
-        lv.addFooterView(v);
+        lv.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
+        lv.setDividerHeight(2);//2px
+        View headerView = ViewUtil.inflateLayout(R.layout.act_order);
+        lv.addHeaderView(headerView);
+        View footerView = new View(this);
+        footerView.setMinimumHeight(DensityUtil.dip2px(8));
+        lv.addFooterView(footerView);
         lv.setAdapter(mAdapter);
     }
 
     @Override
     protected void initTitleView() {
 
-        addTitleMiddleTextViewWithBack("购物车");
-        addTitleRightTextView("下单", new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
+        mTvTitle = addTitleMiddleTextViewWithBack("订单确认");
     }
 
     @Override

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <View
+        android:id="@+id/vDivider_1"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/list_split" />
+
+    <TextView
+        android:id="@+id/tvPersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vDivider_1"
+        android:paddingBottom="12dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="12dp"
+        android:text="收  货  人："
+        android:textColor="@color/black_trans87"
+        android:textSize="13dp" />
+
+    <EditText
+        android:id="@+id/etPersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tvPersion"
+        android:layout_alignTop="@id/tvPersion"
+        android:layout_toRightOf="@id/tvPersion"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:maxEms="4"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:singleLine="true"
+        android:textColor="@color/black_trans87"
+        android:textCursorDrawable="@mipmap/zic_cursor_blue"
+        android:textSize="13dp" />
+
+    <View
+        android:id="@+id/vDivider_2"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@id/tvPersion"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/list_split" />
+
+    <TextView
+        android:id="@+id/tvTel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vDivider_2"
+        android:paddingBottom="12dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="12dp"
+        android:text="联系方式："
+        android:textColor="@color/black_trans87"
+        android:textSize="13dp" />
+
+    <EditText
+        android:id="@+id/etTel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tvTel"
+        android:layout_alignTop="@id/tvTel"
+        android:layout_toRightOf="@id/tvTel"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:maxEms="11"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:phoneNumber="true"
+        android:singleLine="true"
+        android:textColor="@color/black_trans87"
+        android:textCursorDrawable="@mipmap/zic_cursor_blue"
+        android:textSize="13dp" />
+
+    <View
+        android:id="@+id/vDivider_3"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@id/tvTel"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/list_split" />
+
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vDivider_3"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="13dp"
+        android:text="收货地址："
+        android:textColor="@color/black_trans87"
+        android:textSize="13dp" />
+
+    <EditText
+        android:id="@+id/etAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvAddress"
+        android:layout_toRightOf="@id/tvAddress"
+        android:background="@null"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="1dp"
+        android:maxLines="4"
+        android:minLines="2"
+        android:padding="5dp"
+        android:textColor="@color/black_trans87"
+        android:textCursorDrawable="@mipmap/zic_cursor_blue"
+        android:textSize="13dp" />
+
+    <View
+        android:id="@+id/vDivider_4"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@id/etAddress"
+        android:background="@color/list_split" />
+
+    <View
+        android:id="@+id/vSpacing"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/vDivider_4"
+        android:background="@color/bg_app_main" />
+
+    <View
+        android:id="@+id/vDivider_5"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@id/vSpacing"
+        android:background="@color/list_split" />
+
+    <TextView
+        android:id="@+id/tvOrderId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vDivider_5"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:text="订  单  号：1234567"
+        android:textColor="@color/black_trans87"
+        android:textSize="13dp" />
+</RelativeLayout>

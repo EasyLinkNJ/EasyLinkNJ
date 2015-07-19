@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selector_bg_click_white"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdvCover"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:scaleType="centerCrop"
         fresco:placeholderImage="@mipmap/ic_launcher" />
 
@@ -18,24 +18,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/sdvCover"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/sdvCover"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="东风大型拖拉机"
         android:textColor="@color/black_trans87"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/tvPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvTitle"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/sdvCover"
         android:text="￥8999.54"
         android:textColor="#f0534c"
-        android:textSize="14dp" />
+        android:textSize="12dp" />
 </RelativeLayout>

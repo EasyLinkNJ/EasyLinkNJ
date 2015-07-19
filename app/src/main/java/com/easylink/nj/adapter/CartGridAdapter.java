@@ -14,7 +14,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
-public class CartAdapter extends ExAdapter<Cart> {
+public class CartGridAdapter extends ExAdapter<Cart> {
 
     @Override
     protected ExViewHolder getViewHolder(int position) {
