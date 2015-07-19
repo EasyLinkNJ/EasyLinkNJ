@@ -18,6 +18,7 @@ import android.widget.Scroller;
 import android.widget.TextView;
 
 import com.easylink.library.context.ExApplication;
+import com.easylink.library.view.listview.XListView;
 
 import java.lang.reflect.Field;
 
@@ -28,21 +29,21 @@ public class ViewUtil {
 	 * @param context
 	 * @return
 	 */
-//	public static XListView getCleanXListView(Context context, int id){
-//
-//		XListView xlv = new XListView(context);
-//		xlv.setId(id);
-//		xlv.setDividerHeight(0);
-//		xlv.setDivider(null);
-//		xlv.setFadingEdgeLength(0);
-//		xlv.setFooterDividersEnabled(false);
-//		xlv.setHeaderDividersEnabled(false);
-//		xlv.setSelector(new ColorDrawable(0X00000000));
-//		xlv.setScrollingCacheEnabled(false);
-//		xlv.setPullRefreshEnable(false);
-//		xlv.setPullLoadEnable(false);
-//		return xlv;
-//	}
+	public static XListView getCleanXListView(Context context, int id){
+
+		XListView xlv = new XListView(context);
+		xlv.setId(id);
+		xlv.setDividerHeight(0);
+		xlv.setDivider(null);
+		xlv.setFadingEdgeLength(0);
+		xlv.setFooterDividersEnabled(false);
+		xlv.setHeaderDividersEnabled(false);
+		xlv.setSelector(new ColorDrawable(0X00000000));
+		xlv.setScrollingCacheEnabled(false);
+		xlv.setPullRefreshEnable(false);
+		xlv.setPullLoadEnable(false);
+		return xlv;
+	}
 	
 	/**
 	 * 获取ListView，该ListView对公共的样式做了清除

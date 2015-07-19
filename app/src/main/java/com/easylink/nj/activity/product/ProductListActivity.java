@@ -2,50 +2,41 @@ package com.easylink.nj.activity.product;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
+import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.util.ViewUtil;
-import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjHttpActivity;
+import com.easylink.library.http.params.HttpTaskParams;
+import com.easylink.nj.activity.common.NjHttpXlvActivity;
 import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.product.Product;
 import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
+import java.util.List;
+
 /**
  * 产品列表
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class ProductListActivity extends NjHttpActivity<ProductList> {
-
-    private ProductListAdapter mAdapter;
+public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public ExAdapter getAdapter() {
 
-        super.onCreate(savedInstanceState);
-        setContentView(ViewUtil.getCleanListView(this, R.id.lv));
-        loadDataFromServer();
-    }
-
-    @Override
-    protected void initData() {
-
-        mAdapter = new ProductListAdapter();
-        mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+        final ProductListAdapter adapter = new ProductListAdapter();
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
             @Override
             public void onItemViewClick(int position, View clickView) {
 
-                Product product = mAdapter.getItem(position);
+                Product product = adapter.getItem(position);
                 if (product != null)
                     ProductDetailActivity.startActivity(ProductListActivity.this, product.getId());
             }
         });
+
+        return adapter;
     }
 
     @Override
@@ -55,36 +46,25 @@ public class ProductListActivity extends NjHttpActivity<ProductList> {
     }
 
     @Override
-    protected void initContentView() {
+    public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        ListView lv = (ListView) findViewById(R.id.lv);
-        lv.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
-        lv.setDividerHeight(2);//2px
-        lv.setAdapter(mAdapter);
+        return NjHttpUtil.getProductList(page, limit);
     }
 
     @Override
-    protected void onTipViewClick() {
+    public Class<?> getXlvJsonClazz() {
 
-        loadDataFromServer();
-    }
-
-    private void loadDataFromServer() {
-
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getProductList(), ProductList.class);
+        return ProductList.class;
     }
 
     @Override
-    public void invalidateContent(int what, ProductList data) {
+    protected List<?> getListOnInvalidateContent(ProductList result) {
 
-        mAdapter.setData(data.getList());
-        mAdapter.notifyDataSetChanged();
+        return result == null ? null : result.getList();
     }
 
     public static void startActivity(Activity act) {
 
-        if (act == null)
-            return;
         Intent intent = new Intent(act, ProductListActivity.class);
         act.startActivity(intent);
     }

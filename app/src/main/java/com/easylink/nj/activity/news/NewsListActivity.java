@@ -7,77 +7,72 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
+import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
+import com.easylink.library.http.params.HttpTaskParams;
+import com.easylink.library.util.DeviceUtil;
 import com.easylink.library.util.ViewUtil;
+import com.easylink.library.view.listview.XListView;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
+import com.easylink.nj.activity.common.NjHttpXlvActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity;
+import com.easylink.nj.activity.product.ProductListActivity;
 import com.easylink.nj.adapter.NewsListAdapter;
+import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.news.News;
 import com.easylink.nj.bean.news.NewsList;
+import com.easylink.nj.bean.product.Product;
+import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.httptask.NjHttpUtil;
+
+import java.util.List;
 
 /**
  * 新闻列表
  * @author yihaibin
  */
-public class NewsListActivity extends NjHttpActivity<NewsList>{
+public class NewsListActivity extends NjHttpXlvActivity<NewsList> {
 
-    private NewsListAdapter mAdapter;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(ViewUtil.getCleanListView(this, R.id.lv));
-        loadDataFromServer();
-    }
-
-    @Override
-    protected void initData() {
-
-        mAdapter = new NewsListAdapter();
-        mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
-            @Override
-            public void onItemViewClick(int position, View clickView) {
-
-                News news = mAdapter.getItem(position);
-                if(news != null)
-                    NewsDetailActivity.startActivity(NewsListActivity.this, news.getId(), news.getUrl());
-            }
-        });
-    }
-
-    @Override
+        @Override
     protected void initTitleView() {
 
         addTitleMiddleTextViewWithBack(R.string.news_list);
     }
 
     @Override
-    protected void initContentView() {
+    public ExAdapter getAdapter() {
 
-        ListView lv = (ListView) findViewById(R.id.lv);
-        lv.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
-        lv.setDividerHeight(2);//2px
-        lv.setAdapter(mAdapter);
-    }
+        final NewsListAdapter adapter = new NewsListAdapter();
+        adapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+            @Override
+            public void onItemViewClick(int position, View clickView) {
 
-    private void loadDataFromServer(){
+                News news = adapter.getItem(position);
+                if (news != null)
+                    NewsDetailActivity.startActivity(NewsListActivity.this, news.getId(), news.getUrl());
+            }
+        });
 
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getNewsAll(), NewsList.class);
-    }
-
-    @Override
-    public void invalidateContent(int what, NewsList data) {
-
-        mAdapter.setData(data.getList());
-        mAdapter.notifyDataSetChanged();
+        return adapter;
     }
 
     @Override
-    protected void onTipViewClick() {
+    public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        loadDataFromServer();
+        return NjHttpUtil.getNewsList(page, limit);
+    }
+
+    @Override
+    public Class<?> getXlvJsonClazz() {
+
+        return NewsList.class;
+    }
+
+    @Override
+    protected List<?> getListOnInvalidateContent(NewsList result) {
+
+        return result == null ? null : result.getList();
     }
 
     public static void startActivity(Activity activity){

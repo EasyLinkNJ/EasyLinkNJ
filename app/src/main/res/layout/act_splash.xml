@@ -7,5 +7,64 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@mipmap/ic_splash" />
+        android:src="@mipmap/ic_splash"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TextView
+            android:id="@+id/tvShopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@mipmap/ic_splash_shopping"
+            android:drawablePadding="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@android:color/white"
+            android:textSize="16dp"
+            android:text="购买产品"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/tvMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/tvShopping"
+            android:drawableTop="@mipmap/ic_splash_main"
+            android:drawablePadding="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="16dp"
+            android:text="进入首页"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/tvRepair"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/tvShopping"
+            android:layout_below="@id/tvShopping"
+            android:drawableTop="@mipmap/ic_splash_repair"
+            android:drawablePadding="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="16dp"
+            android:text="维修咨询"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/tvReplace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvMain"
+            android:layout_toRightOf="@id/tvRepair"
+            android:drawableTop="@mipmap/ic_splash_replace"
+            android:drawablePadding="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:textSize="16dp"
+            android:text="配件替换"
+            android:textColor="@android:color/white"
+            android:gravity="center"/>
+    </RelativeLayout>
 </FrameLayout>

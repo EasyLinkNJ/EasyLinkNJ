@@ -1,8 +1,5 @@
 package com.easylink.nj.activity.common;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -80,6 +77,11 @@ public abstract class NjHttpActivity<T> extends NjActivity{
         return mFlFrame;
     }
 
+    public View getFrameContentView(){
+
+        return mContentView;
+    }
+
     public void executeHttpTaskByUiSwitch(final int what, HttpTaskParams params, Class<?> t){
 
         executeHttpTask(what, params, new NjJsonListener<T>(t) {
@@ -93,7 +95,8 @@ public abstract class NjHttpActivity<T> extends NjActivity{
             @Override
             public void onTaskResult(T result) {
 
-                switchContent(what, result);
+                invalidateContent(what, result);
+                switchContent(what);
             }
 
             @Override
@@ -111,12 +114,11 @@ public abstract class NjHttpActivity<T> extends NjActivity{
         ViewUtil.showView(mPbLoading);
     }
 
-    public void switchContent(int what, T t){
+    public void switchContent(int what){
 
         ViewUtil.hideView(mPbLoading);
         ViewUtil.hideView(mIvTip);
         ViewUtil.showView(mContentView);
-        invalidateContent(what, t);
     }
 
     public abstract void invalidateContent(int what, T t);
