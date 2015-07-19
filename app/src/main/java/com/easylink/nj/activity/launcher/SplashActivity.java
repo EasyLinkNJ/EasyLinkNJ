@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 import com.easylink.nj.R;
 import com.easylink.nj.activity.main.MainActivity;
+import com.easylink.nj.activity.product.ProductListActivity;
 
 /**
  * 闪屏页面
@@ -19,7 +21,42 @@ public class SplashActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_splash);
-        delayStartMainActivity();
+        initContentView();
+//        delayStartMainActivity();
+    }
+
+    private void initContentView() {
+
+        findViewById(R.id.tvShopping).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ProductListActivity.startActivity(SplashActivity.this);
+            }
+        });
+
+        findViewById(R.id.tvMain).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                MainActivity.startActivity(SplashActivity.this);
+                finish();
+            }
+        });
+
+        findViewById(R.id.tvRepair).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        findViewById(R.id.tvReplace).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     @SuppressLint("HandlerLeak")
