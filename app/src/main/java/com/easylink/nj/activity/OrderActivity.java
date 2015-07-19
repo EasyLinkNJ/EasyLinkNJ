@@ -56,7 +56,7 @@ public class OrderActivity extends NjActivity {
         ListView lv = (ListView) findViewById(R.id.lv);
         lv.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
         lv.setDividerHeight(2);//2px
-        View headerView = ViewUtil.inflateLayout(R.layout.act_order);
+        View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
         lv.addHeaderView(headerView);
         View footerView = new View(this);
         footerView.setMinimumHeight(DensityUtil.dip2px(8));
