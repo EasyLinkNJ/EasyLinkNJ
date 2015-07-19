@@ -23,10 +23,10 @@
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_home_product"
             android:drawablePadding="10dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="13dp"
             android:text="购买产品"
             android:textColor="@color/black_trans87"
             android:background="@drawable/selector_bg_click_white"/>
@@ -37,10 +37,10 @@
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_home_repair"
             android:drawablePadding="10dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="13dp"
             android:text="维修咨询"
             android:textColor="@color/black_trans87"
             android:background="@drawable/selector_bg_click_white"/>
@@ -51,10 +51,10 @@
             android:layout_weight="1"
             android:drawableTop="@mipmap/ic_home_replace"
             android:drawablePadding="10dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
             android:gravity="center"
-            android:textSize="14dp"
+            android:textSize="13dp"
             android:text="配件替换"
             android:textColor="@color/black_trans87"
             android:background="@drawable/selector_bg_click_white"/>
@@ -65,8 +65,7 @@
         android:background="@color/list_split"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="@color/gray_trans50"/>
+        android:layout_height="10dp"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2px"
@@ -74,11 +73,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
+        android:padding="10dp"
         android:textSize="16dp"
         android:text="@string/news_dynamics"
         android:textColor="@color/black_trans87"
-        android:background="@color/gray_trans12"/>
+        android:background="#fbfbfb"/>
 </LinearLayout>

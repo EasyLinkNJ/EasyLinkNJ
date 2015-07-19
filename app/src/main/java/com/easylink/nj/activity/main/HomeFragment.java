@@ -130,7 +130,6 @@ public class HomeFragment extends NjHttpFragment<NewsList> {
         tv.setTextColor(getResources().getColor(R.color.black_trans87));
         tv.setGravity(Gravity.CENTER);
         tv.setPadding(0, DensityUtil.dip2px(12), 0, DensityUtil.dip2px(12));
-        tv.setBackgroundResource(R.drawable.selector_bg_click_gray);
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
