@@ -11,12 +11,15 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_marginTop="230dp"
+        android:layout_gravity="center_horizontal">
 
         <TextView
             android:id="@+id/tvShopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleX="0.92"
+            android:scaleY="0.92"
             android:drawableTop="@mipmap/ic_splash_shopping"
             android:drawablePadding="8dp"
             android:layout_marginRight="16dp"
@@ -29,6 +32,8 @@
             android:id="@+id/tvMain"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleX="0.92"
+            android:scaleY="0.92"
             android:layout_toRightOf="@id/tvShopping"
             android:drawableTop="@mipmap/ic_splash_main"
             android:drawablePadding="8dp"
@@ -42,6 +47,8 @@
             android:id="@+id/tvRepair"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleX="0.92"
+            android:scaleY="0.92"
             android:layout_alignLeft="@id/tvShopping"
             android:layout_below="@id/tvShopping"
             android:drawableTop="@mipmap/ic_splash_repair"
@@ -56,6 +63,8 @@
             android:id="@+id/tvReplace"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:scaleX="0.92"
+            android:scaleY="0.92"
             android:layout_below="@id/tvMain"
             android:layout_toRightOf="@id/tvRepair"
             android:drawableTop="@mipmap/ic_splash_replace"
