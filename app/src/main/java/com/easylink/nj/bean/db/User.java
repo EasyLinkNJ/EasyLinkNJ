@@ -11,8 +11,8 @@ public class User extends Model {
     @Column(name = "name")
     public String name;
 
-    @Column(name = "tel")
-    public String tel;
+    @Column(name = "phone")
+    public String phone;
 
     @Column(name = "address")
     public String address;

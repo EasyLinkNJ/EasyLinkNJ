@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/lvCart"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tvBottomBar"
+        android:divider="@color/list_split"
+        android:dividerHeight="2px" />
+
+    <TextView
+        android:id="@+id/tvBottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#ec5355"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white_trans87"
+        android:textSize="14dp" />
+</RelativeLayout>

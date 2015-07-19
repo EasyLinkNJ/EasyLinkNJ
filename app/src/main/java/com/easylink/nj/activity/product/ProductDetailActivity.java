@@ -53,7 +53,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         // right view
         if (!mOnlyGlance) {
 
-            View vCart = ViewUtil.inflateLayout(R.layout.view_cart);
+            View vCart = ViewUtil.inflateLayout(R.layout.view_cart_titlebar);
 
             mTvCartCount = (TextView) vCart.findViewById(R.id.tvCount);
             mCartCount = DBManager.getInstance().getCartCount();

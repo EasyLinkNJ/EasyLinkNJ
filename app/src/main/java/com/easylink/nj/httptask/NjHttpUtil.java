@@ -1,6 +1,7 @@
 package com.easylink.nj.httptask;
 
 import com.easylink.library.http.params.HttpTaskParams;
+import com.easylink.library.util.DeviceUtil;
 
 /**
  * 网络接口工具类
@@ -23,9 +24,10 @@ public class NjHttpUtil extends BaseHttpUtil {
 
     /**
      * 获取前5条新闻
+     *
      * @return
      */
-    public static HttpTaskParams getNewsTop5(){
+    public static HttpTaskParams getNewsTop5() {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS);
         htp.addParam("p", "1");
@@ -36,6 +38,7 @@ public class NjHttpUtil extends BaseHttpUtil {
 
     /**
      * 新闻详情
+     *
      * @param newsId
      * @return
      */
@@ -72,6 +75,20 @@ public class NjHttpUtil extends BaseHttpUtil {
         htp.addParam("id", productId);
         setSignParam(htp);
 
+        return htp;
+    }
+
+    public static HttpTaskParams getPostOrder(String name, String phone, String msg, String product_id) {
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_POST_ORDER);
+        htp.addParam("uuid", DeviceUtil.getIMEI());
+        htp.addParam("name", name);
+        htp.addParam("phone", phone);
+        htp.addParam("msg", msg);// TODO 地址?
+//        htp.addParam("url", url);TODO ?
+        htp.addParam("product_id", product_id);
+
+        setSignParam(htp);
         return htp;
     }
 }
