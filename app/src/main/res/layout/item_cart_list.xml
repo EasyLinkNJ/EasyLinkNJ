@@ -8,8 +8,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdvCover"
-        android:layout_width="80dp"
-        android:layout_height="60dp"
+        android:layout_width="66dp"
+        android:layout_height="50dp"
         android:scaleType="centerCrop"
         fresco:placeholderImage="@mipmap/ic_launcher" />
 
@@ -38,4 +38,61 @@
         android:text="￥8999.54"
         android:textColor="#f0534c"
         android:textSize="12dp" />
+
+    <View
+        android:id="@+id/vDivider_1"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:layout_below="@id/sdvCover"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/list_split" />
+
+    <TextView
+        android:id="@+id/tvNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vDivider_1"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toLeftOf="@+id/ivDelete"
+        android:paddingBottom="10dp"
+        android:paddingTop="5dp"
+        android:text="数量："
+        android:textColor="@color/black_trans54"
+        android:textSize="12dp" />
+
+    <ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignTop="@id/tvNum"
+        android:layout_toLeftOf="@+id/tvCount"
+        android:background="@drawable/shape_delete"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_delete_gray" />
+
+    <TextView
+        android:id="@+id/tvCount"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignTop="@id/tvNum"
+        android:layout_toLeftOf="@+id/ivAdd"
+        android:background="@mipmap/bg_num"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/black_trans54"
+        android:textSize="12dp" />
+
+    <ImageView
+        android:id="@+id/ivAdd"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/tvNum"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/shape_add"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_add_gray" />
 </RelativeLayout>

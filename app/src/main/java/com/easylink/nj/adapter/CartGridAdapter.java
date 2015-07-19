@@ -48,9 +48,9 @@ public class CartGridAdapter extends ExAdapter<Cart> {
             ivPhotoLeft = (SimpleDraweeView) convertView.findViewById(R.id.ivPhotoLeft);
             ivPhotoRight = (SimpleDraweeView) convertView.findViewById(R.id.ivPhotoRight);
             tvTitleLeft = (TextView) convertView.findViewById(R.id.tvTitleLeft);
-            tvInfoLeft = (TextView) convertView.findViewById(R.id.tvInfoLeft);
+//            tvInfoLeft = (TextView) convertView.findViewById(R.id.tvInfoLeft);
             tvTitleRight = (TextView) convertView.findViewById(R.id.tvTitleRight);
-            tvInfoRight = (TextView) convertView.findViewById(R.id.tvInfoRight);
+//            tvInfoRight = (TextView) convertView.findViewById(R.id.tvInfoRight);
 
             convertView.findViewById(R.id.flLeft).setOnClickListener(new View.OnClickListener() {
 
@@ -82,14 +82,14 @@ public class CartGridAdapter extends ExAdapter<Cart> {
                 Cart cart = getData().get(realLeftPosition);
                 ivPhotoLeft.setImageURI(Uri.parse(cart.imgUrl));
                 tvTitleLeft.setText(cart.name);
-                tvInfoLeft.setText("数量：" + cart.count);
+//                tvInfoLeft.setText("数量：" + cart.count);
             }
             if (realRightPosition >= 0 && realRightPosition <= size - 1) {
 
                 Cart cart = getData().get(realRightPosition);
                 ivPhotoRight.setImageURI(Uri.parse(cart.imgUrl));
                 tvTitleRight.setText(cart.name);
-                tvInfoRight.setText("数量：" + cart.count);
+//                tvInfoRight.setText("数量：" + cart.count);
             } else {
 
                 flRight.setVisibility(View.INVISIBLE);

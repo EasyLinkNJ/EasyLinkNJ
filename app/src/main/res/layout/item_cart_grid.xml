@@ -56,47 +56,45 @@
                     android:textColor="@color/black_trans87"
                     android:textSize="12dp" />
 
-                <TextView
-                    android:id="@+id/tvInfoLeft"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black_trans87"
-                    android:textSize="12dp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#33000000"
-                        android:gravity="center"
-                        android:text="+"
-                        android:textColor="@android:color/white"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="数量："
+                        android:textColor="@color/black_trans54"
+                        android:textSize="12dp" />
 
-                    <View
-                        android:layout_width="2px"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/white" />
+                    <ImageView
+                        android:id="@+id/ivDeleteLeft"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_delete"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_delete_gray" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#33000000"
+                        android:id="@+id/tvCountLeft"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@mipmap/bg_num"
                         android:gravity="center"
-                        android:text="-"
-                        android:textColor="@android:color/white"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:text="1"
+                        android:textColor="@color/black_trans54"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:id="@+id/ivAddLeft"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/shape_add"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_add_gray" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -152,47 +150,45 @@
                     android:textColor="@color/black_trans87"
                     android:textSize="12dp" />
 
-                <TextView
-                    android:id="@+id/tvInfoRight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:singleLine="true"
-                    android:textColor="@color/black_trans87"
-                    android:textSize="12dp" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="22dp"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#33000000"
-                        android:gravity="center"
-                        android:text="+"
-                        android:textColor="@android:color/white"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="数量："
+                        android:textColor="@color/black_trans54"
+                        android:textSize="12dp" />
 
-                    <View
-                        android:layout_width="2px"
-                        android:layout_height="match_parent"
-                        android:background="@android:color/white" />
+                    <ImageView
+                        android:id="@+id/ivDeleteRight"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/shape_delete"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_delete_gray" />
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="#33000000"
+                        android:id="@+id/tvCountRight"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@mipmap/bg_num"
                         android:gravity="center"
-                        android:text="-"
-                        android:textColor="@android:color/white"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
+                        android:text="1"
+                        android:textColor="@color/black_trans54"
+                        android:textSize="12dp" />
+
+                    <ImageView
+                        android:id="@+id/ivAddRight"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/shape_add"
+                        android:scaleType="centerInside"
+                        android:src="@mipmap/ic_add_gray" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
