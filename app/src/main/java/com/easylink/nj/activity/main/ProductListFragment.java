@@ -45,7 +45,7 @@ public class ProductListFragment extends NjHttpFragment<ProductList> {
 
                 Product product = mAdapter.getItem(position);
                 if (product != null)
-                    ProductDetailActivity.startActivity(getActivity(), product.getId());
+                    ProductDetailActivity.startActivity(getActivity(), product.getId(), false);
             }
         });
     }
@@ -77,7 +77,7 @@ public class ProductListFragment extends NjHttpFragment<ProductList> {
         mAdapter.notifyDataSetChanged();
     }
 
-    public static ProductListFragment newInstance(FragmentActivity activity){
+    public static ProductListFragment newInstance(FragmentActivity activity) {
 
         return (ProductListFragment) Fragment.instantiate(activity, ProductListFragment.class.getName(), new Bundle());
     }

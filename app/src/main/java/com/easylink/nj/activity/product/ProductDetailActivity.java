@@ -28,6 +28,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     private ProductDetail mDetail;
     private TextView mTvCartCount;
     private int mCartCount;
+    private boolean mOnlyGlance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     @Override
     protected void initData() {
 
+        mOnlyGlance = getIntent().getBooleanExtra("onlyGlance", false);
     }
 
     @Override
@@ -49,68 +51,77 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         addTitleMiddleTextViewWithBack("产品详情");
 
         // right view
-        View vCart = ViewUtil.inflateLayout(R.layout.view_cart);
+        if (!mOnlyGlance) {
 
-        mTvCartCount = (TextView) vCart.findViewById(R.id.tvCount);
-        mCartCount = DBManager.getInstance().getCartCount();
-        if (mCartCount > 0) {
+            View vCart = ViewUtil.inflateLayout(R.layout.view_cart);
 
-            mTvCartCount.setText(String.valueOf(mCartCount));
-            ViewUtil.showView(mTvCartCount);
-        }
+            mTvCartCount = (TextView) vCart.findViewById(R.id.tvCount);
+            mCartCount = DBManager.getInstance().getCartCount();
+            if (mCartCount > 0) {
 
-        LayoutParams lp = new LayoutParams(getTitleViewLayoutParams().height, LayoutParams.MATCH_PARENT);
-        addTitleRightView(vCart, lp);
-        vCart.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                CartActivity.startActivity(ProductDetailActivity.this);
+                mTvCartCount.setText(String.valueOf(mCartCount));
+                ViewUtil.showView(mTvCartCount);
             }
-        });
+
+            LayoutParams lp = new LayoutParams(getTitleViewLayoutParams().height, LayoutParams.MATCH_PARENT);
+            addTitleRightView(vCart, lp);
+            vCart.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    CartActivity.startActivity(ProductDetailActivity.this);
+                }
+            });
+        }
     }
 
     @Override
     protected void initContentView() {
 
-        findViewById(R.id.tvBuy).setOnClickListener(new View.OnClickListener() {
+        if (mOnlyGlance) {
 
-            @Override
-            public void onClick(View v) {
+            ViewUtil.goneView(findViewById(R.id.llBtnDiv));
+        } else {
 
-            }
-        });
-        findViewById(R.id.tvAdd).setOnClickListener(new View.OnClickListener() {
+            findViewById(R.id.tvBuy).setOnClickListener(new View.OnClickListener() {
 
-            @Override
-            public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
 
-                mCartCount++;
-                mTvCartCount.setText(String.valueOf(mCartCount));
-                ViewUtil.showView(mTvCartCount);
-
-                Cart cart = DBManager.getInstance().getCart(mDetail.getId());
-                if (cart == null) {//该产品在DB中不存在
-
-                    cart = new Cart();
-                    cart.name = mDetail.getTitle();
-                    cart.imgUrl = mDetail.getMainpic();
-                    cart.price = mDetail.getPrice();
-                    cart.productId = mDetail.getId();
-                    cart.introTitle_0 = mDetail.getCt_0();
-                    cart.intro_0 = mDetail.getContent_0();
-                    cart.time = System.currentTimeMillis();
-                    cart.count = mCartCount;
-                    cart.save();
-                } else {//存在，更新时间和数量
-
-                    cart.count = cart.count + 1;
-                    cart.time = System.currentTimeMillis();
-                    cart.save();
                 }
-            }
-        });
+            });
+            findViewById(R.id.tvAdd).setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    mCartCount++;
+                    mTvCartCount.setText(String.valueOf(mCartCount));
+                    ViewUtil.showView(mTvCartCount);
+
+                    Cart cart = DBManager.getInstance().getCart(mDetail.getId());
+                    if (cart == null) {//该产品在DB中不存在
+
+                        cart = new Cart();
+                        cart.name = mDetail.getTitle();
+                        cart.imgUrl = mDetail.getMainpic();
+                        cart.price = mDetail.getPrice();
+                        cart.productId = mDetail.getId();
+                        cart.introTitle_0 = mDetail.getCt_0();
+                        cart.intro_0 = mDetail.getContent_0();
+                        cart.time = System.currentTimeMillis();
+                        cart.count = mCartCount;
+                        cart.save();
+                    } else {//存在，更新时间和数量
+
+                        cart.count = cart.count + 1;
+                        cart.time = System.currentTimeMillis();
+                        cart.save();
+                    }
+                }
+            });
+        }
     }
 
     @Override
@@ -140,12 +151,13 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         tvIntro.setText(Html.fromHtml(data.getContent_0()));
     }
 
-    public static void startActivity(Activity act, String productId) {
+    public static void startActivity(Activity act, String productId, boolean onlyGlance) {
 
         if (act == null)
             return;
         Intent intent = new Intent(act, ProductDetailActivity.class);
         intent.putExtra("productId", productId);
+        intent.putExtra("onlyGlance", onlyGlance);
         act.startActivity(intent);
     }
 }

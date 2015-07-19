@@ -13,9 +13,13 @@ import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.utils.DBManager;
+import com.easylink.nj.utils.DialogUtil;
+import com.easylink.nj.view.BaseDialog;
+import com.easylink.nj.view.BaseDialog.OnViewClickListener;
 
 import java.util.List;
 
@@ -45,6 +49,7 @@ public class OrderActivity extends NjActivity {
             @Override
             public void onItemViewClick(int position, View clickView) {
 
+                onItemViewClickCallback(position, clickView);
             }
         });
 
@@ -59,10 +64,51 @@ public class OrderActivity extends NjActivity {
         lv.setAdapter(mAdapter);
     }
 
+    private void onItemViewClickCallback(int position, View clickView) {
+
+        Cart cart = mAdapter.getItem(position);
+
+        int vId = clickView.getId();
+        if (vId == R.id.rlRootView) {// convert view
+
+            ProductDetailActivity.startActivity(OrderActivity.this, cart.productId, true);
+        } else if (vId == R.id.ivAdd) {// add view
+
+            cart.count = cart.count + 1;
+            mAdapter.notifyDataSetChanged();
+
+        } else if (vId == R.id.ivDelete) {// delete view
+
+            cart.count = cart.count - 1;
+            if (cart.count == 0) {
+
+                mAdapter.remove(cart);
+            }
+            mAdapter.notifyDataSetChanged();
+
+        }
+    }
+
     @Override
     protected void initTitleView() {
 
-        mTvTitle = addTitleMiddleTextViewWithBack("订单确认");
+        mTvTitle = addTitleMiddleTextViewWithBack("订单");
+        addTitleRightTextView("确认", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DialogUtil.getOrderConfirmDialog(OrderActivity.this, new OnViewClickListener() {
+
+                    @Override
+                    public void onViewClick(BaseDialog dialog, View v) {
+
+                        dialog.dismiss();
+                        // TODO 更换状态
+                    }
+                }).show();
+            }
+        });
     }
 
     @Override

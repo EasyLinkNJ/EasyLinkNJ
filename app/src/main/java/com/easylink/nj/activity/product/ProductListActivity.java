@@ -32,7 +32,7 @@ public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
 
                 Product product = adapter.getItem(position);
                 if (product != null)
-                    ProductDetailActivity.startActivity(ProductListActivity.this, product.getId());
+                    ProductDetailActivity.startActivity(ProductListActivity.this, product.getId(), false);
             }
         });
 

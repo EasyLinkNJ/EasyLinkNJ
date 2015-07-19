@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rlRootView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_bg_click_white"
+    android:background="@android:color/white"
     android:padding="5dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -19,12 +20,12 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/sdvCover"
         android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="6dp"
         android:layout_toRightOf="@id/sdvCover"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="东风大型拖拉机"
-        android:textColor="@color/black_trans87"
+        android:textColor="@color/black_trans54"
         android:textSize="12dp" />
 
     <TextView

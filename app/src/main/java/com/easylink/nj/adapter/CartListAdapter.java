@@ -2,6 +2,7 @@ package com.easylink.nj.adapter;
 
 import android.net.Uri;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.ExAdapter;
@@ -25,7 +26,8 @@ public class CartListAdapter extends ExAdapter<Cart> {
     private final class ViewHolder extends ExViewHolderBase {
 
         private SimpleDraweeView mSdvCover;
-        private TextView mTvTitle, mTvPrice;
+        private TextView mTvTitle, mTvPrice, mTvCount;
+        private ImageView mIvAdd, mIvDelete;
 
         @Override
         public int getConvertViewRid() {
@@ -48,6 +50,25 @@ public class CartListAdapter extends ExAdapter<Cart> {
             mSdvCover = (SimpleDraweeView) convertView.findViewById(R.id.sdvCover);
             mTvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             mTvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
+            mTvCount = (TextView) convertView.findViewById(R.id.tvCount);
+            mIvAdd = (ImageView) convertView.findViewById(R.id.ivAdd);
+            mIvDelete = (ImageView) convertView.findViewById(R.id.ivDelete);
+            mIvAdd.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    callbackOnItemViewClickListener(mPosition, v);
+                }
+            });
+            mIvDelete.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    callbackOnItemViewClickListener(mPosition, v);
+                }
+            });
         }
 
         @Override
@@ -57,7 +78,7 @@ public class CartListAdapter extends ExAdapter<Cart> {
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);
+            mTvCount.setText(String.valueOf(cart.count));
         }
-
     }
 }
