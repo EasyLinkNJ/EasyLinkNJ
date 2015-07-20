@@ -72,7 +72,7 @@ public class DBManager {
         SQLiteDatabase db = ActiveAndroid.getDatabase();
         if (db == null)
             return 0;
-        String sql = "SELECT total(count) FROM Cart";
+        String sql = "SELECT total(count) FROM Cart WHERE orderId IS NULL";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor == null)
             return 0;
