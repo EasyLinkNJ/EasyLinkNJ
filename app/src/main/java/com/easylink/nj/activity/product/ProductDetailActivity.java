@@ -39,6 +39,23 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     }
 
     @Override
+    protected void onResume() {
+
+        super.onResume();
+        updateTitleBarCartCount();
+    }
+
+    private void updateTitleBarCartCount() {
+
+        if (mTvCartCount != null) {
+
+            mCartCount = DBManager.getInstance().getCartCount();
+            mTvCartCount.setText(String.valueOf(mCartCount));
+            mTvCartCount.setVisibility(mCartCount > 0 ? View.VISIBLE : View.INVISIBLE);
+        }
+    }
+
+    @Override
     protected void initData() {
 
         mOnlyGlance = getIntent().getBooleanExtra("onlyGlance", false);
@@ -56,9 +73,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
             View vCart = ViewUtil.inflateLayout(R.layout.view_cart_titlebar);
 
             mTvCartCount = (TextView) vCart.findViewById(R.id.tvCount);
-            mCartCount = DBManager.getInstance().getCartCount();
-            mTvCartCount.setText(String.valueOf(mCartCount));
-            mTvCartCount.setVisibility(mCartCount > 0 ? View.VISIBLE : View.INVISIBLE);
+            updateTitleBarCartCount();
 
             LayoutParams lp = new LayoutParams(getTitleViewLayoutParams().height, LayoutParams.MATCH_PARENT);
             addTitleRightView(vCart, lp);
