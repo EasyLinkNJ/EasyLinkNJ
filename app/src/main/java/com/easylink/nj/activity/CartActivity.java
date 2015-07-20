@@ -21,7 +21,10 @@ import java.util.List;
  */
 public class CartActivity extends NjHttpActivity<Cart> {
 
+    private ListView mLvCarts;
     private CartGridAdapter mAdapter;
+
+    private View mTvBottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +34,75 @@ public class CartActivity extends NjHttpActivity<Cart> {
     }
 
     @Override
-    protected void initData() {
+    protected void onResume() {
+
+        super.onResume();
+        if (getData())
+            fillData2View();
+    }
+
+    private boolean getData() {
 
         List<Cart> carts = DBManager.getInstance().getCarts();
         if (carts == null || carts.isEmpty()) {
 
             switchDisable(R.mipmap.ic_cart_nothing);
-            hideView(findViewById(R.id.tvBottomBar));
-            return;
+            hideView(mTvBottomBar);
+            return false;
         }
+
         switchContent(0);
-        showView(findViewById(R.id.tvBottomBar));
-        mAdapter = new CartGridAdapter();
+        showView(mTvBottomBar);
+
+        if (mAdapter == null) {
+
+            mAdapter = new CartGridAdapter();
+            mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+
+                @Override
+                public void onItemViewClick(int position, View clickView) {
+
+                }
+            });
+        }
         mAdapter.setData(carts);
-        mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
-            @Override
-            public void onItemViewClick(int position, View clickView) {
+        return true;
+    }
 
-            }
-        });
+    private void fillData2View() {
+
+        if (mLvCarts == null) {
+
+            mLvCarts = (ListView) findViewById(R.id.lvCart);
+
+            View v = new View(this);
+            v.setMinimumHeight(DensityUtil.dip2px(7));
+            mLvCarts.addFooterView(v);
+
+            mLvCarts.setAdapter(mAdapter);
+        } else {
+
+            mAdapter.notifyDataSetChanged();
+        }
+
+        if (mTvBottomBar == null) {
+
+            mTvBottomBar = findViewById(R.id.tvBottomBar);
+            mTvBottomBar.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    OrderActivity.startActivity(CartActivity.this);
+                }
+            });
+        }
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @Override
@@ -62,20 +114,6 @@ public class CartActivity extends NjHttpActivity<Cart> {
     @Override
     protected void initContentView() {
 
-        ListView lv = (ListView) findViewById(R.id.lvCart);
-        View v = new View(this);
-        v.setMinimumHeight(DensityUtil.dip2px(7));
-        lv.addFooterView(v);
-        lv.setAdapter(mAdapter);
-
-        findViewById(R.id.tvBottomBar).setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                OrderActivity.startActivity(CartActivity.this);
-            }
-        });
     }
 
     @Override
