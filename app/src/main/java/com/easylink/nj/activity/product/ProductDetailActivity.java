@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.CartActivity;
@@ -112,20 +111,8 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                         cart.save();
                     } else {//存在，更新时间和数量
 
-                        if (TextUtil.isEmpty(cart.orderId)) {// 还没有下单
-
-                            cart.count = cart.count + 1;
-                            cart.save();
-                        } else {
-
-                            cart = new Cart();
-                            cart.productId = mDetail.getId();
-                            cart.name = mDetail.getTitle();
-                            cart.imgUrl = mDetail.getMainpic();
-                            cart.price = mDetail.getPrice();
-                            cart.count = mCartCount;
-                            cart.save();
-                        }
+                        cart.count = cart.count + 1;
+                        cart.save();
                     }
                 }
             });
