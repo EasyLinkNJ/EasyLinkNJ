@@ -22,15 +22,14 @@ public class Cart extends Model {
     @Column(name = "price")
     public String price;
 
-    @Column(name = "introTitle_0")
-    public String introTitle_0;
-
-    @Column(name = "intro_0")
-    public String intro_0;
-
     @Column(name = "count")
     public int count;
 
-    @Column(name = "time")
-    public long time;
+    @Column(name = "orderId")
+    public String orderId;
+
+//    @Column(name = "introTitle_0")
+//    public String introTitle_0;
+//    @Column(name = "intro_0")
+//    public String intro_0;
 }

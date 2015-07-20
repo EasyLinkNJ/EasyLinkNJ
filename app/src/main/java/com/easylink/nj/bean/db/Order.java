@@ -4,6 +4,8 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 
+import java.util.List;
+
 /**
  * Created by KEVIN.DAI on 15/7/20.
  */
@@ -16,9 +18,8 @@ public class Order extends Model {
     @Column(name = "User")
     public User user;
 
-    @Column(name = "Cart")
-    public Cart cart;
-
     @Column(name = "time")
     public long time;
+
+    public List<Cart> carts;
 }

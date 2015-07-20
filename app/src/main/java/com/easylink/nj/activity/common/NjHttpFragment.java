@@ -126,6 +126,13 @@ public abstract class NjHttpFragment<T> extends ExFragment{
         ViewUtil.showImageView(mIvTip, mFailedImageResId);
     }
 
+    public void switchDisable(int resId) {
+
+        ViewUtil.hideView(mPbLoading);
+        ViewUtil.hideView(mContentView);
+        ViewUtil.showImageView(mIvTip, resId);
+    }
+
     protected void onTipViewClick(){
 
     }

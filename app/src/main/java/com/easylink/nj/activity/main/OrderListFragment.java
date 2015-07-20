@@ -20,17 +20,18 @@ import com.easylink.nj.activity.common.NjHttpFragment;
 import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
+import com.easylink.nj.bean.db.Order;
 import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.utils.DBManager;
-
-import java.util.List;
 
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
 public class OrderListFragment extends NjHttpFragment<ProductList> {
 
+    private ListView mLvOrder;
     private CartListAdapter mAdapter;
+    private Order mOrder;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -43,49 +44,72 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
     public void onResume() {
 
         super.onResume();
-        showToast("onResume");
+        if (getData())
+            fillData2View();
     }
 
-    @Override
-    protected void initData() {
+    private boolean getData() {
 
-        List<Cart> carts = DBManager.getInstance().getCarts();
-        mAdapter = new CartListAdapter();
-        mAdapter.setData(carts);
-        mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+        mOrder = DBManager.getInstance().getOrder();
+        if (mOrder == null || mOrder.carts == null || mOrder.carts.isEmpty()) {
 
-            @Override
-            public void onItemViewClick(int position, View clickView) {
+            switchDisable(R.mipmap.ic_order_nothing);
+            return false;
+        }
 
-                Cart cart = mAdapter.getItem(position);
-                ProductDetailActivity.startActivity(getActivity(), cart.productId, true);
-            }
-        });
+        switchContent(0);
+
+        if (mAdapter == null) {
+
+            mAdapter = new CartListAdapter();
+            mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+
+                @Override
+                public void onItemViewClick(int position, View clickView) {
+
+                    Cart cart = mAdapter.getItem(position);
+                    ProductDetailActivity.startActivity(getActivity(), cart.productId, true);
+                }
+            });
+        }
+        mAdapter.setData(mOrder.carts);
+
+        return true;
     }
 
-    @Override
-    protected void initContentView() {
+    private void fillData2View() {
 
-        ListView lv = (ListView) findViewById(R.id.lv);
-        lv.setHeaderDividersEnabled(true);
-        lv.setFooterDividersEnabled(true);
-        lv.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
-        lv.setDividerHeight(2);//2px
+        if (mLvOrder == null) {
 
-        View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
-        lv.addHeaderView(headerView);
-        View footerView = new View(getActivity());
-        footerView.setMinimumHeight(DensityUtil.dip2px(10));
-        lv.addFooterView(footerView);
-        lv.addFooterView(getFooterView());
-        lv.setAdapter(mAdapter);
+            mLvOrder = (ListView) findViewById(R.id.lv);
+            mLvOrder.setHeaderDividersEnabled(true);
+            mLvOrder.setFooterDividersEnabled(true);
+            mLvOrder.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
+            mLvOrder.setDividerHeight(2);//2px
 
-        EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
-        etPersion.setEnabled(false);
-        EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
-        etPhone.setEnabled(false);
-        EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
-        etAddress.setEnabled(false);
+            View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
+            mLvOrder.addHeaderView(headerView);
+            EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
+            etPersion.setText(mOrder.user.name);
+            etPersion.setEnabled(false);
+            EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
+            etPhone.setText(mOrder.user.phone);
+            etPhone.setEnabled(false);
+            EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
+            etAddress.setText(mOrder.user.address);
+            etAddress.setEnabled(false);
+
+            View footerView = new View(getActivity());
+            footerView.setMinimumHeight(DensityUtil.dip2px(10));
+            mLvOrder.addFooterView(footerView);
+
+            mLvOrder.addFooterView(getFooterView());
+
+            mLvOrder.setAdapter(mAdapter);
+        } else {
+
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private View getFooterView() {
@@ -106,6 +130,16 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
             }
         });
         return v;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initContentView() {
+
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.CartActivity;
@@ -57,11 +58,8 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
             mTvCartCount = (TextView) vCart.findViewById(R.id.tvCount);
             mCartCount = DBManager.getInstance().getCartCount();
-            if (mCartCount > 0) {
-
-                mTvCartCount.setText(String.valueOf(mCartCount));
-                ViewUtil.showView(mTvCartCount);
-            }
+            mTvCartCount.setText(String.valueOf(mCartCount));
+            mTvCartCount.setVisibility(mCartCount > 0 ? View.VISIBLE : View.INVISIBLE);
 
             LayoutParams lp = new LayoutParams(getTitleViewLayoutParams().height, LayoutParams.MATCH_PARENT);
             addTitleRightView(vCart, lp);
@@ -104,20 +102,30 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                     if (cart == null) {//该产品在DB中不存在
 
                         cart = new Cart();
+                        cart.productId = mDetail.getId();
                         cart.name = mDetail.getTitle();
                         cart.imgUrl = mDetail.getMainpic();
                         cart.price = mDetail.getPrice();
-                        cart.productId = mDetail.getId();
-                        cart.introTitle_0 = mDetail.getCt_0();
-                        cart.intro_0 = mDetail.getContent_0();
-                        cart.time = System.currentTimeMillis();
                         cart.count = mCartCount;
+//                        cart.introTitle_0 = mDetail.getCt_0();
+//                        cart.intro_0 = mDetail.getContent_0();
                         cart.save();
                     } else {//存在，更新时间和数量
 
-                        cart.count = cart.count + 1;
-                        cart.time = System.currentTimeMillis();
-                        cart.save();
+                        if (TextUtil.isEmpty(cart.orderId)) {// 还没有下单
+
+                            cart.count = cart.count + 1;
+                            cart.save();
+                        } else {
+
+                            cart = new Cart();
+                            cart.productId = mDetail.getId();
+                            cart.name = mDetail.getTitle();
+                            cart.imgUrl = mDetail.getMainpic();
+                            cart.price = mDetail.getPrice();
+                            cart.count = mCartCount;
+                            cart.save();
+                        }
                     }
                 }
             });

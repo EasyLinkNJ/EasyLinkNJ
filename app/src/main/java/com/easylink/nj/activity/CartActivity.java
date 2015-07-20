@@ -9,7 +9,7 @@ import android.widget.ListView;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.util.DensityUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjActivity;
+import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.adapter.CartGridAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.utils.DBManager;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
-public class CartActivity extends NjActivity {
+public class CartActivity extends NjHttpActivity<Cart> {
 
     private CartGridAdapter mAdapter;
 
@@ -34,6 +34,14 @@ public class CartActivity extends NjActivity {
     protected void initData() {
 
         List<Cart> carts = DBManager.getInstance().getCarts();
+        if (carts == null || carts.isEmpty()) {
+
+            switchDisable(R.mipmap.ic_cart_nothing);
+            hideView(findViewById(R.id.tvBottomBar));
+            return;
+        }
+        switchContent(0);
+        showView(findViewById(R.id.tvBottomBar));
         mAdapter = new CartGridAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
@@ -68,6 +76,11 @@ public class CartActivity extends NjActivity {
                 OrderActivity.startActivity(CartActivity.this);
             }
         });
+    }
+
+    @Override
+    public void invalidateContent(int what, Cart cart) {
+
     }
 
     public static void startActivity(Activity act) {

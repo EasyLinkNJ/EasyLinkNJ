@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.easylink.nj.bean.db.Cart;
@@ -46,7 +47,7 @@ public class DBManager {
 
         try {
 
-            return new Select().from(Cart.class).orderBy("time DESC").execute();
+            return new Select().from(Cart.class).where("orderId IS NULL").orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -110,6 +111,21 @@ public class DBManager {
         } catch (Exception e) {
 
             e.printStackTrace();
+        }
+    }
+
+    public synchronized Order getOrder() {
+
+        try {
+
+            Order order = new Select().from(Order.class).orderBy("time DESC").limit(1).executeSingle();
+            if (order != null)
+                order.carts = new Select().from(Cart.class).where("orderId = ?", order.orderId).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+            return order;
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
         }
     }
 }

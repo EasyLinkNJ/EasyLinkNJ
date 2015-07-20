@@ -29,6 +29,7 @@ import java.util.List;
  */
 public class CartListFragment extends NjHttpFragment<ProductList> {
 
+    private ListView mLvCarts;
     private CartGridAdapter mAdapter;
 
     @Override
@@ -39,30 +40,57 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
     }
 
     @Override
-    protected void initData() {
+    public void onResume() {
 
-        List<Cart> carts = DBManager.getInstance().getCarts();
-        mAdapter = new CartGridAdapter();
-        mAdapter.setData(carts);
-        mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
-
-            @Override
-            public void onItemViewClick(int position, View clickView) {
-
-                showToast("position: " + position);
-            }
-        });
+        super.onResume();
+        if (getData())
+            fillData2View();
     }
 
-    @Override
-    protected void initContentView() {
+    private boolean getData() {
 
-        ListView lv = (ListView) findViewById(R.id.lv);
-        View v = new View(getActivity());
-        v.setMinimumHeight(DensityUtil.dip2px(7));
-        lv.addFooterView(v);
-        lv.addFooterView(getFooterView());
-        lv.setAdapter(mAdapter);
+        List<Cart> carts = DBManager.getInstance().getCarts();
+        if (carts == null || carts.isEmpty()) {
+
+            switchDisable(R.mipmap.ic_cart_nothing);
+            return false;
+        }
+
+        switchContent(0);
+
+        if (mAdapter == null) {
+
+            mAdapter = new CartGridAdapter();
+            mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+
+                @Override
+                public void onItemViewClick(int position, View clickView) {
+
+                }
+            });
+        }
+        mAdapter.setData(carts);
+
+        return true;
+    }
+
+    private void fillData2View() {
+
+        if (mLvCarts == null) {
+
+            mLvCarts = (ListView) findViewById(R.id.lv);
+
+            View footerView = new View(getActivity());
+            footerView.setMinimumHeight(DensityUtil.dip2px(7));
+            mLvCarts.addFooterView(footerView);
+
+            mLvCarts.addFooterView(getFooterView());
+
+            mLvCarts.setAdapter(mAdapter);
+        } else {
+
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     private View getFooterView() {
@@ -83,6 +111,16 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
             }
         });
         return v;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initContentView() {
+
     }
 
     @Override

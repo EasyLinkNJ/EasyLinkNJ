@@ -14,10 +14,11 @@ import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjActivity;
+import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
+import com.easylink.nj.bean.db.Order;
 import com.easylink.nj.bean.db.User;
 import com.easylink.nj.utils.DBManager;
 import com.easylink.nj.utils.DialogUtil;
@@ -29,7 +30,7 @@ import java.util.List;
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
-public class OrderActivity extends NjActivity {
+public class OrderActivity extends NjHttpActivity<Order> {
 
     private CartListAdapter mAdapter;
     private TextView mTvTitle, mTvBottomBar;
@@ -47,6 +48,14 @@ public class OrderActivity extends NjActivity {
     protected void initData() {
 
         List<Cart> carts = DBManager.getInstance().getCarts();
+        if (carts == null || carts.isEmpty()) {
+
+            switchDisable(R.mipmap.ic_order_nothing);
+            hideView(findViewById(R.id.tvBottomBar));
+            return;
+        }
+        switchContent(0);
+        showView(findViewById(R.id.tvBottomBar));
         mAdapter = new CartListAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
@@ -145,7 +154,7 @@ public class OrderActivity extends NjActivity {
 
                 isConfirmed = true;
 
-                saveUserInfo();
+                saveOrderInfo();
                 mTvTitle.setText("订单详情");
                 mTvBottomBar.setText("提醒客服处理");
                 mEtPersion.setEnabled(false);
@@ -173,17 +182,29 @@ public class OrderActivity extends NjActivity {
         return TextUtil.isNotEmpty(mEtAddress.getText()) && mEtAddress.length() > 5;
     }
 
-    private void saveUserInfo() {
+    private void saveOrderInfo() {
 
         User user = new User();
         user.name = mEtPersion.getText().toString();
         user.phone = mEtPhone.getText().toString();
         user.address = mEtAddress.getText().toString();
         user.save();
+
+        Order order = new Order();
+        order.time = System.currentTimeMillis();
+        order.orderId = String.valueOf(order.time);
+        order.user = user;
+        order.save();
+
+        for (Cart cart : mAdapter.getData()) {
+
+            cart.orderId = order.orderId;
+            cart.save();
+        }
     }
 
-    private void saveOrderInfo() {
-
+    @Override
+    public void invalidateContent(int what, Order order) {
 
     }
 

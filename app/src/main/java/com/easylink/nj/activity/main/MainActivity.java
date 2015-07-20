@@ -39,6 +39,18 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     }
 
     @Override
+    protected void onResume() {
+
+        super.onResume();
+        int count = DBManager.getInstance().getCartCount();
+        if (mTvCartCount != null) {
+
+            mTvCartCount.setText(String.valueOf(count));
+            mTvCartCount.setVisibility(count > 0 ? View.VISIBLE : View.INVISIBLE);
+        }
+    }
+
+    @Override
     protected void initData() {
 
         mBackKeyHandler = new DelayBackHandler();
