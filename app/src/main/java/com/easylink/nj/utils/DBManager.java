@@ -35,7 +35,7 @@ public class DBManager {
 
         try {
 
-            return new Select().from(Cart.class).where("productId = ?", productId).executeSingle();
+            return new Select().from(Cart.class).where("orderId IS NULL AND productId = ?", productId).executeSingle();
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -52,18 +52,6 @@ public class DBManager {
 
             e.printStackTrace();
             return null;
-        }
-    }
-
-    public synchronized boolean hasCart(String productId) {
-
-        try {
-
-            return new Select().from(Cart.class).where("productId = ?", productId).exists();
-        } catch (Exception e) {
-
-            e.printStackTrace();
-            return false;
         }
     }
 
