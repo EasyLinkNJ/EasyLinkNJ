@@ -68,12 +68,12 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
     private View getFooterView() {
 
         TextView v = new TextView(getActivity());
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(40));
+        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(42));
         v.setText("提交订单");
         v.setBackgroundColor(getResources().getColor(R.color.bg_red));
         v.setTextColor(getResources().getColor(R.color.white_trans87));
         v.setGravity(Gravity.CENTER);
-        v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+        v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
         v.setLayoutParams(lp);
         v.setOnClickListener(new View.OnClickListener() {
             @Override

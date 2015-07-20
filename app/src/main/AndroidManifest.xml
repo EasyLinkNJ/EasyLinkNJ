@@ -38,7 +38,7 @@
             android:name=".activity.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/app_theme_main"
-            android:windowSoftInputMode="adjustResize|stateHidden" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
             android:name=".activity.news.NewsListActivity"

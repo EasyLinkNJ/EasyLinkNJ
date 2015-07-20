@@ -182,6 +182,11 @@ public class OrderActivity extends NjActivity {
         user.save();
     }
 
+    private void saveOrderInfo() {
+
+
+    }
+
     public static void startActivity(Activity act) {
 
         if (act == null)

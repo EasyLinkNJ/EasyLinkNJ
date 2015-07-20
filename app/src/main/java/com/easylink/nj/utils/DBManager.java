@@ -4,8 +4,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.easylink.nj.bean.db.Cart;
+import com.easylink.nj.bean.db.Order;
+import com.easylink.nj.bean.db.User;
 
 import java.util.List;
 
@@ -78,5 +81,35 @@ public class DBManager {
         cursor.close();
 
         return count;
+    }
+
+    public synchronized void clearCart() {
+
+        try {
+            new Delete().from(Cart.class).execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void clearOrder() {
+
+        try {
+            new Delete().from(Order.class).execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    public synchronized void clearUser() {
+
+        try {
+            new Delete().from(User.class).execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
     }
 }

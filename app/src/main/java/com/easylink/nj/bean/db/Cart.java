@@ -2,10 +2,12 @@ package com.easylink.nj.bean.db;
 
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
+@Table(name = "Cart")
 public class Cart extends Model {
 
     @Column(name = "productId")

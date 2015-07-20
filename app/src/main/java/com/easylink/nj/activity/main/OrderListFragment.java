@@ -40,11 +40,10 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
+    public void onResume() {
 
-        super.onHiddenChanged(hidden);
-
-        showToast("onHiddenChanged: " + hidden);
+        super.onResume();
+        showToast("onResume");
     }
 
     @Override
@@ -92,12 +91,12 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
     private View getFooterView() {
 
         TextView v = new TextView(getActivity());
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, DensityUtil.dip2px(40));
+        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, DensityUtil.dip2px(42));
         v.setText("提醒客服处理");
         v.setBackgroundColor(getResources().getColor(R.color.bg_red));
         v.setTextColor(getResources().getColor(R.color.white_trans87));
         v.setGravity(Gravity.CENTER);
-        v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
+        v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
         v.setLayoutParams(lp);
         v.setOnClickListener(new View.OnClickListener() {
             @Override
