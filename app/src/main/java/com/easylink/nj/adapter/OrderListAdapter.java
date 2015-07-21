@@ -32,7 +32,7 @@ public class OrderListAdapter extends ExAdapter<Cart> {
         @Override
         public int getConvertViewRid() {
 
-            return R.layout.item_order;
+            return R.layout.item_order_list;
         }
 
         @Override
