@@ -106,13 +106,15 @@ public class OrderActivity extends NjHttpActivity<Order> {
     @Override
     protected void initContentView() {
 
-        ListView lv = (ListView) findViewById(R.id.lvCart);
+        ListView lvOrder = (ListView) findViewById(R.id.lvCart);
 
         View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
         mEtPersion = (EditText) headerView.findViewById(R.id.etPersion);
         mEtPhone = (EditText) headerView.findViewById(R.id.etTel);
         mEtAddress = (EditText) headerView.findViewById(R.id.etAddress);
-        lv.addHeaderView(headerView);
+        lvOrder.addHeaderView(headerView);
+
+        lvOrder.setAdapter(mAdapter);
 
         mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
         mTvBottomBar.setText("确认");
