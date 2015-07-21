@@ -55,7 +55,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/tvOrder"
+            android:id="@+id/tvMine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

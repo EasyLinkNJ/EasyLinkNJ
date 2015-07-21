@@ -15,6 +15,7 @@ import com.easylink.library.activity.ExFragmentActivity;
 import com.easylink.library.adapter.ExFragmentFixedPagerAdapter;
 import com.easylink.library.plugin.DelayBackHandler;
 import com.easylink.library.util.DensityUtil;
+import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.library.view.ExViewPager;
 import com.easylink.nj.R;
@@ -30,7 +31,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
     private DelayBackHandler mBackKeyHandler;
     private ExViewPager mViewPager;
-    private View mTvHome, mTvProduct, mRlCart, mTvOrder, mTvCurrentSelected;
+    private View mTvHome, mTvProduct, mRlCart, mTvMine, mTvCurrentSelected;
     private TextView mTvCartCount;
     private ImageView mIvSearch;
 
@@ -75,7 +76,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
             }
         });
-        ViewUtil.hideView(mIvSearch);
+        ViewUtil.hideImageView(mIvSearch);
 //        LayoutParams lp = new LayoutParams(DensityUtil.dip2px(278), DensityUtil.dip2px(36));
 //        lp.rightMargin = DensityUtil.dip2px(12);
 //        addTitleRightView(ViewUtil.inflateLayout(R.layout.view_search), lp);
@@ -108,8 +109,8 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
             ViewUtil.showView(mTvCartCount);
         }
 
-        mTvOrder = findViewById(R.id.tvOrder);
-        mTvOrder.setOnClickListener(this);
+        mTvMine = findViewById(R.id.tvMine);
+        mTvMine.setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -132,7 +133,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         fragments.add(HomeFragment.newInstance(this));
         fragments.add(ProductListFragment.newInstance(this));
         fragments.add(CartListFragment.newInstance(this));
-        fragments.add(OrderListFragment.newInstance(this));
+        fragments.add(MainMineFragment.newInstance(this));
         return fragments;
     }
 
@@ -167,7 +168,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
                 tvNewSelected = mRlCart;
                 break;
             case 3:
-                tvNewSelected = mTvOrder;
+                tvNewSelected = mTvMine;
                 break;
         }
 
@@ -184,19 +185,25 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.tvHome:
                 mViewPager.setCurrentItem(0, true);
-                ViewUtil.hideView(mIvSearch);
+                ViewUtil.hideImageView(mIvSearch);
+                LogMgr.d(simpleTag(), "click home");
                 break;
             case R.id.tvProduct:
                 mViewPager.setCurrentItem(1, true);
-                ViewUtil.showView(mIvSearch);
+                ViewUtil.showImageView(mIvSearch, R.mipmap.ic_search);
+
+                LogMgr.d(simpleTag(), "click cate");
                 break;
             case R.id.rlCart:
                 mViewPager.setCurrentItem(2, true);
-                ViewUtil.hideView(mIvSearch);
+                ViewUtil.hideImageView(mIvSearch);
+
+                LogMgr.d(simpleTag(), "click cart");
                 break;
-            case R.id.tvOrder:
+            case R.id.tvMine:
                 mViewPager.setCurrentItem(3, true);
-                ViewUtil.hideView(mIvSearch);
+                ViewUtil.hideImageView(mIvSearch);
+                LogMgr.d(simpleTag(), "click mine");
                 break;
         }
     }

@@ -39,4 +39,5 @@
     <style name="qa_ex_theme_dialog" parent="@style/ex_theme_dialog">
         <item name="android:windowBackground">@mipmap/bg_card_item_round</item>
     </style>
+
 </resources>
