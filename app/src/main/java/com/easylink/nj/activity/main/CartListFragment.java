@@ -111,6 +111,7 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
         if (mTvBottomBar == null) {
 
             mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
+            mTvBottomBar.setText("提交订单");
             mTvBottomBar.setOnClickListener(new View.OnClickListener() {
 
                 @Override

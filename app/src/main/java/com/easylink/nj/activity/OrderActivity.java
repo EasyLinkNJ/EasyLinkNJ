@@ -40,7 +40,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_order);
+        setContentView(R.layout.act_cart);
     }
 
     @Override
@@ -50,13 +50,13 @@ public class OrderActivity extends NjHttpActivity<Order> {
         if (carts == null || carts.isEmpty()) {
 
             switchDisable(R.mipmap.ic_order_nothing);
-            hideView(findViewById(R.id.tvBottomBar));
+            hideView(mTvBottomBar);
 
             return;
         }
 
         switchContent(0);
-        showView(findViewById(R.id.tvBottomBar));
+        showView(mTvBottomBar);
 
         mAdapter = new CartListAdapter();
         mAdapter.setData(carts);
@@ -106,7 +106,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
     @Override
     protected void initContentView() {
 
-        ListView lv = (ListView) findViewById(R.id.lvOrder);
+        ListView lv = (ListView) findViewById(R.id.lvCart);
 
         View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
         mEtPersion = (EditText) headerView.findViewById(R.id.etPersion);
@@ -115,6 +115,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
         lv.addHeaderView(headerView);
 
         mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
+        mTvBottomBar.setText("确认");
         mTvBottomBar.setOnClickListener(new View.OnClickListener() {
 
             @Override

@@ -33,7 +33,7 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setFragmentContentView(R.layout.act_order);
+        setFragmentContentView(R.layout.act_cart);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
 
         if (mLvOrder == null) {
 
-            mLvOrder = (ListView) findViewById(R.id.lvOrder);
+            mLvOrder = (ListView) findViewById(R.id.lvCart);
 
             View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
             EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
@@ -103,6 +103,7 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
         if (mTvBottomBar == null) {
 
             mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
+            mTvBottomBar.setText("提醒客服处理");
             mTvBottomBar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
