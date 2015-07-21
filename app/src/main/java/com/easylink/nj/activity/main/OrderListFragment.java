@@ -1,19 +1,14 @@
 package com.easylink.nj.activity.main;
 
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.AbsListView.LayoutParams;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpFragment;
@@ -32,12 +27,13 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
     private ListView mLvOrder;
     private CartListAdapter mAdapter;
     private Order mOrder;
+    private TextView mTvBottomBar;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        setFragmentContentView(ViewUtil.getCleanListView(getActivity(), R.id.lv));
+        setFragmentContentView(R.layout.act_order);
     }
 
     @Override
@@ -54,10 +50,13 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
         if (mOrder == null || mOrder.carts == null || mOrder.carts.isEmpty()) {
 
             switchDisable(R.mipmap.ic_order_nothing);
+            hideView(mTvBottomBar);
+
             return false;
         }
 
         switchContent(0);
+        showView(mTvBottomBar);
 
         if (mAdapter == null) {
 
@@ -81,55 +80,37 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
 
         if (mLvOrder == null) {
 
-            mLvOrder = (ListView) findViewById(R.id.lv);
-            mLvOrder.setHeaderDividersEnabled(true);
-            mLvOrder.setFooterDividersEnabled(true);
-            mLvOrder.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
-            mLvOrder.setDividerHeight(2);//2px
+            mLvOrder = (ListView) findViewById(R.id.lvOrder);
 
             View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
-            mLvOrder.addHeaderView(headerView);
             EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
-            etPersion.setText(mOrder.user.name);
-            etPersion.setEnabled(false);
             EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
-            etPhone.setText(mOrder.user.phone);
-            etPhone.setEnabled(false);
             EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
+            etPersion.setText(mOrder.user.name);
+            etPhone.setText(mOrder.user.phone);
             etAddress.setText(mOrder.user.address);
+            etPersion.setEnabled(false);
+            etPhone.setEnabled(false);
             etAddress.setEnabled(false);
-
-            View footerView = new View(getActivity());
-            footerView.setMinimumHeight(DensityUtil.dip2px(10));
-            mLvOrder.addFooterView(footerView);
-
-            mLvOrder.addFooterView(getFooterView());
+            mLvOrder.addHeaderView(headerView);
 
             mLvOrder.setAdapter(mAdapter);
         } else {
 
             mAdapter.notifyDataSetChanged();
         }
-    }
 
-    private View getFooterView() {
+        if (mTvBottomBar == null) {
 
-        TextView v = new TextView(getActivity());
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, DensityUtil.dip2px(42));
-        v.setText("提醒客服处理");
-        v.setBackgroundColor(getResources().getColor(R.color.bg_red));
-        v.setTextColor(getResources().getColor(R.color.white_trans87));
-        v.setGravity(Gravity.CENTER);
-        v.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
-        v.setLayoutParams(lp);
-        v.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
+            mTvBottomBar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                showToast("已发送提醒");
-            }
-        });
-        return v;
+                    showToast("已发送提醒");
+                }
+            });
+        }
     }
 
     @Override

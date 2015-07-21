@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.util.DensityUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
-import com.easylink.nj.adapter.CartGridAdapter;
+import com.easylink.nj.activity.product.ProductDetailActivity;
+import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.utils.DBManager;
 
@@ -22,9 +23,9 @@ import java.util.List;
 public class CartActivity extends NjHttpActivity<Cart> {
 
     private ListView mLvCarts;
-    private CartGridAdapter mAdapter;
-
-    private View mTvBottomBar;
+    //    private CartGridAdapter mAdapter;
+    private CartListAdapter mAdapter;
+    private TextView mTvBottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,7 @@ public class CartActivity extends NjHttpActivity<Cart> {
 
             switchDisable(R.mipmap.ic_cart_nothing);
             hideView(mTvBottomBar);
+
             return false;
         }
 
@@ -56,12 +58,13 @@ public class CartActivity extends NjHttpActivity<Cart> {
 
         if (mAdapter == null) {
 
-            mAdapter = new CartGridAdapter();
+            mAdapter = new CartListAdapter();
             mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
                 @Override
                 public void onItemViewClick(int position, View clickView) {
 
+                    onItemViewClickCallback(position, clickView);
                 }
             });
         }
@@ -70,16 +73,32 @@ public class CartActivity extends NjHttpActivity<Cart> {
         return true;
     }
 
+    private void onItemViewClickCallback(int position, View clickView) {
+
+        Cart cart = mAdapter.getItem(position);
+
+        int vId = clickView.getId();
+        if (vId == R.id.rlRootView) {// convert view
+
+            ProductDetailActivity.startActivity(CartActivity.this, cart.productId, true);
+        } else if (vId == R.id.ivAdd) {// add view
+
+            cart.count = cart.count + 1;
+            mAdapter.notifyDataSetChanged();
+        } else if (vId == R.id.ivDelete) {// delete view
+
+            cart.count = cart.count - 1;
+            if (cart.count == 0)
+                mAdapter.remove(cart);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
     private void fillData2View() {
 
         if (mLvCarts == null) {
 
             mLvCarts = (ListView) findViewById(R.id.lvCart);
-
-            View v = new View(this);
-            v.setMinimumHeight(DensityUtil.dip2px(7));
-            mLvCarts.addFooterView(v);
-
             mLvCarts.setAdapter(mAdapter);
         } else {
 
@@ -88,7 +107,7 @@ public class CartActivity extends NjHttpActivity<Cart> {
 
         if (mTvBottomBar == null) {
 
-            mTvBottomBar = findViewById(R.id.tvBottomBar);
+            mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
             mTvBottomBar.setOnClickListener(new View.OnClickListener() {
 
                 @Override

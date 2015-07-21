@@ -10,7 +10,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.TextUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
@@ -52,10 +51,13 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
             switchDisable(R.mipmap.ic_order_nothing);
             hideView(findViewById(R.id.tvBottomBar));
+
             return;
         }
+
         switchContent(0);
         showView(findViewById(R.id.tvBottomBar));
+
         mAdapter = new CartListAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
@@ -107,15 +109,11 @@ public class OrderActivity extends NjHttpActivity<Order> {
         ListView lv = (ListView) findViewById(R.id.lvOrder);
 
         View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
-        lv.addHeaderView(headerView);
-        View footerView = new View(this);
-        footerView.setMinimumHeight(DensityUtil.dip2px(8));
-        lv.addFooterView(footerView);
-        lv.setAdapter(mAdapter);
-
         mEtPersion = (EditText) headerView.findViewById(R.id.etPersion);
         mEtPhone = (EditText) headerView.findViewById(R.id.etTel);
         mEtAddress = (EditText) headerView.findViewById(R.id.etAddress);
+        lv.addHeaderView(headerView);
+
         mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
         mTvBottomBar.setOnClickListener(new View.OnClickListener() {
 
@@ -155,14 +153,20 @@ public class OrderActivity extends NjHttpActivity<Order> {
                 isConfirmed = true;
 
                 saveOrderInfo();
-                mTvTitle.setText("订单详情");
-                mTvBottomBar.setText("提醒客服处理");
-                mEtPersion.setEnabled(false);
-                mEtPhone.setEnabled(false);
-                mEtAddress.setEnabled(false);
+                refreshView();
+
                 dialog.dismiss();
             }
         }).show();
+    }
+
+    private void refreshView() {
+
+        mTvTitle.setText("订单详情");
+        mTvBottomBar.setText("提醒客服处理");
+        mEtPersion.setEnabled(false);
+        mEtPhone.setEnabled(false);
+        mEtAddress.setEnabled(false);
     }
 
     private boolean isPersionUsable() {
