@@ -129,23 +129,4 @@
         android:layout_height="10dp"
         android:layout_below="@id/vDivider_4"
         android:background="@color/bg_app_main" />
-
-    <View
-        android:id="@+id/vDivider_5"
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_below="@id/vSpacing"
-        android:background="@color/list_split" />
-
-    <TextView
-        android:id="@+id/tvOrderId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/vDivider_5"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:text="订  单  号： 1234567"
-        android:textColor="@color/black_trans87"
-        android:textSize="13dp" />
 </RelativeLayout>

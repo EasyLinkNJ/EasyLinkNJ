@@ -1,45 +1,36 @@
-package com.easylink.nj.activity.main;
+package com.easylink.nj.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjHttpFragment;
+import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.adapter.CartListAdapter;
+import com.easylink.nj.adapter.OrderListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
-import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.utils.DBManager;
 
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
-public class OrderListFragment extends NjHttpFragment<ProductList> {
+public class OrderListActivity extends NjHttpActivity<Order> {
 
     private ListView mLvOrder;
-    private CartListAdapter mAdapter;
+    private OrderListAdapter mAdapter;
     private Order mOrder;
     private TextView mTvBottomBar;
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
 
-        super.onActivityCreated(savedInstanceState);
-        setFragmentContentView(R.layout.act_cart);
-    }
-
-    @Override
-    public void onResume() {
-
-        super.onResume();
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_cart);
         if (getData())
             fillData2View();
     }
@@ -60,14 +51,14 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
 
         if (mAdapter == null) {
 
-            mAdapter = new CartListAdapter();
+            mAdapter = new OrderListAdapter();
             mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
                 @Override
                 public void onItemViewClick(int position, View clickView) {
 
                     Cart cart = mAdapter.getItem(position);
-                    ProductDetailActivity.startActivity(getActivity(), cart.productId, true);
+                    ProductDetailActivity.startActivity(OrderListActivity.this, cart.productId, true);
                 }
             });
         }
@@ -82,17 +73,17 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
 
             mLvOrder = (ListView) findViewById(R.id.lvCart);
 
-            View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
-            EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
-            EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
-            EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
-            etPersion.setText(mOrder.address.name);
-            etPhone.setText(mOrder.address.phone);
-            etAddress.setText(mOrder.address.address);
-            etPersion.setEnabled(false);
-            etPhone.setEnabled(false);
-            etAddress.setEnabled(false);
-            mLvOrder.addHeaderView(headerView);
+//            View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
+//            EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
+//            EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
+//            EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
+//            etPersion.setText(mOrder.address.name);
+//            etPhone.setText(mOrder.address.phone);
+//            etAddress.setText(mOrder.address.address);
+//            etPersion.setEnabled(false);
+//            etPhone.setEnabled(false);
+//            etAddress.setEnabled(false);
+//            mLvOrder.addHeaderView(headerView);
 
             mLvOrder.setAdapter(mAdapter);
         } else {
@@ -120,17 +111,24 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
     }
 
     @Override
+    protected void initTitleView() {
+
+        addTitleMiddleTextViewWithBack("我的订单");
+    }
+
+    @Override
     protected void initContentView() {
 
     }
 
     @Override
-    public void invalidateContent(int what, ProductList productList) {
+    public void invalidateContent(int what, Order productList) {
 
     }
 
-    public static OrderListFragment newInstance(FragmentActivity activity) {
+    public static void startActivity(Activity act) {
 
-        return (OrderListFragment) Fragment.instantiate(activity, OrderListFragment.class.getName(), new Bundle());
+        Intent intent = new Intent(act, OrderListActivity.class);
+        act.startActivity(intent);
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.easylink.nj.R;
+import com.easylink.nj.activity.AddressActivity;
+import com.easylink.nj.activity.OrderListActivity;
 import com.easylink.nj.activity.common.NjFragment;
 
 /**
@@ -31,7 +33,7 @@ public class MainMineFragment extends NjFragment {
     @Override
     protected void initContentView() {
 
-        TextView tv = null;
+        TextView tv;
 
         tv = (TextView) findViewById(R.id.tvOrderList);
         tv.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +41,7 @@ public class MainMineFragment extends NjFragment {
             public void onClick(View v) {
 
                 //全部订单
+                OrderListActivity.startActivity(getActivity());
             }
         });
 
@@ -48,6 +51,7 @@ public class MainMineFragment extends NjFragment {
             public void onClick(View v) {
 
                 //收货地址
+                AddressActivity.startActivity(getActivity());
             }
         });
 

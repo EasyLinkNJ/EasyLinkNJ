@@ -64,6 +64,18 @@
             android:name=".activity.OrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateHidden" />
+
+        <activity
+            android:name=".activity.OrderListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.AddressActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.AddressEditActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

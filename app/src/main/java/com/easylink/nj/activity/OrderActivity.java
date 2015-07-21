@@ -15,16 +15,15 @@ import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.adapter.CartListAdapter;
+import com.easylink.nj.adapter.OrderListAdapter;
+import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
-import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.utils.DBManager;
 import com.easylink.nj.utils.DialogUtil;
 import com.easylink.nj.view.BaseDialog;
 import com.easylink.nj.view.BaseDialog.OnViewClickListener;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -32,7 +31,7 @@ import java.util.List;
  */
 public class OrderActivity extends NjHttpActivity<Order> {
 
-    private CartListAdapter mAdapter;
+    private OrderListAdapter mAdapter;
     private TextView mTvTitle, mTvBottomBar;
     private EditText mEtPersion, mEtPhone, mEtAddress;
     private boolean isConfirmed = false;
@@ -59,7 +58,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
         switchContent(0);
         showView(mTvBottomBar);
 
-        mAdapter = new CartListAdapter();
+        mAdapter = new OrderListAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
