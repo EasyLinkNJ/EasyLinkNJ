@@ -31,7 +31,7 @@ public class SplashActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                ProductListActivity.startActivity(SplashActivity.this);
+                ProductListActivity.startActivity(SplashActivity.this, null);//无分类
             }
         });
 

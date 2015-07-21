@@ -47,7 +47,6 @@ public class NjHttpUtil extends BaseHttpUtil {
         HttpTaskParams htp = HttpTaskParams.newPost(URL_NEWS_DETAIL);
         htp.addParam("id", newsId);
         setSignParam(htp);
-
         return htp;
     }
 
@@ -57,7 +56,16 @@ public class NjHttpUtil extends BaseHttpUtil {
         htp.addParam("p", String.valueOf(page));
         htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
+        return htp;
+    }
 
+    public static HttpTaskParams getProductListByCateId(int page, int limitSize, String cateId){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        htp.addParam("cate_id", cateId);
+        setSignParam(htp);
         return htp;
     }
 

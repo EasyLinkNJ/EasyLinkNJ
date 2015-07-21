@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.alibaba.fastjson.JSON;
 import com.easylink.library.http.task.listener.HttpTaskStringListener;
+import com.easylink.library.util.LogMgr;
 
 import org.json.JSONObject;
 
@@ -44,6 +45,9 @@ public abstract class NjJsonListener<T> implements HttpTaskStringListener<NjJson
             if (resp.isSuccess()) {
 
                 jsonText = jsonObj.getString("data").toString();
+                if(LogMgr.isDebug())
+                    LogMgr.d("NjJsonListener", "jsonText = "+jsonText);
+
                 if (TextUtils.isEmpty(jsonText)) {
 
                     resp.setData((T) mClazz.newInstance());
