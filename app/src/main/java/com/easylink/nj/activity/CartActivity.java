@@ -84,12 +84,21 @@ public class CartActivity extends NjHttpActivity<Cart> {
         } else if (vId == R.id.ivAdd) {// add view
 
             cart.count = cart.count + 1;
+            cart.save();
             mAdapter.notifyDataSetChanged();
         } else if (vId == R.id.ivDelete) {// delete view
 
             cart.count = cart.count - 1;
-            if (cart.count == 0)
+            if (cart.count == 0) {
+
                 mAdapter.remove(cart);
+                hideView(mTvBottomBar);
+                switchDisable(R.mipmap.ic_cart_nothing);
+                DBManager.getInstance().clearCart();
+            } else {
+
+                cart.save();
+            }
             mAdapter.notifyDataSetChanged();
         }
     }

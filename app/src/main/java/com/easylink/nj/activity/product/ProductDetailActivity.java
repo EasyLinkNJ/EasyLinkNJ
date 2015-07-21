@@ -129,6 +129,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                         cart.count = cart.count + 1;
                         cart.save();
                     }
+                    showToast("已添加");
                 }
             });
         }

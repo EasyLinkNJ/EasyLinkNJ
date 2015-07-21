@@ -86,9 +86,9 @@ public class OrderListFragment extends NjHttpFragment<ProductList> {
             EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
             EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
             EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
-            etPersion.setText(mOrder.user.name);
-            etPhone.setText(mOrder.user.phone);
-            etAddress.setText(mOrder.user.address);
+            etPersion.setText(mOrder.address.name);
+            etPhone.setText(mOrder.address.phone);
+            etAddress.setText(mOrder.address.address);
             etPersion.setEnabled(false);
             etPhone.setEnabled(false);
             etAddress.setEnabled(false);

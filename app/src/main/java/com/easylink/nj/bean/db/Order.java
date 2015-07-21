@@ -12,14 +12,18 @@ import java.util.List;
 @Table(name = "Order_")
 public class Order extends Model {
 
+    // 订单ID
     @Column(name = "orderId")
     public String orderId;
 
-    @Column(name = "User")
-    public User user;
+    // 关联用户表
+    @Column(name = "Address")
+    public Address address;
 
+    // 订单创建时间
     @Column(name = "time")
     public long time;
 
+    // 关联多个产品
     public List<Cart> carts;
 }

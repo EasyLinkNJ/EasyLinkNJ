@@ -7,9 +7,9 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
-import com.easylink.nj.bean.db.User;
 
 import java.util.List;
 
@@ -39,8 +39,9 @@ public class DBManager {
         } catch (Exception e) {
 
             e.printStackTrace();
-            return null;
         }
+
+        return null;
     }
 
     public synchronized List<Cart> getCarts() {
@@ -51,8 +52,9 @@ public class DBManager {
         } catch (Exception e) {
 
             e.printStackTrace();
-            return null;
         }
+
+        return null;
     }
 
     public synchronized int getCartCount() {
@@ -92,14 +94,40 @@ public class DBManager {
         }
     }
 
-    public synchronized void clearUser() {
+    public synchronized void clearAddress() {
 
         try {
-            new Delete().from(User.class).execute();
+            new Delete().from(Address.class).execute();
         } catch (Exception e) {
 
             e.printStackTrace();
         }
+    }
+
+    public synchronized Address getDefaultAddress() {
+
+        try {
+
+            return new Select().from(Address.class).orderBy(Table.DEFAULT_ID_NAME + " DESC").limit(1).where("isDefault = ?", true).executeSingle();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public synchronized List<Address> getAddresses() {
+
+        try {
+
+            return new Select().from(Address.class).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public synchronized Order getOrder() {
@@ -107,13 +135,16 @@ public class DBManager {
         try {
 
             Order order = new Select().from(Order.class).orderBy("time DESC").limit(1).executeSingle();
+
             if (order != null)
                 order.carts = new Select().from(Cart.class).where("orderId = ?", order.orderId).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+
             return order;
         } catch (Exception e) {
 
             e.printStackTrace();
-            return null;
         }
+
+        return null;
     }
 }

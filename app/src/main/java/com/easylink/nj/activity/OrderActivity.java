@@ -18,12 +18,13 @@ import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
-import com.easylink.nj.bean.db.User;
+import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.utils.DBManager;
 import com.easylink.nj.utils.DialogUtil;
 import com.easylink.nj.view.BaseDialog;
 import com.easylink.nj.view.BaseDialog.OnViewClickListener;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -191,16 +192,22 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
     private void saveOrderInfo() {
 
-        User user = new User();
-        user.name = mEtPersion.getText().toString();
-        user.phone = mEtPhone.getText().toString();
-        user.address = mEtAddress.getText().toString();
-        user.save();
+        List<Address> addresses = DBManager.getInstance().getAddresses();
+        boolean isAddressEmpty = addresses == null || addresses.isEmpty();
 
+        // 保存收货地址
+        Address address = new Address();
+        address.name = mEtPersion.getText().toString();
+        address.phone = mEtPhone.getText().toString();
+        address.address = mEtAddress.getText().toString();
+        address.isDefault = isAddressEmpty;
+        address.save();
+
+        // 保存订单信息
         Order order = new Order();
         order.time = System.currentTimeMillis();
         order.orderId = String.valueOf(order.time);
-        order.user = user;
+        order.address = address;
         order.save();
 
         for (Cart cart : mAdapter.getData()) {
