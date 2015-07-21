@@ -7,6 +7,7 @@ import android.view.View;
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
+import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
 import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.product.Product;
@@ -20,6 +21,15 @@ import java.util.List;
  * Created by KEVIN.DAI on 15/7/14.
  */
 public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
+
+    private String mCateId;
+
+    @Override
+    protected void initData() {
+
+        super.initData();
+        mCateId = TextUtil.filterNull(getIntent().getStringExtra("cateId"));
+    }
 
     @Override
     public ExAdapter getAdapter() {
@@ -48,7 +58,7 @@ public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductList(page, limit);
+        return NjHttpUtil.getProductListByCateId(page, limit, mCateId);
     }
 
     @Override
@@ -63,9 +73,10 @@ public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
         return result == null ? null : result.getList();
     }
 
-    public static void startActivity(Activity act) {
+    public static void startActivity(Activity act, String cateId) {
 
         Intent intent = new Intent(act, ProductListActivity.class);
+        intent.putExtra("cateId", cateId);
         act.startActivity(intent);
     }
 }

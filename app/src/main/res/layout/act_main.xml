@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
+    <com.easylink.library.view.ExViewPager
         android:id="@+id/vpContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,7 +55,7 @@
             android:layout_weight="1" />
 
         <TextView
-            android:id="@+id/tvOrder"
+            android:id="@+id/tvMine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

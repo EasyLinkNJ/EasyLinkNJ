@@ -42,6 +42,7 @@ public abstract class NjHttpXlvFragment<T> extends NjHttpFragment<T>{
     protected void initContentView() {
 
         mXlv = (XListView) findViewById(R.id.lv);
+        onInitXListView(mXlv);
         mXlv.setDivider(new ColorDrawable(getResources().getColor(R.color.list_split)));
         mXlv.setDividerHeight(2);//2px
         mXlv.setAdapter(mAdapter);
@@ -81,6 +82,11 @@ public abstract class NjHttpXlvFragment<T> extends NjHttpFragment<T>{
         });
         mXlv.setPullLoadEnable(false);
         mXlv.setPullRefreshEnable(false);
+    }
+
+    public void onInitXListView(XListView xlv){
+
+
     }
 
     public abstract ExAdapter getAdapter();
