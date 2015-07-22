@@ -8,6 +8,7 @@ import android.content.DialogInterface.OnCancelListener;
 import com.easylink.nj.R;
 import com.easylink.nj.view.BaseDialog.OnViewClickListener;
 import com.easylink.nj.view.ConfirmTitleDialog;
+import com.easylink.nj.view.ListTitleDialog;
 
 
 /**
@@ -25,6 +26,15 @@ public class DialogUtil {
         dialog.setConfirmText(R.string.confirm_ding);
         dialog.setOnConfirmViewClickListener(confirmLisn);
 
+        return dialog;
+    }
+
+    public static ListTitleDialog getListTitleDialog(Context context, ListTitleDialog.OnItemClickListener lins) {
+
+        ListTitleDialog dialog = new ListTitleDialog(context);
+        setDialogCancelable(dialog, true);
+
+        dialog.setOnItemClickListener(lins);
         return dialog;
     }
 

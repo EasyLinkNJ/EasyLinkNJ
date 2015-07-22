@@ -1,17 +1,22 @@
 package com.easylink.nj.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
+import com.easylink.library.adapter.OnItemViewClickListener;
+import com.easylink.library.adapter.OnItemViewLongClickListener;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.adapter.AddressListAdapter;
 import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.utils.DBManager;
+import com.easylink.nj.utils.DialogUtil;
+import com.easylink.nj.view.ListTitleDialog;
 
 import java.util.List;
 
@@ -21,9 +26,8 @@ import java.util.List;
 public class AddressActivity extends NjHttpActivity<Address> {
 
     private List<Address> mAddresses;
-    private ListView mLvAddress;
     private AddressListAdapter mAdapter;
-    private TextView mTvTitlebarRight;
+    private boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +43,19 @@ public class AddressActivity extends NjHttpActivity<Address> {
 
         if (data == null || resultCode != Activity.RESULT_OK)
             return;
+
         boolean isChanged = data.getBooleanExtra("isChanged", false);
         if (isChanged) {
 
             mAddresses = DBManager.getInstance().getAddresses();
             mAdapter.setData(mAddresses);
             mAdapter.notifyDataSetChanged();
+
+            if (flag) {
+
+                setResult(Activity.RESULT_OK, data);
+                finish();
+            }
         }
     }
 
@@ -52,13 +63,14 @@ public class AddressActivity extends NjHttpActivity<Address> {
     protected void initData() {
 
         mAddresses = DBManager.getInstance().getAddresses();
+        flag = getIntent().getBooleanExtra("flag", false);
     }
 
     @Override
     protected void initTitleView() {
 
         addTitleMiddleTextViewWithBack("我的地址");
-        mTvTitlebarRight = addTitleRightTextView("添加", new View.OnClickListener() {
+        addTitleRightTextView("添加", new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -76,11 +88,64 @@ public class AddressActivity extends NjHttpActivity<Address> {
             switchDisable(R.mipmap.ic_address_nothing);
         } else {
 
-//            mTvTitlebarRight.setText("管理");
-            mLvAddress = (ListView) findViewById(R.id.lvAddress);
+            ListView lvAddress = (ListView) findViewById(R.id.lvAddress);
             mAdapter = new AddressListAdapter();
             mAdapter.setData(mAddresses);
-            mLvAddress.setAdapter(mAdapter);
+            mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+
+                @Override
+                public void onItemViewClick(int position, View clickView) {
+
+                    if (flag) {
+
+                        Intent intent = new Intent();
+                        intent.putExtra("addressId", mAdapter.getItem(position).getId().longValue());
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
+                    } else {
+
+                        AddressEditActivity.startActivityForResult(AddressActivity.this, 1, mAdapter.getItem(position).getId());
+                    }
+                }
+            });
+            mAdapter.setOnItemViewLongClickListener(new OnItemViewLongClickListener() {
+
+                @Override
+                public void onItemViewLongClick(int position, View clickView) {
+
+                    final Address address = mAdapter.getItem(position);
+
+                    DialogUtil.getListTitleDialog(AddressActivity.this, new ListTitleDialog.OnItemClickListener() {
+
+                        @Override
+                        public void onItemClick(Dialog dialog, int index) {
+
+                            if (index == 0) {// 设为默认
+
+                                dialog.dismiss();
+
+                                Address defAddress = DBManager.getInstance().getDefaultAddress();
+                                if (defAddress != null) {
+
+                                    defAddress.isDefault = false;
+                                    defAddress.save();
+                                }
+                                address.isDefault = true;
+                                address.save();
+                                mAdapter.notifyDataSetChanged();
+                            } else if (index == 1) {// 删除
+
+                                dialog.dismiss();
+
+                                address.delete();
+                                mAdapter.remove(address);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        }
+                    }).show();
+                }
+            });
+            lvAddress.setAdapter(mAdapter);
         }
     }
 
@@ -93,5 +158,12 @@ public class AddressActivity extends NjHttpActivity<Address> {
 
         Intent intent = new Intent(act, AddressActivity.class);
         act.startActivity(intent);
+    }
+
+    public static void startActivityForResult(Activity act, int requestCode) {
+
+        Intent intent = new Intent(act, AddressActivity.class);
+        intent.putExtra("flag", true);
+        act.startActivityForResult(intent, requestCode);
     }
 }

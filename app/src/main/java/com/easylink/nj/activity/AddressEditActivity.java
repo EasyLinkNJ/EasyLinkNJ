@@ -23,6 +23,7 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
 
     private EditText mEtPersion, mEtPhone, mEtAddress;
     private TextView mTvBottomBar;
+    private Address mAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +35,17 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
     @Override
     protected void initData() {
 
+        long addressId = getIntent().getLongExtra("addressId", -1);
+        if (addressId != -1) {
+
+            mAddress = DBManager.getInstance().getAddress(addressId);
+        }
     }
 
     @Override
     protected void initTitleView() {
 
-        addTitleMiddleTextViewWithBack("添加地址");
+        addTitleMiddleTextViewWithBack(mAddress == null ? "添加地址" : "修改地址");
     }
 
     @Override
@@ -48,6 +54,13 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
         mEtPersion = (EditText) findViewById(R.id.etPersion);
         mEtPhone = (EditText) findViewById(R.id.etTel);
         mEtAddress = (EditText) findViewById(R.id.etAddress);
+
+        if (mAddress != null) {
+
+            mEtPersion.setText(mAddress.name);
+            mEtPhone.setText(mAddress.phone);
+            mEtAddress.setText(mAddress.address);
+        }
 
         mTvBottomBar = (TextView) findViewById(R.id.tvBottomBar);
         mTvBottomBar.setText("确认");
@@ -71,17 +84,19 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
                     boolean isAddressEmpty = addresses == null || addresses.isEmpty();
 
                     // 保存收货地址
-                    Address address = new Address();
-                    address.name = mEtPersion.getText().toString();
-                    address.phone = mEtPhone.getText().toString();
-                    address.address = mEtAddress.getText().toString();
-                    address.isDefault = isAddressEmpty;
-                    address.save();
+                    if (mAddress == null)
+                        mAddress = new Address();
+                    mAddress.name = mEtPersion.getText().toString();
+                    mAddress.phone = mEtPhone.getText().toString();
+                    mAddress.address = mEtAddress.getText().toString();
+                    mAddress.isDefault = isAddressEmpty;
+                    mAddress.save();
 
                     showToast("已保存");
 
                     Intent intent = new Intent();
                     intent.putExtra("isChanged", true);
+                    intent.putExtra("addressId", mAddress.getId().longValue());
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
@@ -114,6 +129,13 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
     public static void startActivityForResult(Activity act, int requestCode) {
 
         Intent intent = new Intent(act, AddressEditActivity.class);
+        act.startActivityForResult(intent, requestCode);
+    }
+
+    public static void startActivityForResult(Activity act, int requestCode, long addressId) {
+
+        Intent intent = new Intent(act, AddressEditActivity.class);
+        intent.putExtra("addressId", addressId);
         act.startActivityForResult(intent, requestCode);
     }
 }

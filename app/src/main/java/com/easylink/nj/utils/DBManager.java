@@ -130,6 +130,19 @@ public class DBManager {
         return null;
     }
 
+    public synchronized Address getAddress(long id) {
+
+        try {
+
+            return new Select().from(Address.class).where(Table.DEFAULT_ID_NAME + " = ?", id).executeSingle();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public synchronized Order getOrder() {
 
         try {

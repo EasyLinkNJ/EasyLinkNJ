@@ -32,7 +32,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:text="主页"
-            android:textColor="@color/black_trans87"
+            android:textColor="@drawable/selector_color_main_tab"
             android:textSize="14dp" />
 
         <TextView
@@ -44,7 +44,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:text="分类"
-            android:textColor="@color/black_trans87"
+            android:textColor="@drawable/selector_color_main_tab"
             android:textSize="14dp" />
 
         <include
@@ -63,7 +63,7 @@
             android:gravity="center"
             android:paddingBottom="5dp"
             android:text="我的"
-            android:textColor="@color/black_trans87"
+            android:textColor="@drawable/selector_color_main_tab"
             android:textSize="14dp" />
     </LinearLayout>
 </LinearLayout>

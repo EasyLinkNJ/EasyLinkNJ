@@ -1,5 +1,8 @@
 package com.easylink.nj.adapter;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.TextView;
 
@@ -42,6 +45,15 @@ public class AddressListAdapter extends ExAdapter<Address> {
                     callbackOnItemViewClickListener(mPosition, v);
                 }
             });
+            convertView.setOnLongClickListener(new View.OnLongClickListener() {
+
+                @Override
+                public boolean onLongClick(View v) {
+
+                    callbackOnItemViewLongClickListener(mPosition, v);
+                    return true;
+                }
+            });
 
             mTvName = (TextView) convertView.findViewById(R.id.tvName);
             mTvPhone = (TextView) convertView.findViewById(R.id.tvPhone);
@@ -52,10 +64,18 @@ public class AddressListAdapter extends ExAdapter<Address> {
         public void invalidateConvertView() {
 
             Address address = getItem(mPosition);
-//            mTvName.setText(address.name);
-            mTvName.append(address.name);
+            mTvName.setText("收  货  人：" + address.name);
             mTvPhone.setText(address.phone);
-            mTvAddress.setText(address.address);
+            if (address.isDefault) {
+
+                String str = "[默认] ";
+                SpannableString ss = new SpannableString(str + address.address);
+                ss.setSpan(new ForegroundColorSpan(mTvAddress.getResources().getColor(R.color.bg_title_bar)), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                mTvAddress.setText(ss);
+            } else {
+
+                mTvAddress.setText(address.address);
+            }
         }
     }
 }

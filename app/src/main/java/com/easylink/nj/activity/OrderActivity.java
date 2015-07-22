@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -41,6 +44,27 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_cart);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (data == null || data == null)
+            return;
+
+        long addressId = data.getLongExtra("addressId", -1);
+        if (addressId != -1) {
+
+            Address address = DBManager.getInstance().getAddress(addressId);
+            if (address != null) {
+
+                mEtPersion.setText(address.name);
+                mEtPhone.setText(address.phone);
+                mEtAddress.setText(address.address);
+            }
+        }
     }
 
     @Override
@@ -112,6 +136,35 @@ public class OrderActivity extends NjHttpActivity<Order> {
         mEtPersion = (EditText) headerView.findViewById(R.id.etPersion);
         mEtPhone = (EditText) headerView.findViewById(R.id.etTel);
         mEtAddress = (EditText) headerView.findViewById(R.id.etAddress);
+
+        mEtPersion.setEnabled(false);
+        mEtPhone.setEnabled(false);
+        mEtAddress.setEnabled(false);
+
+//        mEtPersion.setTextColor(getResources().getColor(R.color.black_trans54));
+//        mEtPhone.setTextColor(getResources().getColor(R.color.black_trans54));
+//        mEtAddress.setTextColor(getResources().getColor(R.color.black_trans54));
+
+        Address address = DBManager.getInstance().getDefaultAddress();
+        if (address != null) {
+
+            mEtPersion.setText(address.name);
+            mEtPhone.setText(address.phone);
+            String str = "[默认] ";
+            SpannableString ss = new SpannableString(str + address.address);
+            ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bg_title_bar)), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mEtAddress.setText(ss);
+        }
+        View headerOther = ViewUtil.inflateLayout(R.layout.view_order_header_other);
+        headerOther.findViewById(R.id.tvSwitchAddress).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                AddressActivity.startActivityForResult(OrderActivity.this, 0);
+            }
+        });
+        lvOrder.addHeaderView(headerOther);
         lvOrder.addHeaderView(headerView);
 
         lvOrder.setAdapter(mAdapter);
