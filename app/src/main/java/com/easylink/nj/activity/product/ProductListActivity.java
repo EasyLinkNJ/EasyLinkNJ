@@ -2,6 +2,7 @@ package com.easylink.nj.activity.product;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.easylink.library.adapter.ExAdapter;
@@ -23,6 +24,13 @@ import java.util.List;
 public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
 
     private String mCateId;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        loadDataFromServer();
+    }
 
     @Override
     protected void initData() {

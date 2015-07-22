@@ -2,6 +2,7 @@ package com.easylink.nj.httptask;
 
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.DeviceUtil;
+import com.easylink.library.util.TextUtil;
 
 /**
  * 网络接口工具类
@@ -65,6 +66,16 @@ public class NjHttpUtil extends BaseHttpUtil {
         htp.addParam("p", String.valueOf(page));
         htp.addParam("ps", String.valueOf(limitSize));
         htp.addParam("cate_id", cateId);
+        setSignParam(htp);
+        return htp;
+    }
+
+    public static HttpTaskParams getProductListByKey(int page, int limitSize, String key){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        htp.addParam("keyword", TextUtil.filterNull(key));
         setSignParam(htp);
         return htp;
     }

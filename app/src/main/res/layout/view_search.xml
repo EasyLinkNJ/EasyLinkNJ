@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EditText xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
     android:background="@drawable/shape_bg_search"
-    android:drawablePadding="5dp"
-    android:drawableRight="@mipmap/ic_search_white"
     android:paddingLeft="12dp"
-    android:paddingRight="8dp"
+    android:paddingRight="12dp"
     android:singleLine="true"
     android:textColor="@color/white_trans87"
     android:textCursorDrawable="@mipmap/zic_cursor_white"
-    android:textSize="13dp" />
+    android:textSize="13dp"
+    android:gravity="center_vertical"/>

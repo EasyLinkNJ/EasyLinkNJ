@@ -17,17 +17,20 @@ import java.util.List;
  */
 public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
 
+    private final int HTTP_TASK_WHAT_UI = -1;
+    private final int HTTP_TASK_WHAT_PULL = -2;
+    private final int HTTP_TASK_WHAT_MORE = -3;
     private final int LIMIT_SIZE = 10;
     private XListView mXlv;
     private ExAdapter mAdapter;
     private int mCurrentPage = 1;
+    private boolean mPullEnable = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(ViewUtil.getCleanXListView(this, R.id.lv));
-        loadDataFromServer();
     }
 
     @Override
@@ -47,7 +50,7 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
             @Override
             public void onRefresh(boolean force) {
 
-                executeHttpTaskByUiSwitch(1, getXlvHttpTaskParam(1, LIMIT_SIZE), getXlvJsonClazz());
+                executeHttpTaskByUiSwitch(HTTP_TASK_WHAT_PULL, getXlvHttpTaskParam(1, LIMIT_SIZE), getXlvJsonClazz());
             }
 
             @Override
@@ -58,7 +61,7 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
                     return false;
                 }else{
 
-                    executeHttpTaskByUiSwitch(2, getXlvHttpTaskParam(mCurrentPage+1, LIMIT_SIZE), getXlvJsonClazz());
+                    executeHttpTaskByUiSwitch(HTTP_TASK_WHAT_MORE, getXlvHttpTaskParam(mCurrentPage+1, LIMIT_SIZE), getXlvJsonClazz());
                     return true;
                 }
             }
@@ -72,11 +75,12 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
                     return false;
                 }else{
 
-                    executeHttpTaskByUiSwitch(2, getXlvHttpTaskParam(mCurrentPage+1, LIMIT_SIZE), getXlvJsonClazz());
+                    executeHttpTaskByUiSwitch(HTTP_TASK_WHAT_MORE, getXlvHttpTaskParam(mCurrentPage+1, LIMIT_SIZE), getXlvJsonClazz());
                     return true;
                 }
             }
         });
+
         mXlv.setPullLoadEnable(false);
         mXlv.setPullRefreshEnable(false);
     }
@@ -87,43 +91,46 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
 
     protected void loadDataFromServer() {
 
-        executeHttpTaskByUiSwitch(0, getXlvHttpTaskParam(1, LIMIT_SIZE), getXlvJsonClazz());
+        executeHttpTaskByUiSwitch(HTTP_TASK_WHAT_UI, getXlvHttpTaskParam(1, LIMIT_SIZE), getXlvJsonClazz());
     }
 
     @Override
     public void switchLoading(int what) {
 
-        if(what == 0)
+        if(what == HTTP_TASK_WHAT_UI)
             super.switchLoading(what);
     }
 
     @Override
     public void switchFailed(int what, int failedCode, String msg) {
 
-        if(what == 0)
+        if(what == HTTP_TASK_WHAT_UI)
             super.switchFailed(what, failedCode, msg);
 
-        if(what == 1)
+        if(what == HTTP_TASK_WHAT_PULL)
             mXlv.stopRefresh();
 
-        if(what == 2)
+        if(what == HTTP_TASK_WHAT_MORE)
             mXlv.stopLoadMoreFailed();
     }
 
     @Override
-    public void invalidateContent(int what, T data) {
+    public boolean invalidateContent(int what, T data) {
 
         List<?> list = getListOnInvalidateContent(data);
-        if(what == 0){
+        if(what == HTTP_TASK_WHAT_UI){
 
             mAdapter.setData(list);
             mAdapter.notifyDataSetChanged();
 
-            mXlv.setPullRefreshEnable(data != null && list.size() > 0);
+            if(mPullEnable)
+                mXlv.setPullRefreshEnable(data != null && list.size() > 0);
+
             mXlv.setPullLoadEnable(data != null && list.size() >= LIMIT_SIZE);
             mCurrentPage = 1;
+            return list != null && list.size() > 0;
 
-        }else if(what == 1){
+        }else if(what == HTTP_TASK_WHAT_PULL){
 
             //下拉刷新
             mAdapter.setData(list);
@@ -133,8 +140,9 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
             mXlv.setPullLoadEnable(data != null && list.size() >= LIMIT_SIZE);
             mXlv.stopRefresh();
             mCurrentPage = 1;
+            return list != null && list.size() > 0;
 
-        }else if(what == 2){
+        }else if(what == HTTP_TASK_WHAT_MORE){
 
             //加载更多
             mAdapter.addAll(list);
@@ -143,7 +151,10 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
             mXlv.setPullLoadEnable(data != null && list.size() >= LIMIT_SIZE);
             mXlv.stopLoadMore();
             mCurrentPage += 1;
+            return true;
         }
+
+        return true;
     }
 
     protected List<?> getListOnInvalidateContent(T result){
@@ -154,13 +165,18 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
     @Override
     public void switchContent(int what) {
 
-        if(what == 0)
+        if(what == HTTP_TASK_WHAT_UI)
             super.switchContent(what);
     }
 
     @Override
-    protected void onTipViewClick() {
+    public void onTipViewFailedClick() {
 
         loadDataFromServer();
+    }
+
+    public void setPullEnable(boolean enable){
+
+        mPullEnable = enable;
     }
 }

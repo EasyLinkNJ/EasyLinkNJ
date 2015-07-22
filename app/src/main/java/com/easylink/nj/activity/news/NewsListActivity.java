@@ -34,7 +34,14 @@ import java.util.List;
  */
 public class NewsListActivity extends NjHttpXlvActivity<NewsList> {
 
-        @Override
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        loadDataFromServer();
+    }
+
+    @Override
     protected void initTitleView() {
 
         addTitleMiddleTextViewWithBack(R.string.news_list);

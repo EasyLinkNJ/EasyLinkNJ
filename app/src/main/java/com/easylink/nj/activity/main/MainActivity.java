@@ -19,6 +19,7 @@ import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.library.view.ExViewPager;
 import com.easylink.nj.R;
+import com.easylink.nj.activity.product.ProductSearchActivity;
 import com.easylink.nj.utils.DBManager;
 
 import java.util.ArrayList;
@@ -74,6 +75,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
 
+                ProductSearchActivity.startActivity(MainActivity.this);
             }
         });
         ViewUtil.hideImageView(mIvSearch);

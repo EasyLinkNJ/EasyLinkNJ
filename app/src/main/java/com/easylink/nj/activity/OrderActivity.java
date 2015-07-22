@@ -266,8 +266,9 @@ public class OrderActivity extends NjHttpActivity<Order> {
     }
 
     @Override
-    public void invalidateContent(int what, Order order) {
+    public boolean invalidateContent(int what, Order order) {
 
+        return true;
     }
 
     public static void startActivity(Activity act) {
