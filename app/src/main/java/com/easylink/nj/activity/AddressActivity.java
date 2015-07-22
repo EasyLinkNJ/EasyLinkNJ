@@ -51,6 +51,8 @@ public class AddressActivity extends NjHttpActivity<Address> {
             mAdapter.setData(mAddresses);
             mAdapter.notifyDataSetChanged();
 
+            switchContent(0);
+
             if (flag) {
 
                 setResult(Activity.RESULT_OK, data);
@@ -83,70 +85,67 @@ public class AddressActivity extends NjHttpActivity<Address> {
     @Override
     protected void initContentView() {
 
-        if (mAddresses == null || mAddresses.isEmpty()) {
+        ListView lvAddress = (ListView) findViewById(R.id.lvAddress);
+        mAdapter = new AddressListAdapter();
+        mAdapter.setData(mAddresses);
+        mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
-            switchDisable(R.mipmap.ic_address_nothing);
-        } else {
+            @Override
+            public void onItemViewClick(int position, View clickView) {
 
-            ListView lvAddress = (ListView) findViewById(R.id.lvAddress);
-            mAdapter = new AddressListAdapter();
-            mAdapter.setData(mAddresses);
-            mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+                if (flag) {
 
-                @Override
-                public void onItemViewClick(int position, View clickView) {
+                    Intent intent = new Intent();
+                    intent.putExtra("addressId", mAdapter.getItem(position).getId().longValue());
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                } else {
 
-                    if (flag) {
-
-                        Intent intent = new Intent();
-                        intent.putExtra("addressId", mAdapter.getItem(position).getId().longValue());
-                        setResult(Activity.RESULT_OK, intent);
-                        finish();
-                    } else {
-
-                        AddressEditActivity.startActivityForResult(AddressActivity.this, 1, mAdapter.getItem(position).getId());
-                    }
+                    AddressEditActivity.startActivityForResult(AddressActivity.this, 1, mAdapter.getItem(position).getId());
                 }
-            });
-            mAdapter.setOnItemViewLongClickListener(new OnItemViewLongClickListener() {
+            }
+        });
+        mAdapter.setOnItemViewLongClickListener(new OnItemViewLongClickListener() {
 
-                @Override
-                public void onItemViewLongClick(int position, View clickView) {
+            @Override
+            public void onItemViewLongClick(int position, View clickView) {
 
-                    final Address address = mAdapter.getItem(position);
+                final Address address = mAdapter.getItem(position);
 
-                    DialogUtil.getListTitleDialog(AddressActivity.this, new ListTitleDialog.OnItemClickListener() {
+                DialogUtil.getListTitleDialog(AddressActivity.this, new ListTitleDialog.OnItemClickListener() {
 
-                        @Override
-                        public void onItemClick(Dialog dialog, int index) {
+                    @Override
+                    public void onItemClick(Dialog dialog, int index) {
 
-                            if (index == 0) {// 设为默认
+                        if (index == 0) {// 设为默认
 
-                                dialog.dismiss();
+                            dialog.dismiss();
 
-                                Address defAddress = DBManager.getInstance().getDefaultAddress();
-                                if (defAddress != null) {
+                            Address defAddress = DBManager.getInstance().getDefaultAddress();
+                            if (defAddress != null) {
 
-                                    defAddress.isDefault = false;
-                                    defAddress.save();
-                                }
-                                address.isDefault = true;
-                                address.save();
-                                mAdapter.notifyDataSetChanged();
-                            } else if (index == 1) {// 删除
-
-                                dialog.dismiss();
-
-                                address.delete();
-                                mAdapter.remove(address);
-                                mAdapter.notifyDataSetChanged();
+                                defAddress.isDefault = false;
+                                defAddress.save();
                             }
+                            address.isDefault = true;
+                            address.save();
+                            mAdapter.notifyDataSetChanged();
+                        } else if (index == 1) {// 删除
+
+                            dialog.dismiss();
+
+                            address.delete();
+                            mAdapter.remove(address);
+                            mAdapter.notifyDataSetChanged();
                         }
-                    }).show();
-                }
-            });
-            lvAddress.setAdapter(mAdapter);
-        }
+                    }
+                }).show();
+            }
+        });
+        lvAddress.setAdapter(mAdapter);
+
+        if (mAddresses == null || mAddresses.isEmpty())
+            switchDisable(R.mipmap.ic_address_nothing);
     }
 
     @Override
