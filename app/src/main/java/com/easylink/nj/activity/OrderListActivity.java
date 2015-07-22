@@ -72,19 +72,6 @@ public class OrderListActivity extends NjHttpActivity<Order> {
         if (mLvOrder == null) {
 
             mLvOrder = (ListView) findViewById(R.id.lvCart);
-
-//            View headerView = ViewUtil.inflateLayout(R.layout.view_order_header);
-//            EditText etPersion = (EditText) headerView.findViewById(R.id.etPersion);
-//            EditText etPhone = (EditText) headerView.findViewById(R.id.etTel);
-//            EditText etAddress = (EditText) headerView.findViewById(R.id.etAddress);
-//            etPersion.setText(mOrder.address.name);
-//            etPhone.setText(mOrder.address.phone);
-//            etAddress.setText(mOrder.address.address);
-//            etPersion.setEnabled(false);
-//            etPhone.setEnabled(false);
-//            etAddress.setEnabled(false);
-//            mLvOrder.addHeaderView(headerView);
-
             mLvOrder.setAdapter(mAdapter);
         } else {
 

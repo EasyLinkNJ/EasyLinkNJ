@@ -227,6 +227,9 @@ public class OrderActivity extends NjHttpActivity<Order> {
             @Override
             public void onViewClick(BaseDialog dialog, View v) {
 
+                mLvOrder.removeHeaderView(mTvHeaderTitle);
+                isHeaderAdded = false;
+
                 isConfirmed = true;
 
                 saveOrderInfo();

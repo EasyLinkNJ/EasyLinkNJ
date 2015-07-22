@@ -25,7 +25,7 @@
         android:layout_below="@id/tvName"
         android:layout_marginTop="6dp"
         android:ellipsize="end"
-        android:paddingRight="16dp"
+        android:paddingRight="25dp"
         android:singleLine="true"
         android:textColor="@color/black_trans87"
         android:textSize="13dp" />
