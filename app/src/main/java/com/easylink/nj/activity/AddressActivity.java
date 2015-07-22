@@ -2,7 +2,6 @@ package com.easylink.nj.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.admin.DeviceAdminInfo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,7 +26,8 @@ public class AddressActivity extends NjHttpActivity<Address> {
 
     private List<Address> mAddresses;
     private AddressListAdapter mAdapter;
-    private boolean flag;
+    private boolean isFromOrder;
+    private long mAddressId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class AddressActivity extends NjHttpActivity<Address> {
 
             switchContent(0);
 
-            if (flag) {
+            if (isFromOrder) {
 
                 setResult(Activity.RESULT_OK, data);
                 finish();
@@ -65,7 +65,8 @@ public class AddressActivity extends NjHttpActivity<Address> {
     protected void initData() {
 
         mAddresses = DBManager.getInstance().getAddresses();
-        flag = getIntent().getBooleanExtra("flag", false);
+        isFromOrder = getIntent().getBooleanExtra("isFromOrder", false);
+        mAddressId = getIntent().getLongExtra("addressId", -1);
     }
 
     @Override
@@ -87,13 +88,14 @@ public class AddressActivity extends NjHttpActivity<Address> {
 
         ListView lvAddress = (ListView) findViewById(R.id.lvAddress);
         mAdapter = new AddressListAdapter();
+        mAdapter.setSelectId(mAddressId);
         mAdapter.setData(mAddresses);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
             @Override
             public void onItemViewClick(int position, View clickView) {
 
-                if (flag) {
+                if (isFromOrder) {
 
                     Intent intent = new Intent();
                     intent.putExtra("addressId", mAdapter.getItem(position).getId().longValue());
@@ -105,43 +107,44 @@ public class AddressActivity extends NjHttpActivity<Address> {
                 }
             }
         });
-        mAdapter.setOnItemViewLongClickListener(new OnItemViewLongClickListener() {
+        if (!isFromOrder)
+            mAdapter.setOnItemViewLongClickListener(new OnItemViewLongClickListener() {
 
-            @Override
-            public void onItemViewLongClick(int position, View clickView) {
+                @Override
+                public void onItemViewLongClick(int position, View clickView) {
 
-                final Address address = mAdapter.getItem(position);
+                    final Address address = mAdapter.getItem(position);
 
-                DialogUtil.getListTitleDialog(AddressActivity.this, new ListTitleDialog.OnItemClickListener() {
+                    DialogUtil.getListTitleDialog(AddressActivity.this, new ListTitleDialog.OnItemClickListener() {
 
-                    @Override
-                    public void onItemClick(Dialog dialog, int index) {
+                        @Override
+                        public void onItemClick(Dialog dialog, int index) {
 
-                        if (index == 0) {// 设为默认
+                            if (index == 0) {// 设为默认
 
-                            dialog.dismiss();
+                                dialog.dismiss();
 
-                            Address defAddress = DBManager.getInstance().getDefaultAddress();
-                            if (defAddress != null) {
+                                Address defAddress = DBManager.getInstance().getDefaultAddress();
+                                if (defAddress != null) {
 
-                                defAddress.isDefault = false;
-                                defAddress.save();
+                                    defAddress.isDefault = false;
+                                    defAddress.save();
+                                }
+                                address.isDefault = true;
+                                address.save();
+                                mAdapter.notifyDataSetChanged();
+                            } else if (index == 1) {// 删除
+
+                                dialog.dismiss();
+
+                                address.delete();
+                                mAdapter.remove(address);
+                                mAdapter.notifyDataSetChanged();
                             }
-                            address.isDefault = true;
-                            address.save();
-                            mAdapter.notifyDataSetChanged();
-                        } else if (index == 1) {// 删除
-
-                            dialog.dismiss();
-
-                            address.delete();
-                            mAdapter.remove(address);
-                            mAdapter.notifyDataSetChanged();
                         }
-                    }
-                }).show();
-            }
-        });
+                    }).show();
+                }
+            });
         lvAddress.setAdapter(mAdapter);
 
         if (mAddresses == null || mAddresses.isEmpty())
@@ -159,10 +162,11 @@ public class AddressActivity extends NjHttpActivity<Address> {
         act.startActivity(intent);
     }
 
-    public static void startActivityForResult(Activity act, int requestCode) {
+    public static void startActivityForResult(Activity act, int requestCode, long addressId) {
 
         Intent intent = new Intent(act, AddressActivity.class);
-        intent.putExtra("flag", true);
+        intent.putExtra("isFromOrder", true);
+        intent.putExtra("addressId", addressId);
         act.startActivityForResult(intent, requestCode);
     }
 }

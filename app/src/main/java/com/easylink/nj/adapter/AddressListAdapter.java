@@ -4,11 +4,13 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
+import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.bean.db.Address;
 
@@ -17,6 +19,13 @@ import com.easylink.nj.bean.db.Address;
  * Created by KEVIN.DAI on 15/7/14.
  */
 public class AddressListAdapter extends ExAdapter<Address> {
+
+    private long mSelectId = -1;
+
+    public void setSelectId(long id) {
+
+        mSelectId = id;
+    }
 
     @Override
     protected ExViewHolder getViewHolder(int position) {
@@ -27,6 +36,7 @@ public class AddressListAdapter extends ExAdapter<Address> {
     private final class ViewHolder extends ExViewHolderBase {
 
         private TextView mTvName, mTvPhone, mTvAddress;
+        private ImageView mIvIcon;
 
         @Override
         public int getConvertViewRid() {
@@ -58,6 +68,8 @@ public class AddressListAdapter extends ExAdapter<Address> {
             mTvName = (TextView) convertView.findViewById(R.id.tvName);
             mTvPhone = (TextView) convertView.findViewById(R.id.tvPhone);
             mTvAddress = (TextView) convertView.findViewById(R.id.tvAddress);
+            mIvIcon = (ImageView) convertView.findViewById(R.id.ivIcon);
+            ViewUtil.hideView(mIvIcon);
         }
 
         @Override
@@ -65,7 +77,7 @@ public class AddressListAdapter extends ExAdapter<Address> {
 
             Address address = getItem(mPosition);
             mTvName.setText("收  货  人：" + address.name);
-            mTvPhone.setText(address.phone);
+            mTvPhone.setText("联系方式：" + address.phone);
             if (address.isDefault) {
 
                 String str = "[默认] ";
@@ -75,6 +87,18 @@ public class AddressListAdapter extends ExAdapter<Address> {
             } else {
 
                 mTvAddress.setText(address.address);
+            }
+            if (mSelectId != -1) {
+
+                if (mSelectId == address.getId()) {
+
+                    mIvIcon.setImageResource(R.mipmap.ic_done_view);
+                    ViewUtil.showView(mIvIcon);
+                }
+            } else {
+
+                mIvIcon.setImageResource(R.mipmap.ic_arrow_right_gray);
+                ViewUtil.showView(mIvIcon);
             }
         }
     }

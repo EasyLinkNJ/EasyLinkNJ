@@ -202,7 +202,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
             @Override
             public void onClick(View v) {
 
-                AddressActivity.startActivityForResult(OrderActivity.this, 0);
+                AddressActivity.startActivityForResult(OrderActivity.this, 0, mAddress == null ? -1 : mAddress.getId());
             }
         });
     }

@@ -3,12 +3,10 @@ package com.easylink.nj.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.easylink.library.util.TextUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.bean.db.Address;
@@ -69,15 +67,15 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
             @Override
             public void onClick(View v) {
 
-                if (!isPersionUsable()) {
+                if (mEtPersion.getText().toString().trim().isEmpty()) {
 
-                    showToast("请填写正确的收货人信息");
-                } else if (!isPhoneUsable()) {
+                    showToast("请填写收货人信息");
+                } else if (mEtPhone.getText().toString().trim().isEmpty()) {
 
-                    showToast("请填写正确的电话号码");
-                } else if (!isAddressUsable()) {
+                    showToast("请填写电话号码");
+                } else if (mEtAddress.getText().toString().trim().isEmpty()) {
 
-                    showToast("请填写详细的收货地址");
+                    showToast("请填写收货地址");
                 } else {
 
                     List<Address> addresses = DBManager.getInstance().getAddresses();
@@ -102,23 +100,6 @@ public class AddressEditActivity extends NjHttpActivity<Address> {
                 }
             }
         });
-    }
-
-    private boolean isPersionUsable() {
-
-        Editable name = mEtPersion.getText();
-        int length = name.length();
-        return TextUtil.isNotEmpty(name) && length > 1 && length <= 4;
-    }
-
-    private boolean isPhoneUsable() {
-
-        return TextUtil.isMobile(mEtPhone.getText());
-    }
-
-    private boolean isAddressUsable() {
-
-        return TextUtil.isNotEmpty(mEtAddress.getText()) && mEtAddress.length() > 5;
     }
 
     @Override
