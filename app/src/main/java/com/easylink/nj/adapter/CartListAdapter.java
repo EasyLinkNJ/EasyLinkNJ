@@ -26,7 +26,7 @@ public class CartListAdapter extends ExAdapter<Cart> {
     private final class ViewHolder extends ExViewHolderBase {
 
         private SimpleDraweeView mSdvCover;
-        private TextView mTvTitle, mTvPrice, mTvCount;
+        private TextView mTvTitle, mTvPrice, mTvNum, mTvCount;
         private ImageView mIvAdd, mIvDelete;
 
         @Override
@@ -50,6 +50,7 @@ public class CartListAdapter extends ExAdapter<Cart> {
             mSdvCover = (SimpleDraweeView) convertView.findViewById(R.id.sdvCover);
             mTvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             mTvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
+            mTvNum = (TextView) convertView.findViewById(R.id.tvSelectNum);
             mTvCount = (TextView) convertView.findViewById(R.id.tvCount);
             mIvAdd = (ImageView) convertView.findViewById(R.id.ivAdd);
             mIvDelete = (ImageView) convertView.findViewById(R.id.ivDelete);
@@ -79,6 +80,7 @@ public class CartListAdapter extends ExAdapter<Cart> {
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);
             mTvCount.setText(String.valueOf(cart.count));
+            mTvNum.setText("数量：x " + String.valueOf(cart.count));
         }
     }
 }

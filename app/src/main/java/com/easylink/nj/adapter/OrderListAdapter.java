@@ -2,7 +2,6 @@ package com.easylink.nj.adapter;
 
 import android.net.Uri;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.ExAdapter;
@@ -26,8 +25,7 @@ public class OrderListAdapter extends ExAdapter<Cart> {
     private final class ViewHolder extends ExViewHolderBase {
 
         private SimpleDraweeView mSdvCover;
-        private TextView mTvTitle, mTvPrice, mTvCount;
-        private ImageView mIvAdd, mIvDelete;
+        private TextView mTvTitle, mTvPrice, mTvNum, mTvTotalPrice;
 
         @Override
         public int getConvertViewRid() {
@@ -50,25 +48,13 @@ public class OrderListAdapter extends ExAdapter<Cart> {
             mSdvCover = (SimpleDraweeView) convertView.findViewById(R.id.sdvCover);
             mTvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             mTvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
-            mTvCount = (TextView) convertView.findViewById(R.id.tvCount);
-            mIvAdd = (ImageView) convertView.findViewById(R.id.ivAdd);
-            mIvDelete = (ImageView) convertView.findViewById(R.id.ivDelete);
-            mIvAdd.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                    callbackOnItemViewClickListener(mPosition, v);
-                }
-            });
-            mIvDelete.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-
-                    callbackOnItemViewClickListener(mPosition, v);
-                }
-            });
+            mTvNum = (TextView) convertView.findViewById(R.id.tvSelectNum);
+            convertView.findViewById(R.id.tvNum).setVisibility(View.GONE);
+            convertView.findViewById(R.id.tvCount).setVisibility(View.GONE);
+            convertView.findViewById(R.id.ivAdd).setVisibility(View.GONE);
+            convertView.findViewById(R.id.ivDelete).setVisibility(View.GONE);
+            mTvTotalPrice = (TextView) convertView.findViewById(R.id.tvTotalPrice);
+            mTvTotalPrice.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -78,7 +64,16 @@ public class OrderListAdapter extends ExAdapter<Cart> {
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);
-            mTvCount.setText(String.valueOf(cart.count));
+            mTvNum.setText("数量：x " + String.valueOf(cart.count));
+
+            try {
+
+                int price = Integer.valueOf(cart.price.substring(0, cart.price.indexOf("万"))) * cart.count;
+                mTvTotalPrice.setText("总价：￥" + price + "万");
+            } catch (Exception e) {
+
+                mTvTotalPrice.setText("总价：面议");
+            }
         }
     }
 }
