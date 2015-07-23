@@ -57,8 +57,9 @@ public class OrderListActivity extends NjHttpActivity<Order> {
                 @Override
                 public void onItemViewClick(int position, View clickView) {
 
-//                    Order order = mAdapter.getItem(position);
-//                    ProductDetailActivity.startActivity(OrderListActivity.this, order.carts.get(position).productId, true);
+                    Cart cart = mAdapter.getItem(position);
+                    if (cart != null)
+                        OrderDetailActivity.startActivity(OrderListActivity.this, cart.getId());
                 }
             });
         }

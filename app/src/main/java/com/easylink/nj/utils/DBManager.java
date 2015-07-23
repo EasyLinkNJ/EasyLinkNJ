@@ -44,11 +44,36 @@ public class DBManager {
         return null;
     }
 
+    public synchronized List<Cart> getCart(long id) {
+
+        try {
+
+            return new Select().from(Cart.class).where(Table.DEFAULT_ID_NAME + " = ?", id).execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public synchronized List<Cart> getCarts() {
 
         try {
 
             return new Select().from(Cart.class).where("orderId IS NULL").execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public synchronized Order getOrder(String orderId) {
+
+        try {
+
+            return new Select().from(Order.class).where("orderId = ?", orderId).executeSingle();
         } catch (Exception e) {
 
             e.printStackTrace();

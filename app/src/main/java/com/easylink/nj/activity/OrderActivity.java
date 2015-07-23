@@ -222,9 +222,6 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
         mTvTitle.setText("订单详情");
         mTvBottomBar.setText("提醒客服处理");
-        mEtPersion.setEnabled(false);
-        mEtPhone.setEnabled(false);
-        mEtAddress.setEnabled(false);
     }
 
     private void saveOrderInfo() {
