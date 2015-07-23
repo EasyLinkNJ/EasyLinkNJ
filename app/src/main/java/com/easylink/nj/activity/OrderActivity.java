@@ -16,7 +16,7 @@ import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.adapter.OrderListAdapter;
+import com.easylink.nj.adapter.OrderAdapter;
 import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class OrderActivity extends NjHttpActivity<Order> {
 
-    private OrderListAdapter mAdapter;
+    private OrderAdapter mAdapter;
     private TextView mTvTitle, mTvBottomBar;
     private EditText mEtPersion, mEtPhone, mEtAddress;
     private boolean isConfirmed = false;
@@ -94,7 +94,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
         switchContent(0);
         showView(mTvBottomBar);
 
-        mAdapter = new OrderListAdapter();
+        mAdapter = new OrderAdapter();
         mAdapter.setData(carts);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 

@@ -10,11 +10,11 @@ import android.widget.TextView;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
-import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.adapter.OrderListAdapter;
-import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
 import com.easylink.nj.utils.DBManager;
+
+import java.util.List;
 
 /**
  * Created by KEVIN.DAI on 15/7/18.
@@ -23,7 +23,7 @@ public class OrderListActivity extends NjHttpActivity<Order> {
 
     private ListView mLvOrder;
     private OrderListAdapter mAdapter;
-    private Order mOrder;
+    private List<Order> mOrders;
     private TextView mTvBottomBar;
 
     @Override
@@ -37,8 +37,8 @@ public class OrderListActivity extends NjHttpActivity<Order> {
 
     private boolean getData() {
 
-        mOrder = DBManager.getInstance().getOrder();
-        if (mOrder == null || mOrder.carts == null || mOrder.carts.isEmpty()) {
+        mOrders = DBManager.getInstance().getOrders();
+        if (mOrders == null || mOrders.isEmpty()) {
 
             switchDisable(R.mipmap.ic_order_nothing);
             hideView(mTvBottomBar);
@@ -57,12 +57,12 @@ public class OrderListActivity extends NjHttpActivity<Order> {
                 @Override
                 public void onItemViewClick(int position, View clickView) {
 
-                    Cart cart = mAdapter.getItem(position);
-                    ProductDetailActivity.startActivity(OrderListActivity.this, cart.productId, true);
+//                    Order order = mAdapter.getItem(position);
+//                    ProductDetailActivity.startActivity(OrderListActivity.this, order.carts.get(position).productId, true);
                 }
             });
         }
-        mAdapter.setData(mOrder.carts);
+        mAdapter.setData(mOrders);
 
         return true;
     }

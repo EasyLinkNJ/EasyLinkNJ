@@ -9,13 +9,12 @@ import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
 import com.easylink.nj.R;
 import com.easylink.nj.bean.db.Cart;
-import com.easylink.nj.bean.db.Order;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class OrderListAdapter extends ExAdapter<Order> {
+public class OrderAdapter extends ExAdapter<Cart> {
 
     @Override
     protected ExViewHolder getViewHolder(int position) {
@@ -63,9 +62,7 @@ public class OrderListAdapter extends ExAdapter<Order> {
         public void invalidateConvertView() {
 
 
-            Order order = getItem(mPosition);
-            mTvOrderId.setText("订  单  号：" + order.orderId);
-            Cart cart = order.carts.get(0);
+            Cart cart = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);

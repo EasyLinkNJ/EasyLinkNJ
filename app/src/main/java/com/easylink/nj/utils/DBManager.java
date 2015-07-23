@@ -143,16 +143,19 @@ public class DBManager {
         return null;
     }
 
-    public synchronized Order getOrder() {
+    public synchronized List<Order> getOrders() {
 
         try {
 
-            Order order = new Select().from(Order.class).orderBy("time DESC").limit(1).executeSingle();
+            List<Order> orders = new Select().from(Order.class).orderBy("time DESC").execute();
 
-            if (order != null)
-                order.carts = new Select().from(Cart.class).where("orderId = ?", order.orderId).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+            if (orders != null && !orders.isEmpty()) {
 
-            return order;
+                for (int i = 0; i < orders.size(); i++)
+                    orders.get(i).carts = new Select().from(Cart.class).where("orderId = ?", orders.get(i).orderId).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+            }
+
+            return orders;
         } catch (Exception e) {
 
             e.printStackTrace();
