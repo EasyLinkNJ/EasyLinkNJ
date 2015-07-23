@@ -12,6 +12,7 @@ import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.DensityUtil;
+import com.easylink.library.util.SoftInputHandler;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
@@ -29,6 +30,14 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductList>{
 
     private EditText mEt;
     private ProductListAdapter adapter;
+    private SoftInputHandler mInputHandler;
+
+    @Override
+    protected void initData() {
+
+        super.initData();
+        mInputHandler = new SoftInputHandler(this);
+    }
 
     @Override
     public ExAdapter getAdapter() {
@@ -51,9 +60,16 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductList>{
     @Override
     protected void initTitleView() {
 
-        addTitleLeftBackView();
+        addTitleLeftBackView(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mInputHandler.finishActivityBySoftInput(mEt);
+            }
+        });
 
         mEt = (EditText) getLayoutInflater().inflate(R.layout.view_search, null);
+        mEt.setHint("请输入设备名称");
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, DensityUtil.dip2px(36));
         lp.rightMargin = DensityUtil.dip2px(12);
         addTitleMiddleView(mEt, lp);

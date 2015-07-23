@@ -186,24 +186,24 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
         switch (v.getId()) {
             case R.id.tvHome:
-                mViewPager.setCurrentItem(0, true);
+                mViewPager.setCurrentItem(0, false);
                 ViewUtil.hideImageView(mIvSearch);
                 LogMgr.d(simpleTag(), "click home");
                 break;
             case R.id.tvProduct:
-                mViewPager.setCurrentItem(1, true);
+                mViewPager.setCurrentItem(1, false);
                 ViewUtil.showImageView(mIvSearch, R.mipmap.ic_search);
 
                 LogMgr.d(simpleTag(), "click cate");
                 break;
             case R.id.rlCart:
-                mViewPager.setCurrentItem(2, true);
+                mViewPager.setCurrentItem(2, false);
                 ViewUtil.hideImageView(mIvSearch);
 
                 LogMgr.d(simpleTag(), "click cart");
                 break;
             case R.id.tvMine:
-                mViewPager.setCurrentItem(3, true);
+                mViewPager.setCurrentItem(3, false);
                 ViewUtil.hideImageView(mIvSearch);
                 LogMgr.d(simpleTag(), "click mine");
                 break;
