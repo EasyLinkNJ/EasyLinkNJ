@@ -48,7 +48,20 @@ public class DBManager {
 
         try {
 
-            return new Select().from(Cart.class).where("orderId IS NULL").orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+            return new Select().from(Cart.class).where("orderId IS NULL").execute();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public synchronized List<Cart> getOrderCarts() {
+
+        try {
+
+            return new Select().from(Cart.class).where("orderId IS NOT NULL").execute();
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -108,7 +121,7 @@ public class DBManager {
 
         try {
 
-            return new Select().from(Address.class).orderBy(Table.DEFAULT_ID_NAME + " DESC").limit(1).where("isDefault = ?", true).executeSingle();
+            return new Select().from(Address.class).limit(1).where("isDefault = ?", true).executeSingle();
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -121,7 +134,7 @@ public class DBManager {
 
         try {
 
-            return new Select().from(Address.class).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+            return new Select().from(Address.class).execute();
         } catch (Exception e) {
 
             e.printStackTrace();
@@ -152,7 +165,7 @@ public class DBManager {
             if (orders != null && !orders.isEmpty()) {
 
                 for (int i = 0; i < orders.size(); i++)
-                    orders.get(i).carts = new Select().from(Cart.class).where("orderId = ?", orders.get(i).orderId).orderBy(Table.DEFAULT_ID_NAME + " DESC").execute();
+                    orders.get(i).carts = new Select().from(Cart.class).where("orderId = ?", orders.get(i).orderId).execute();
             }
 
             return orders;
