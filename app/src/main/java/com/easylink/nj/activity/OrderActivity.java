@@ -109,28 +109,8 @@ public class OrderActivity extends NjHttpActivity<Order> {
     private void onItemViewClickCallback(int position, View clickView) {
 
         Cart cart = mAdapter.getItem(position);
-
-        int vId = clickView.getId();
-        if (vId == R.id.rlRootView) {// convert view
-
+        if (clickView.getId() == R.id.rlRootView)// convert view
             ProductDetailActivity.startActivity(OrderActivity.this, cart.productId, true);
-        } else if (vId == R.id.ivAdd) {// add view
-
-            if (isConfirmed)
-                return;
-
-            cart.count = cart.count + 1;
-            mAdapter.notifyDataSetChanged();
-        } else if (vId == R.id.ivDelete) {// delete view
-
-            if (isConfirmed)
-                return;
-
-            cart.count = cart.count - 1;
-            if (cart.count == 0)
-                mAdapter.remove(cart);
-            mAdapter.notifyDataSetChanged();
-        }
     }
 
     @Override
@@ -185,7 +165,10 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
                 if (!isConfirmed) {
 
-                    showConfirmDialog();
+                    if (isHeaderAdded)// 表示已添加地址
+                        showConfirmDialog();
+                    else
+                        showToast("请添加收货地址");
                 } else {
 
                     showToast("已发送提醒");
