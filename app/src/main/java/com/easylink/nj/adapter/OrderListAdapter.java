@@ -62,7 +62,6 @@ public class OrderListAdapter extends ExAdapter<Order> {
         @Override
         public void invalidateConvertView() {
 
-
             Order order = getItem(mPosition);
             mTvOrderId.setText("订  单  号：" + order.orderId);
             Cart cart = order.carts.get(0);

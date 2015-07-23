@@ -61,7 +61,6 @@ public class OrderAdapter extends ExAdapter<Cart> {
         @Override
         public void invalidateConvertView() {
 
-
             Cart cart = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
