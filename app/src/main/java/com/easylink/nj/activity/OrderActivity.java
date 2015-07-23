@@ -55,7 +55,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (data == null || data == null)
+        if (resultCode != Activity.RESULT_OK || data == null)
             return;
 
         long addressId = data.getLongExtra("addressId", -1);
@@ -101,16 +101,11 @@ public class OrderActivity extends NjHttpActivity<Order> {
             @Override
             public void onItemViewClick(int position, View clickView) {
 
-                onItemViewClickCallback(position, clickView);
+                Cart cart = mAdapter.getItem(position);
+                if (cart != null)
+                    ProductDetailActivity.startActivity(OrderActivity.this, cart.productId, true);
             }
         });
-    }
-
-    private void onItemViewClickCallback(int position, View clickView) {
-
-        Cart cart = mAdapter.getItem(position);
-        if (clickView.getId() == R.id.rlRootView)// convert view
-            ProductDetailActivity.startActivity(OrderActivity.this, cart.productId, true);
     }
 
     @Override
