@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 
 import com.easylink.library.activity.ExFragment;
 import com.easylink.library.http.params.HttpTaskParams;
+import com.easylink.library.util.DeviceUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.httptask.NjJsonListener;
@@ -25,13 +26,13 @@ public abstract class NjHttpFragment<T> extends ExFragment{
     private int mDisabledImageResId;
 
     @Override
-    protected void setFragmentContentView(int layoutResId) {
+    public void setFragmentContentView(int layoutResId) {
 
         super.setFragmentContentView(inflateFrameView(getActivity().getLayoutInflater().inflate(layoutResId, null)));
     }
 
     @Override
-    protected void setFragmentContentView(View view) {
+    public void setFragmentContentView(View view) {
 
         super.setFragmentContentView(inflateFrameView(view));
     }
@@ -73,9 +74,14 @@ public abstract class NjHttpFragment<T> extends ExFragment{
         mFlFrame.addView(mPbLoading, fllp);
 
         //设置网络错误提示图和为空图
-        mFailedImageResId = R.mipmap.ic_launcher;
-//        mDisabledImageResId = R.drawable.ic_tip_null;
+        mFailedImageResId = R.mipmap.ic_net_error;
+        mDisabledImageResId = R.mipmap.ic_tip_null;
         return mFlFrame;
+    }
+
+    public View getFrameContentView(){
+
+        return mContentView;
     }
 
     public void executeHttpTaskByUiSwitch(final int what, HttpTaskParams params, Class<?> t){
@@ -91,8 +97,13 @@ public abstract class NjHttpFragment<T> extends ExFragment{
             @Override
             public void onTaskResult(T result) {
 
-                invalidateContent(what, result);
-                switchContent(what);
+                if (invalidateContent(what, result)) {
+
+                    switchContent(what);
+                } else {
+
+                    switchDisableFromServer(what);
+                }
             }
 
             @Override
@@ -117,14 +128,23 @@ public abstract class NjHttpFragment<T> extends ExFragment{
         ViewUtil.showView(mContentView);
     }
 
-    public abstract void invalidateContent(int what, T t);
+    public void switchDisableFromServer(int what){
+
+        ViewUtil.hideView(mPbLoading);
+        ViewUtil.hideView(mContentView);
+        ViewUtil.showImageView(mIvTip, mDisabledImageResId);
+        mTipResId = mDisabledImageResId;
+    }
 
     public void switchFailed(int what, int failedCode, String msg){
 
         ViewUtil.hideView(mPbLoading);
         ViewUtil.hideView(mContentView);
         ViewUtil.showImageView(mIvTip, mFailedImageResId);
+        mTipResId = mFailedImageResId;
     }
+
+    public abstract boolean invalidateContent(int what, T t);
 
     public void switchDisable(int resId) {
 
@@ -133,7 +153,26 @@ public abstract class NjHttpFragment<T> extends ExFragment{
         ViewUtil.showImageView(mIvTip, resId);
     }
 
+    public void setContentDisableResId(int resId){
+
+        mTipResId = resId;
+    }
+
     protected void onTipViewClick(){
+
+        if(mTipResId != mFailedImageResId)
+            return;
+
+        if(DeviceUtil.isNetworkDisable()){
+
+            showToast(R.string.toast_network_failed);
+            return;
+        }
+
+        onTipViewFailedClick();
+    }
+
+    public void onTipViewFailedClick(){
 
     }
 }

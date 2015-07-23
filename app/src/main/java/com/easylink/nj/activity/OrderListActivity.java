@@ -109,8 +109,9 @@ public class OrderListActivity extends NjHttpActivity<Order> {
     }
 
     @Override
-    public void invalidateContent(int what, Order productList) {
+    public boolean invalidateContent(int what, Order productList) {
 
+        return true;
     }
 
     public static void startActivity(Activity act) {

@@ -1,5 +1,7 @@
 package com.easylink.nj.bean.product;
 
+import com.easylink.library.util.TextUtil;
+
 import java.util.ArrayList;
 
 /**
@@ -7,12 +9,12 @@ import java.util.ArrayList;
  */
 public class ProductList {
 
-    private int sum;// 当前条件下的总数
+    private String sum;// 当前条件下的总数
     private int p;// 当前页码
     private int ps;// 当前返回的每页数量
     private ArrayList<Product> list;// 列表
 
-    public int getSum() {
+    public String getSum() {
 
         return sum;
     }
@@ -32,9 +34,9 @@ public class ProductList {
         return list == null ? new ArrayList<Product>(0) : list;
     }
 
-    public void setSum(int sum) {
+    public void setSum(String sum) {
 
-        this.sum = sum;
+        this.sum = TextUtil.filterNull(sum);
     }
 
     public void setP(int p) {

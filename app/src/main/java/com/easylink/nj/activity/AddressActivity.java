@@ -152,8 +152,9 @@ public class AddressActivity extends NjHttpActivity<Address> {
     }
 
     @Override
-    public void invalidateContent(int what, Address address) {
+    public boolean invalidateContent(int what, Address address) {
 
+        return true;
     }
 
     public static void startActivity(Activity act) {

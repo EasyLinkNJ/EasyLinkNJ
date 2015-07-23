@@ -146,8 +146,9 @@ public class CartActivity extends NjHttpActivity<Cart> {
     }
 
     @Override
-    public void invalidateContent(int what, Cart cart) {
+    public boolean invalidateContent(int what, Cart cart) {
 
+        return true;
     }
 
     public static void startActivity(Activity act) {

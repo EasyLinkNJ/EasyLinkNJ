@@ -143,8 +143,9 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
     }
 
     @Override
-    public void invalidateContent(int what, ProductList productList) {
+    public boolean invalidateContent(int what, ProductList productList) {
 
+        return true;
     }
 
     public static CartListFragment newInstance(FragmentActivity activity) {

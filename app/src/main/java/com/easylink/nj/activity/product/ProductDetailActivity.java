@@ -147,7 +147,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     }
 
     @Override
-    public void invalidateContent(int what, ProductDetail data) {
+    public boolean invalidateContent(int what, ProductDetail data) {
 
         mDetail = data;
 
@@ -160,6 +160,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         ((TextView) findViewById(R.id.tvIntroTitle)).setText(data.getCt_0());
         TextView tvIntro = (TextView) findViewById(R.id.tvIntro);
         tvIntro.setText(Html.fromHtml(data.getContent_0()));
+        return true;
     }
 
     public static void startActivity(Activity act, String productId, boolean onlyGlance) {

@@ -1,6 +1,7 @@
 package com.easylink.nj.activity.main;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -25,6 +26,13 @@ import java.util.List;
  * Created by yihaibin on 15/7/14.
  */
 public class HomeFragment extends NjHttpXlvFragment<NewsList> {
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+        loadDataFromServer();
+    }
 
     @Override
     public void onInitXListView(XListView xlv) {
