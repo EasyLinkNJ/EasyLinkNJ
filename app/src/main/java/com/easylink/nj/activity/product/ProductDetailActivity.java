@@ -120,11 +120,11 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                         cart.name = mDetail.getTitle();
                         cart.imgUrl = mDetail.getMainpic();
                         cart.price = mDetail.getPrice();
-                        cart.count = mCartCount;
+                        cart.count = 1;
 //                        cart.introTitle_0 = mDetail.getCt_0();
 //                        cart.intro_0 = mDetail.getContent_0();
                         cart.save();
-                    } else {//存在，更新时间和数量
+                    } else {//存在，更新数量
 
                         cart.count = cart.count + 1;
                         cart.save();
