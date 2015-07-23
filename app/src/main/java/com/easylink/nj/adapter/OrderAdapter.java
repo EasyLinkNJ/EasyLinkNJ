@@ -61,6 +61,8 @@ public class OrderAdapter extends ExAdapter<Cart> {
         @Override
         public void invalidateConvertView() {
 
+            mTvOrderId.setText("订  单  号：" + System.currentTimeMillis());// TODO 换成真实的订单号
+
             Cart cart = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
