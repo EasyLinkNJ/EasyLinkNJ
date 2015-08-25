@@ -4,4 +4,183 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageView
+        android:id="@+id/ivCover"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"/>
+
+    <!-- clicker part -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <com.easylink.nj.view.ClickScaleAnimRelativeLayout
+                    android:id="@+id/csarlNongji"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="#3285ff" >
+
+                    <ImageView
+                        android:id="@+id/aivNongji"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:paddingTop="24dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="农机"
+                        android:layout_centerInParent="true"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp" />
+                    <!--
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="teacher_audition"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp" />
+                        -->
+                </com.easylink.nj.view.ClickScaleAnimRelativeLayout>
+
+                <com.easylink.nj.view.ClickScaleAnimRelativeLayout
+                    android:id="@+id/csarlHuafei"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1.5"
+                    android:background="#FF9533" >
+
+                    <ImageView
+                        android:id="@+id/aivHuafei"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:scaleType="fitXY" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="化肥"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp"
+                        android:layout_centerInParent="true"/>
+                    <!--
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="code_class"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp" />
+                        -->
+                </com.easylink.nj.view.ClickScaleAnimRelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <com.easylink.nj.view.ClickScaleAnimRelativeLayout
+                    android:id="@+id/csarlNongyao"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1.5"
+                    android:background="#8ec699" >
+
+                    <ImageView
+                        android:id="@+id/aivNongyao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true" />
+                    <TextView
+                        android:id="@+id/tvNongyao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="农药"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp"
+                        android:layout_centerInParent="true"/>
+                    <!--
+                    <TextView
+                        android:id="@+id/tvUploadWork"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="upload_work"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp" />
+                        -->
+                </com.easylink.nj.view.ClickScaleAnimRelativeLayout>
+
+                <com.easylink.nj.view.ClickScaleAnimRelativeLayout
+                    android:id="@+id/csarlZhongzi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:background="#599fdb" >
+
+                    <ImageView
+                        android:id="@+id/aivZhongzi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="种子"
+                        android:textColor="@android:color/white"
+                        android:textSize="20dp"
+                        android:layout_centerInParent="true"/>
+                    <!--
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="course_mgr"
+                        android:textColor="@android:color/white"
+                        android:textSize="18dp" />
+                        -->
+                </com.easylink.nj.view.ClickScaleAnimRelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

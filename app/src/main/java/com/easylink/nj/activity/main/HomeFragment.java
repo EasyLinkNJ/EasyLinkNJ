@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.easylink.library.activity.ExFragment;
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
@@ -19,13 +20,75 @@ import com.easylink.nj.adapter.NewsListAdapter;
 import com.easylink.nj.bean.news.News;
 import com.easylink.nj.bean.news.NewsList;
 import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.view.ClickScaleAnimRelativeLayout;
 
 import java.util.List;
 
 /**
  * Created by yihaibin on 15/7/14.
  */
-public class HomeFragment extends NjHttpXlvFragment<NewsList> {
+public class HomeFragment extends ExFragment{
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+        super.onActivityCreated(savedInstanceState);
+        setFragmentContentView(R.layout.act_main_fmt_home);
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initContentView() {
+
+        ImageView cover = (ImageView) findViewById(R.id.ivCover);
+        cover.setImageResource(R.mipmap.ic_main_home_cover);
+
+        ClickScaleAnimRelativeLayout csarl = null;
+
+        csarl = (ClickScaleAnimRelativeLayout) findViewById(R.id.csarlNongji);
+        csarl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        csarl = (ClickScaleAnimRelativeLayout) findViewById(R.id.csarlNongyao);
+        csarl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        csarl = (ClickScaleAnimRelativeLayout) findViewById(R.id.csarlHuafei);
+        csarl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        csarl = (ClickScaleAnimRelativeLayout) findViewById(R.id.csarlZhongzi);
+        csarl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+    }
+
+    public static HomeFragment newInstance(FragmentActivity activity){
+
+        return (HomeFragment) Fragment.instantiate(activity, HomeFragment.class.getName(), new Bundle());
+    }
+}
+/*
+        extends NjHttpXlvFragment<NewsList> {
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -187,3 +250,4 @@ public class HomeFragment extends NjHttpXlvFragment<NewsList> {
         return (HomeFragment) Fragment.instantiate(activity, HomeFragment.class.getName(), new Bundle());
     }
 }
+*/

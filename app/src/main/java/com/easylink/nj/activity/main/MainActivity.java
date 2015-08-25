@@ -4,37 +4,29 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.easylink.library.activity.ExFragmentActivity;
-import com.easylink.library.adapter.ExFragmentFixedPagerAdapter;
 import com.easylink.library.plugin.DelayBackHandler;
 import com.easylink.library.util.DensityUtil;
-import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
-import com.easylink.library.view.ExViewPager;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.product.ProductSearchActivity;
 import com.easylink.nj.utils.DBManager;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by KEVIN.DAI on 15/7/8.
  */
-public class MainActivity extends ExFragmentActivity implements View.OnClickListener, ViewPager.OnPageChangeListener, DelayBackHandler.OnDelayBackListener {
+public class MainActivity extends ExFragmentActivity implements View.OnClickListener, DelayBackHandler.OnDelayBackListener {
 
     private DelayBackHandler mBackKeyHandler;
-    private ExViewPager mViewPager;
-    private View mTvHome, mTvProduct, mRlCart, mTvMine, mTvCurrentSelected;
+    private View mTvHome, mRlCart, mTvMine, mTvCurrentSelected;
     private TextView mTvCartCount;
     private ImageView mIvSearch;
+    private Fragment mHomeFragment, mCartFragment, mMineFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,31 +71,14 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
             }
         });
         ViewUtil.hideImageView(mIvSearch);
-//        LayoutParams lp = new LayoutParams(DensityUtil.dip2px(278), DensityUtil.dip2px(36));
-//        lp.rightMargin = DensityUtil.dip2px(12);
-//        addTitleRightView(ViewUtil.inflateLayout(R.layout.view_search), lp);
-
     }
 
     @Override
     protected void initContentView() {
 
-        initTabViews();
-        initViewPager();
-        onPageSelected(0);
-    }
+        findViewById(R.id.rlCart).setOnClickListener(this);
 
-    private void initTabViews() {
-
-        mTvHome = findViewById(R.id.tvHome);
-        mTvHome.setOnClickListener(this);
-
-        mTvProduct = findViewById(R.id.tvProduct);
-        mTvProduct.setOnClickListener(this);
-
-        mRlCart = findViewById(R.id.rlCart);
-        mRlCart.setOnClickListener(this);
-        mTvCartCount = (TextView) mRlCart.findViewById(R.id.tvCount);
+        mTvCartCount = (TextView) findViewById(R.id.tvCount);
         int count = DBManager.getInstance().getCartCount();
         if (count > 0) {
 
@@ -111,103 +86,54 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
             ViewUtil.showView(mTvCartCount);
         }
 
-        mTvMine = findViewById(R.id.tvMine);
-        mTvMine.setOnClickListener(this);
-    }
+        findViewById(R.id.tvMine).setOnClickListener(this);
 
-    private void initViewPager() {
-
-        ExFragmentFixedPagerAdapter mPagerAdapter = new ExFragmentFixedPagerAdapter(getSupportFragmentManager());
-        mPagerAdapter.setFragments(getMainFragments());
-        mPagerAdapter.setFragmentItemDestoryEnable(false);
-
-        mViewPager = (ExViewPager) findViewById(R.id.vpContent);
-        mViewPager.setCanScroll(false);
-        mViewPager.setAdapter(mPagerAdapter);
-        mViewPager.setOnPageChangeListener(this);
-        mViewPager.setOffscreenPageLimit(1);
-        mViewPager.setPageMargin(DensityUtil.dip2px(6));
-    }
-
-    private List<Fragment> getMainFragments() {
-
-        ArrayList<Fragment> fragments = new ArrayList();
-        fragments.add(HomeFragment.newInstance(this));
-        fragments.add(ProductListFragment.newInstance(this));
-        fragments.add(CartListFragment.newInstance(this));
-        fragments.add(MainMineFragment.newInstance(this));
-        return fragments;
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int state) {
-
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-
-        if (mTvCurrentSelected != null) {
-
-            mTvCurrentSelected.setSelected(false);
-            mTvCurrentSelected = null;
-        }
-
-        View tvNewSelected = null;
-        switch (position) {
-            case 0:
-                tvNewSelected = mTvHome;
-                break;
-            case 1:
-                tvNewSelected = mTvProduct;
-                break;
-            case 2:
-                tvNewSelected = mRlCart;
-                break;
-            case 3:
-                tvNewSelected = mTvMine;
-                break;
-        }
-
-        if (tvNewSelected != null) {
-
-            tvNewSelected.setSelected(true);
-            mTvCurrentSelected = tvNewSelected;
-        }
+        TextView tv = (TextView) findViewById(R.id.tvHome);
+        tv.setOnClickListener(this);
+        tv.performClick();
     }
 
     @Override
     public void onClick(View v) {
 
+        if(mTvCurrentSelected == v)
+            return;
+
         switch (v.getId()) {
             case R.id.tvHome:
-                mViewPager.setCurrentItem(0, false);
-                ViewUtil.hideImageView(mIvSearch);
-                LogMgr.d(simpleTag(), "click home");
-                break;
-            case R.id.tvProduct:
-                mViewPager.setCurrentItem(1, false);
-                ViewUtil.showImageView(mIvSearch, R.mipmap.ic_search);
+                if(mHomeFragment == null){
 
-                LogMgr.d(simpleTag(), "click cate");
+                    mHomeFragment = HomeFragment.newInstance(this);
+                    addFragment(R.id.flContent, mHomeFragment);
+                }
+                switchFragment(mHomeFragment);
+                ViewUtil.showImageView(mIvSearch, R.mipmap.ic_search);
                 break;
             case R.id.rlCart:
-                mViewPager.setCurrentItem(2, false);
-                ViewUtil.hideImageView(mIvSearch);
+                if(mCartFragment == null){
 
-                LogMgr.d(simpleTag(), "click cart");
+                    mCartFragment = CartListFragment.newInstance(this);
+                    addFragment(R.id.flContent, mCartFragment);
+                }
+                switchFragment(mCartFragment);
+                ViewUtil.hideImageView(mIvSearch);
                 break;
             case R.id.tvMine:
-                mViewPager.setCurrentItem(3, false);
+                if(mMineFragment == null){
+
+                    mMineFragment = MainMineFragment.newInstance(this);
+                    addFragment(R.id.flContent, mMineFragment);
+                }
+                switchFragment(mMineFragment);
                 ViewUtil.hideImageView(mIvSearch);
-                LogMgr.d(simpleTag(), "click mine");
                 break;
         }
+
+        if(mTvCurrentSelected != null)
+            mTvCurrentSelected.setSelected(false);
+
+        mTvCurrentSelected = v;
+        mTvCurrentSelected.setSelected(true);
     }
 
     @Override
