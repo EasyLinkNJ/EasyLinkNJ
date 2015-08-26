@@ -16,6 +16,11 @@ import com.easylink.library.view.listview.XListView;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpXlvFragment;
 import com.easylink.nj.activity.news.NewsDetailActivity;
+import com.easylink.nj.activity.product.BrandHuafeiListActivity;
+import com.easylink.nj.activity.product.BrandListActivity;
+import com.easylink.nj.activity.product.BrandNongjiListActivity;
+import com.easylink.nj.activity.product.BrandNongyaoListActivity;
+import com.easylink.nj.activity.product.BrandZhongziListActivity;
 import com.easylink.nj.adapter.NewsListAdapter;
 import com.easylink.nj.bean.news.News;
 import com.easylink.nj.bean.news.NewsList;
@@ -54,6 +59,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
+                BrandNongjiListActivity.startActivity(getActivity());
             }
         });
 
@@ -62,6 +68,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
+                BrandNongyaoListActivity.startActivity(getActivity());
             }
         });
 
@@ -70,6 +77,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
+                BrandHuafeiListActivity.startActivity(getActivity());
             }
         });
 
@@ -78,6 +86,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
+                BrandZhongziListActivity.startActivity(getActivity());
             }
         });
     }

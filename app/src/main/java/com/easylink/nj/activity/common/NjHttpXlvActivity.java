@@ -36,7 +36,7 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
     @Override
     protected void initData() {
 
-        mAdapter = getAdapter();
+        mAdapter = getAdapterOnInitData();
     }
 
     @Override
@@ -85,13 +85,18 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
         mXlv.setPullRefreshEnable(false);
     }
 
-    public abstract ExAdapter getAdapter();
+    public abstract ExAdapter getAdapterOnInitData();
     public abstract HttpTaskParams getXlvHttpTaskParam(int page, int limit);
     public abstract Class<?> getXlvJsonClazz();
 
     protected void loadDataFromServer() {
 
         executeHttpTaskByUiSwitch(HTTP_TASK_WHAT_UI, getXlvHttpTaskParam(1, LIMIT_SIZE), getXlvJsonClazz());
+    }
+
+    protected Object getAdapterItem(int position){
+
+        return mAdapter.getItem(position);
     }
 
     @Override

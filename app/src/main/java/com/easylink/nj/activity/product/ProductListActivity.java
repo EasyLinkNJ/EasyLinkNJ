@@ -40,7 +40,7 @@ public class ProductListActivity extends NjHttpXlvActivity<ProductList> {
     }
 
     @Override
-    public ExAdapter getAdapter() {
+    public ExAdapter getAdapterOnInitData() {
 
         final ProductListAdapter adapter = new ProductListAdapter();
         adapter.setOnItemViewClickListener(new OnItemViewClickListener() {

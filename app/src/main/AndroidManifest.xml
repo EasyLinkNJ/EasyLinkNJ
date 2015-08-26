@@ -41,7 +41,19 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name=".activity.news.NewsListActivity"
+            android:name=".activity.product.BrandNongjiListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.BrandNongyaoListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.BrandHuafeiListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.BrandZhongziListActivity"
             android:screenOrientation="portrait" />
 
         <activity

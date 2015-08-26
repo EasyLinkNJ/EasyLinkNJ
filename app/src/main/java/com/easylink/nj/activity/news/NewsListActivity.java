@@ -48,7 +48,7 @@ public class NewsListActivity extends NjHttpXlvActivity<NewsList> {
     }
 
     @Override
-    public ExAdapter getAdapter() {
+    public ExAdapter getAdapterOnInitData() {
 
         final NewsListAdapter adapter = new NewsListAdapter();
         adapter.setOnItemViewClickListener(new OnItemViewClickListener() {

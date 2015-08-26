@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class BrandNongyaoListActivity extends BrandListActivity<NewsList> implements OnItemViewClickListener{
+public class BrandZhongziListActivity extends BrandListActivity<NewsList> implements OnItemViewClickListener{
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
@@ -43,7 +43,7 @@ public class BrandNongyaoListActivity extends BrandListActivity<NewsList> implem
     public static void startActivity(Activity activity){
 
         Intent intent = new Intent();
-        intent.setClass(activity, BrandNongyaoListActivity.class);
+        intent.setClass(activity, BrandZhongziListActivity.class);
         activity.startActivity(intent);
     }
 }

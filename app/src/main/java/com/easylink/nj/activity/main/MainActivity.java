@@ -23,7 +23,7 @@ import com.easylink.nj.utils.DBManager;
 public class MainActivity extends ExFragmentActivity implements View.OnClickListener, DelayBackHandler.OnDelayBackListener {
 
     private DelayBackHandler mBackKeyHandler;
-    private View mTvHome, mRlCart, mTvMine, mTvCurrentSelected;
+    private View mTvCurrentSelected;
     private TextView mTvCartCount;
     private ImageView mIvSearch;
     private Fragment mHomeFragment, mCartFragment, mMineFragment;
