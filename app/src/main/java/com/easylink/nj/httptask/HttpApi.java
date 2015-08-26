@@ -15,4 +15,12 @@ public interface HttpApi {
 
     String URL_POST_ORDER = URL_BASE + " askp/post";
     String URL_GET_ORDER = URL_BASE + "askp/list";
+
+    String URL_BRAND_HUAFEI_LIST = URL_BASE + "huafei/brands";
+    String URL_BRAND_NONGYAO_LIST = URL_BASE + "nongyao/brands";
+    String URL_BRAND_ZHONGZI_LIST = URL_BASE + "zhongzi/brands";
+
+    String URL_PRODUCT_HUAFEI_LIST = URL_BASE + "huafei/list";
+    String URL_PRODUCT_NONGYAO_LIST = URL_BASE + "nongyao/list";
+    String URL_PRODUCT_ZHONGZI_LIST = URL_BASE + "zhongzi/list";
 }

@@ -8,5 +8,5 @@ public interface ProductItem {
 
     String getLogoUrl();
     String getSimpleName();
-    String getDesc();
+    String getPrice();
 }

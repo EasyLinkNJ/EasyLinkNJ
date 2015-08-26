@@ -2,28 +2,17 @@ package com.easylink.nj.activity.news;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ListView;
 
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
-import com.easylink.library.util.DeviceUtil;
-import com.easylink.library.util.ViewUtil;
-import com.easylink.library.view.listview.XListView;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
-import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.activity.product.ProductListActivity;
 import com.easylink.nj.adapter.NewsListAdapter;
-import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.news.News;
 import com.easylink.nj.bean.news.NewsList;
-import com.easylink.nj.bean.product.Product;
-import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;

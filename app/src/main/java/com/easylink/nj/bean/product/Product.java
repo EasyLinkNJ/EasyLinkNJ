@@ -5,7 +5,7 @@ import com.easylink.library.util.TextUtil;
 /**
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class Product {
+public class Product implements ProductItem{
 
     private String id = TextUtil.TEXT_EMPTY;// 编号
     private String title = TextUtil.TEXT_EMPTY;// 设备全称
@@ -52,9 +52,21 @@ public class Product {
         return cate_id;
     }
 
+    @Override
+    public String getLogoUrl() {
+
+        return mainpic;
+    }
+
+    @Override
+    public String getSimpleName() {
+
+        return title;
+    }
+
     public String getPrice() {
 
-        return "0".equals(price)?"价格面议":price;
+        return TextUtil.isEmpty(price) || "0".equals(price) ? "价格面议" : price;
     }
 
     public int getStock() {

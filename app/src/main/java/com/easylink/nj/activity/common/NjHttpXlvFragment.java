@@ -36,7 +36,7 @@ public abstract class NjHttpXlvFragment<T> extends NjHttpFragment<T>{
     @Override
     protected void initData() {
 
-        mAdapter = getAdapter();
+        mAdapter = getAdapterOnInitData();
     }
 
     @Override
@@ -89,9 +89,14 @@ public abstract class NjHttpXlvFragment<T> extends NjHttpFragment<T>{
     public void onInitXListView(XListView xlv) {
 
     }
-    public abstract ExAdapter getAdapter();
+    public abstract ExAdapter getAdapterOnInitData();
     public abstract HttpTaskParams getXlvHttpTaskParam(int page, int limit);
     public abstract Class<?> getXlvJsonClazz();
+
+    protected Object getAdapterItem(int position){
+
+        return mAdapter.getItem(position);
+    }
 
     protected void loadDataFromServer() {
 

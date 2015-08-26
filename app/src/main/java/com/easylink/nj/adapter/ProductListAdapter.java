@@ -9,13 +9,14 @@ import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
 import com.easylink.nj.R;
 import com.easylink.nj.bean.product.Product;
+import com.easylink.nj.bean.product.ProductItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 /**
  * 产品列表适配器
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class ProductListAdapter extends ExAdapter<Product> {
+public class ProductListAdapter extends ExAdapter<ProductItem> {
 
     @Override
     protected ExViewHolder getViewHolder(int position) {
@@ -54,10 +55,10 @@ public class ProductListAdapter extends ExAdapter<Product> {
         @Override
         public void invalidateConvertView() {
 
-            Product product = getItem(mPosition);
-            mSdvCover.setImageURI(Uri.parse(product.getMainpic()));
-            mTvName.setText(product.getTitle());
-            mTvDesc.setText(product.getPrice());// TODO 接口返回price为空
+            ProductItem product = getItem(mPosition);
+            mSdvCover.setImageURI(Uri.parse(product.getLogoUrl()));
+            mTvName.setText(product.getSimpleName());
+            mTvDesc.setText("价格: "+product.getPrice());// TODO 接口返回price为空
         }
 
     }

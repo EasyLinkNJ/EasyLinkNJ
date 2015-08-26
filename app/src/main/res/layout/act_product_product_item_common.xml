@@ -21,10 +21,10 @@
         android:layout_alignTop="@id/sdvCover"
         android:layout_marginTop="3dp"
         android:layout_marginLeft="10dp"
-        android:singleLine="true"
         android:ellipsize="end"
         android:textColor="@color/black_trans87"
-        android:textSize="14dp"/>
+        android:textSize="14dp"
+        android:maxLines="2"/>
 
     <TextView
         android:id="@+id/tvDesc"

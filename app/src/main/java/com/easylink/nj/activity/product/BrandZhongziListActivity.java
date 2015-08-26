@@ -7,6 +7,8 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.nj.bean.news.NewsList;
+import com.easylink.nj.bean.product.BrandNongyao;
+import com.easylink.nj.bean.product.BrandZhongzi;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -14,30 +16,26 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class BrandZhongziListActivity extends BrandListActivity<NewsList> implements OnItemViewClickListener{
+public class BrandZhongziListActivity extends BrandListActivity<List<BrandZhongzi>> implements OnItemViewClickListener{
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getNewsList(page, limit);
+        return NjHttpUtil.getBrandZhongziList(page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return NewsList.class;
-    }
-
-    @Override
-    protected List<?> getListOnInvalidateContent(NewsList result) {
-
-        return result == null ? null : result.getList();
+        return BrandZhongzi.class;
     }
 
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-
+        BrandZhongzi pn = (BrandZhongzi) getAdapterItem(position);
+        if(pn != null)
+            ProductZhongziListActivity.startActivity(this, pn.getId());
     }
 
     public static void startActivity(Activity activity){

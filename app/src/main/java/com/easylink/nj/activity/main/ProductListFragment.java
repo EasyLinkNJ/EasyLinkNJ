@@ -11,17 +11,10 @@ import android.widget.ListView;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjActivity;
 import com.easylink.nj.activity.common.NjFragment;
-import com.easylink.nj.activity.common.NjHttpFragment;
-import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.activity.product.ProductListActivity;
+import com.easylink.nj.activity.product.ProductListActivity1;
 import com.easylink.nj.adapter.ProductCateAdapter;
-import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.product.Cate;
-import com.easylink.nj.bean.product.Product;
-import com.easylink.nj.bean.product.ProductList;
-import com.easylink.nj.httptask.NjHttpUtil;
 import com.easylink.nj.utils.DataUtil;
 
 /**
@@ -52,7 +45,7 @@ public class ProductListFragment extends NjFragment {
                 if(cate == null)
                     return;
 
-                ProductListActivity.startActivity(getActivity(), cate.getId());
+                ProductListActivity1.startActivity(getActivity(), cate.getId());
             }
         });
     }

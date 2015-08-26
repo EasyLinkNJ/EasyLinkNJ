@@ -10,6 +10,99 @@ import com.easylink.library.util.TextUtil;
 public class NjHttpUtil extends BaseHttpUtil {
 
     /**
+     * 化肥品牌列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getBrandHuafeiList(int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_HUAFEI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 农药品牌列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getBrandNongyaoList(int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_NONGYAO_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 种子品牌列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getBrandZhongziList(int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_ZHONGZI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 化肥产品列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductHuafeiList(String companyId, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_HUAFEI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        htp.addParam("company_id", companyId);
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 农药产品列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductNongyaoList(String companyId, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGYAO_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        htp.addParam("company_id", companyId);
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 种子产品列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductZhongziList(String companyId, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_ZHONGZI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        htp.addParam("company_id", companyId);
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
      * 获取新闻列表
      *
      * @retrn

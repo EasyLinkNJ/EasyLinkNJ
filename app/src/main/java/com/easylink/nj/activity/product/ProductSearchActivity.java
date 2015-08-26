@@ -18,6 +18,7 @@ import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
 import com.easylink.nj.adapter.ProductListAdapter;
 import com.easylink.nj.bean.product.Product;
+import com.easylink.nj.bean.product.ProductItem;
 import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
@@ -48,9 +49,9 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductList>{
             @Override
             public void onItemViewClick(int position, View clickView) {
 
-                Product product = adapter.getItem(position);
+                ProductItem product = adapter.getItem(position);
                 if (product != null)
-                    ProductDetailActivity.startActivity(ProductSearchActivity.this, product.getId(), false);
+                    ProductDetailActivity.startActivity(ProductSearchActivity.this, "1"/*product.getId()*/, false);
             }
         });
 

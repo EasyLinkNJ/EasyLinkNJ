@@ -57,11 +57,27 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".activity.product.ProductHuafeiListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.ProductNongyaoListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+
+            android:name=".activity.product.ProductZhongziListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activity.product.ProductNongjiListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.news.NewsDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.ProductListActivity"
+            android:name=".activity.product.ProductListActivity1"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.product.ProductSearchActivity"

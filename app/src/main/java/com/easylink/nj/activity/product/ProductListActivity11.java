@@ -6,15 +6,12 @@ import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
 import com.easylink.nj.adapter.ProductListAdapter;
-import com.easylink.nj.adapter.product.BrandAdapter;
-import com.easylink.nj.bean.product.BrandItem;
-import com.easylink.nj.bean.product.Product;
 import com.easylink.nj.bean.product.ProductItem;
 
 /**
  * Created by yihaibin on 15/8/25.
  */
-public abstract class ProductListActivity<T> extends NjHttpXlvActivity<T> implements OnItemViewClickListener{
+public abstract class ProductListActivity11<T> extends NjHttpXlvActivity<T> implements OnItemViewClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
