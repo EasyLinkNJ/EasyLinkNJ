@@ -1,11 +1,9 @@
 package com.easylink.nj.httptask;
 
-import android.os.Build;
 import android.util.Log;
 
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.AppInfoUtil;
-import com.easylink.library.util.DeviceUtil;
 import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.BuildConfig;
@@ -136,20 +134,6 @@ public class BaseHttpUtil implements HttpApi {
             e.printStackTrace();
             return s;
         }
-    }
-
-    protected static void addDefaultParams(Map<String, String> params) {
-
-        params.put("client_id", "qyer_android");
-        params.put("client_secret", "9fcaae8aefc4f9ac4915");
-        params.put("v", "1");
-        params.put("track_user_id", "");
-        params.put("track_deviceid", DeviceUtil.getIMEI());
-        params.put("track_app_version", BuildConfig.VERSION_NAME);
-        params.put("track_app_channel", "");
-        params.put("track_device_info", Build.DEVICE);
-        params.put("track_os", "Android" + Build.VERSION.RELEASE);
-        params.put("app_installtime", AppInfoUtil.getInstallAppTime() + "");
     }
 
     protected static String createGetUrl(String url, Map<String, String> params) {

@@ -220,4 +220,17 @@ public class NjHttpUtil extends BaseHttpUtil {
         setSignParam(htp);
         return htp;
     }
+
+    public static HttpTaskParams getLoginParams() {
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_POST_LOGIN);
+        String deviceId = DeviceUtil.getIMEI();
+        htp.addParam("uname", deviceId);
+        htp.addParam("passwd", deviceId);
+        htp.addParam("name", deviceId);
+        htp.addParam("ua", deviceId);
+
+        setSignParam(htp);
+        return htp;
+    }
 }

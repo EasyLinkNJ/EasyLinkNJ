@@ -28,4 +28,7 @@ public interface HttpApi {
     String URL_DETAIL_NONGYAO_LIST = URL_BASE + "nongyao/detail";
     String URL_DETAIL_HUAFEI_LIST = URL_BASE + "huafei/detail";
     String URL_DETAIL_ZHONGZI_LIST = URL_BASE + "zhongzi/detail";
+
+    // login
+    String URL_POST_LOGIN = URL_BASE + "account/loginster";
 }

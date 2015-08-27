@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
@@ -12,10 +13,17 @@ import android.widget.TextView;
 import com.easylink.library.activity.ExFragmentActivity;
 import com.easylink.library.plugin.DelayBackHandler;
 import com.easylink.library.util.DensityUtil;
+import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
+import com.easylink.nj.EasyApplication;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.product.ProductSearchActivity;
+import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.httptask.NjJsonListener;
+import com.easylink.nj.httptask.NjJsonResponse;
 import com.easylink.nj.utils.DBManager;
+
+import org.json.JSONObject;
 
 /**
  * Created by KEVIN.DAI on 15/7/8.
@@ -33,6 +41,9 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
+
+        if (!EasyApplication.getCommonPrefs().hasUserToken())
+            executeLogin();
     }
 
     @Override
@@ -91,6 +102,42 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         TextView tv = (TextView) findViewById(R.id.tvHome);
         tv.setOnClickListener(this);
         tv.performClick();
+    }
+
+    private void executeLogin() {
+
+        executeHttpTask(0, NjHttpUtil.getLoginParams(), new NjJsonListener<Object>(Object.class) {
+
+            @Override
+            public NjJsonResponse<Object> onTaskResponse(String jsonText) {
+
+                LogMgr.e("daisw", "jsonText: " + jsonText);
+
+                NjJsonResponse<Object> resp = new NjJsonResponse<>();
+                if (TextUtils.isEmpty(jsonText))
+                    return resp;
+
+                try {
+                    JSONObject jsonObject = new JSONObject(jsonText);
+                    jsonObject = jsonObject.getJSONObject("data");
+                    String onlinekey = jsonObject.getString("onlinekey");// AVD: be4786ff2a20d583a5bb49da7ae7e918
+                    EasyApplication.getCommonPrefs().setUserToken(onlinekey);
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                return resp;
+            }
+
+            @Override
+            public void onTaskResult(Object result) {
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+            }
+        });
     }
 
     @Override
