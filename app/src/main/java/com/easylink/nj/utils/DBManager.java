@@ -31,11 +31,11 @@ public class DBManager {
         return mDBMgr;
     }
 
-    public synchronized Cart getCart(String productId) {
+    public synchronized Cart getCart(String type, String productId) {
 
         try {
 
-            return new Select().from(Cart.class).where("orderId IS NULL AND productId = ?", productId).executeSingle();
+            return new Select().from(Cart.class).where("orderId IS NULL AND type = ? AND productId = ?", type, productId).executeSingle();
         } catch (Exception e) {
 
             e.printStackTrace();

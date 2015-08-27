@@ -131,7 +131,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                     mTvCartCount.setText(String.valueOf(mCartCount));
                     ViewUtil.showView(mTvCartCount);
 
-                    Cart cart = DBManager.getInstance().getCart(mDetail.getId());
+                    Cart cart = DBManager.getInstance().getCart(mType.getDesc(), mDetail.getId());
                     if (cart == null) {// 该产品在DB中不存在
 
                         cart = new Cart();

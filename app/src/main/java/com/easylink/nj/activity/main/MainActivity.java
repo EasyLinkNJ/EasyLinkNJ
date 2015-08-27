@@ -49,6 +49,11 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     protected void onResume() {
 
         super.onResume();
+        updateActivityCart();
+    }
+
+    public void updateActivityCart() {
+
         int count = DBManager.getInstance().getCartCount();
         if (mTvCartCount != null) {
 
@@ -89,12 +94,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         findViewById(R.id.rlCart).setOnClickListener(this);
 
         mTvCartCount = (TextView) findViewById(R.id.tvCount);
-        int count = DBManager.getInstance().getCartCount();
-        if (count > 0) {
-
-            mTvCartCount.setText(String.valueOf(count));
-            ViewUtil.showView(mTvCartCount);
-        }
+        updateActivityCart();
 
         findViewById(R.id.tvMine).setOnClickListener(this);
 
@@ -140,12 +140,12 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        if(mTvCurrentSelected == v)
+        if (mTvCurrentSelected == v)
             return;
 
         switch (v.getId()) {
             case R.id.tvHome:
-                if(mHomeFragment == null){
+                if (mHomeFragment == null) {
 
                     mHomeFragment = HomeFragment.newInstance(this);
                     addFragment(R.id.flContent, mHomeFragment);
@@ -154,7 +154,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
                 ViewUtil.showImageView(mIvSearch, R.mipmap.ic_search);
                 break;
             case R.id.rlCart:
-                if(mCartFragment == null){
+                if (mCartFragment == null) {
 
                     mCartFragment = CartListFragment.newInstance(this);
                     addFragment(R.id.flContent, mCartFragment);
@@ -163,7 +163,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
                 ViewUtil.hideImageView(mIvSearch);
                 break;
             case R.id.tvMine:
-                if(mMineFragment == null){
+                if (mMineFragment == null) {
 
                     mMineFragment = MainMineFragment.newInstance(this);
                     addFragment(R.id.flContent, mMineFragment);
@@ -173,7 +173,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
                 break;
         }
 
-        if(mTvCurrentSelected != null)
+        if (mTvCurrentSelected != null)
             mTvCurrentSelected.setSelected(false);
 
         mTvCurrentSelected = v;

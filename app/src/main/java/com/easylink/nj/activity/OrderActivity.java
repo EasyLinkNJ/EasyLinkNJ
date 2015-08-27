@@ -1,6 +1,7 @@
 package com.easylink.nj.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -11,7 +12,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.easylink.library.adapter.OnItemViewClickListener;
+import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
@@ -21,11 +24,14 @@ import com.easylink.nj.adapter.OrderAdapter;
 import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
+import com.easylink.nj.bean.product.PostOrder;
 import com.easylink.nj.utils.DBManager;
 import com.easylink.nj.utils.DialogUtil;
 import com.easylink.nj.view.BaseDialog;
 import com.easylink.nj.view.BaseDialog.OnViewClickListener;
+import com.easylink.nj.view.ConfirmTitleDialog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -203,22 +209,49 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
     private void showConfirmDialog() {
 
-        DialogUtil.getOrderConfirmDialog(OrderActivity.this, new OnViewClickListener() {
+        ConfirmTitleDialog confirmDialog = DialogUtil.getOrderConfirmDialog(OrderActivity.this, new OnViewClickListener() {
 
             @Override
             public void onViewClick(BaseDialog dialog, View v) {
 
+                isConfirmed = true;
+
                 mLvOrder.removeHeaderView(mTvHeaderTitle);
                 isHeaderAdded = false;
-
-                isConfirmed = true;
 
                 saveOrderInfo();
                 refreshView();
 
                 dialog.dismiss();
             }
-        }).show();
+        });
+        confirmDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+
+            }
+        });
+        confirmDialog.show();
+    }
+
+    private void saveOrderInfo() {
+
+        // 保存订单信息
+        Order order = new Order();
+        order.orderId = String.valueOf(order.time);
+        order.time = System.currentTimeMillis();
+        order.address = mAddress;
+        order.carts = mAdapter.getData();
+        order.save();
+
+        for (Cart cart : order.carts) {
+
+            cart.orderId = order.orderId;
+            cart.save();
+        }
+
+        postOrderInfo(order);
     }
 
     private void refreshView() {
@@ -227,19 +260,28 @@ public class OrderActivity extends NjHttpActivity<Order> {
         mTvBottomBar.setText("提醒客服处理");
     }
 
-    private void saveOrderInfo() {
+    private void postOrderInfo(Order order) {
 
-        // 保存订单信息
-        Order order = new Order();
-        order.time = System.currentTimeMillis();
-        order.orderId = String.valueOf(order.time);
-        order.address = mAddress;
-        order.save();
+        try {
+            PostOrder postOrder = new PostOrder();
+            List<PostOrder.OrderItem> orderItems = new ArrayList<>();
+            PostOrder.OrderItem orderItem;
+            for (Cart cart : order.carts) {
 
-        for (Cart cart : mAdapter.getData()) {
+                orderItem = new PostOrder.OrderItem();
+                orderItem.setModid(cart.productId);
+                orderItem.setModname(cart.type);
+                orderItem.setNum(String.valueOf(cart.count));
+                orderItems.add(orderItem);
+            }
+            postOrder.setOrderjs(orderItems);
+            String json = JSON.toJSONString(postOrder);
 
-            cart.orderId = order.orderId;
-            cart.save();
+            if (LogMgr.isDebug())
+                LogMgr.e("daisw", "post order json: " + json);
+        } catch (Exception e) {
+
+            e.printStackTrace();
         }
     }
 

@@ -231,15 +231,23 @@ public class NjHttpUtil extends BaseHttpUtil {
         return htp;
     }
 
-    public static HttpTaskParams getPostOrder(String name, String phone, String msg, String product_id) {
+    public static HttpTaskParams getPostOrder(String onlinekey, String name, String phone, String address, String orderjs) {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_POST_ORDER);
-        htp.addParam("uuid", DeviceUtil.getIMEI());
+        htp.addParam("onlinekey", onlinekey);
         htp.addParam("name", name);
         htp.addParam("phone", phone);
-        htp.addParam("msg", msg);// TODO 地址?
-//        htp.addParam("url", url);TODO ?
-        htp.addParam("product_id", product_id);
+        htp.addParam("address", address);
+        htp.addParam("orderjs", orderjs);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    public static HttpTaskParams getMyOrder(String onlinekey) {
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_GET_ORDER);
+        htp.addParam("onlinekey", onlinekey);
 
         setSignParam(htp);
         return htp;

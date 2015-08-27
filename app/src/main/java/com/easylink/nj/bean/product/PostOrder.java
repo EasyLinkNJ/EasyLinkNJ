@@ -14,41 +14,7 @@ import java.util.List;
 public class PostOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private String name = TextUtil.TEXT_EMPTY;
-    private String phone = TextUtil.TEXT_EMPTY;
-    private String address = TextUtil.TEXT_EMPTY;
     private List<OrderItem> orderjs = new ArrayList<>();
-
-    public String getName() {
-
-        return name;
-    }
-
-    public void setName(String name) {
-
-        this.name = TextUtil.filterNull(name);
-    }
-
-    public String getPhone() {
-
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-
-        this.phone = TextUtil.filterNull(phone);
-    }
-
-    public String getAddress() {
-
-        return address;
-    }
-
-    public void setAddress(String address) {
-
-        this.address = TextUtil.filterNull(address);
-    }
 
     public List<OrderItem> getOrderjs() {
 
@@ -60,7 +26,7 @@ public class PostOrder implements Serializable {
         this.orderjs = orderjs == null ? new ArrayList<OrderItem>() : orderjs;
     }
 
-    private class OrderItem {
+    public static class OrderItem {
 
         private String modname = TextUtil.TEXT_EMPTY;
         private String modid = TextUtil.TEXT_EMPTY;

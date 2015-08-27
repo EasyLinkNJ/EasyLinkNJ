@@ -93,6 +93,7 @@ public class CartListFragment extends NjHttpFragment<ProductNongjiList> {
             cart.count = cart.count + 1;
             cart.save();
             mAdapter.notifyDataSetChanged();
+            ((MainActivity) getActivity()).updateActivityCart();
         } else if (vId == R.id.ivDelete) {// delete view
 
             cart.count = cart.count - 1;
@@ -107,6 +108,7 @@ public class CartListFragment extends NjHttpFragment<ProductNongjiList> {
                 cart.save();
             }
             mAdapter.notifyDataSetChanged();
+            ((MainActivity) getActivity()).updateActivityCart();
         }
     }
 
