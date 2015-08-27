@@ -1,4 +1,4 @@
-package com.easylink.nj.adapter;
+package com.easylink.nj.adapter.product;
 
 import android.net.Uri;
 import android.view.View;

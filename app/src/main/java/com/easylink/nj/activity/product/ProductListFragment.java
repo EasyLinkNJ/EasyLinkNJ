@@ -5,9 +5,8 @@ import android.support.annotation.Nullable;
 
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.nj.activity.common.NjHttpXlvActivity;
 import com.easylink.nj.activity.common.NjHttpXlvFragment;
-import com.easylink.nj.adapter.ProductListAdapter;
+import com.easylink.nj.adapter.product.ProductListAdapter;
 import com.easylink.nj.bean.product.ProductItem;
 
 /**
