@@ -39,7 +39,9 @@ public class ProductListZhongziActivity extends ProductListActivity<ProductZhong
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductDetailActivity.startActivityFromZZ(this, ((ProductZhongzi) getAdapterItem(position)).getId(), false);
+        ProductZhongzi zz = ((ProductZhongzi) getAdapterItem(position));
+        if(zz != null)
+            ProductDetailActivity.startActivityFromZZ(this, zz.getId(), false);
     }
 
     public static void startActivity(Activity activity, String companyId){

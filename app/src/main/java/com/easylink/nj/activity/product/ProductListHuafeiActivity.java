@@ -39,7 +39,9 @@ public class ProductListHuafeiActivity extends ProductListActivity<ProductHuafei
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductDetailActivity.startActivityFromHF(this, ((ProductHuafei) getAdapterItem(position)).getId(), false);
+        ProductHuafei hf = ((ProductHuafei) getAdapterItem(position));
+        if(hf != null)
+            ProductDetailActivity.startActivityFromHF(this, hf.getId(), false);
     }
 
     public static void startActivity(Activity activity, String companyId){

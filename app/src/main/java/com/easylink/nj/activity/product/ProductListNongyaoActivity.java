@@ -39,7 +39,9 @@ public class ProductListNongyaoActivity extends ProductListActivity<ProductNongy
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductDetailActivity.startActivityFromNY(this, ((ProductNongyao) getAdapterItem(position)).getId(), false);
+        ProductNongyao ny = ((ProductNongyao) getAdapterItem(position));
+        if(ny != null)
+            ProductDetailActivity.startActivityFromNY(this, ny.getId(), false);
     }
 
     public static void startActivity(Activity activity, String companyId){

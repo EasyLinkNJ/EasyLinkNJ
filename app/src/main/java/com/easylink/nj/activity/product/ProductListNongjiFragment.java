@@ -44,7 +44,8 @@ public class ProductListNongjiFragment extends ProductListFragment<ProductNongji
     public void onItemViewClick(int position, View clickView) {
 
         ProductNongji nj = (ProductNongji) getAdapterItem(position);
-        ProductDetailActivity.startActivityFromNJ(getActivity(), nj.getId(), false);
+        if(nj != null)
+            ProductDetailActivity.startActivityFromNJ(getActivity(), nj.getId(), false);
     }
 
     public void updateListByBrand(String brand){
