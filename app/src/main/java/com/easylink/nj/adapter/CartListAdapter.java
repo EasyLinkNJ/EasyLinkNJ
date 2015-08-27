@@ -80,7 +80,7 @@ public class CartListAdapter extends ExAdapter<Cart> {
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);
             mTvCount.setText(String.valueOf(cart.count));
-            mTvNum.setText("数量：x " + String.valueOf(cart.count));
+            mTvNum.setText("数量：" + String.valueOf(cart.count));
         }
     }
 }

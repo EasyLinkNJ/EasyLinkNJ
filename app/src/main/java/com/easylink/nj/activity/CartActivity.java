@@ -11,6 +11,7 @@ import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.utils.DBManager;
@@ -80,7 +81,9 @@ public class CartActivity extends NjHttpActivity<Cart> {
         int vId = clickView.getId();
         if (vId == R.id.rlRootView) {// convert view
 
-            ProductDetailActivity.startActivityFromNJ(this, cart.productId, true);
+            for (ProductType type : ProductType.values())
+                if (type.getDesc().equals(cart.type))
+                    ProductDetailActivity.startActivity(this, type, cart.productId, true);
         } else if (vId == R.id.ivAdd) {// add view
 
             cart.count = cart.count + 1;

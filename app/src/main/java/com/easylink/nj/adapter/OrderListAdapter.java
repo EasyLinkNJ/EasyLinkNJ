@@ -68,15 +68,18 @@ public class OrderListAdapter extends ExAdapter<Order> {
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);
-            mTvNum.setText("数量：x " + String.valueOf(cart.count));
+            mTvNum.setText("数量：" + String.valueOf(cart.count));
 
             try {
 
-                int price = Integer.valueOf(cart.price.substring(0, cart.price.indexOf("万"))) * cart.count;
-                mTvTotalPrice.setText("总价：￥" + price + "万");
+//                int price = Integer.valueOf(cart.price.substring(0, cart.price.indexOf("万"))) * cart.count;
+//                mTvTotalPrice.setText("总价：￥" + price + "万");
+
+                int price = Integer.valueOf(cart.price) * cart.count;
+                mTvTotalPrice.setText("总价：￥" + price);
             } catch (Exception e) {
 
-                mTvTotalPrice.setText("总价：面议");
+//                mTvTotalPrice.setText("总价：面议");
             }
         }
     }

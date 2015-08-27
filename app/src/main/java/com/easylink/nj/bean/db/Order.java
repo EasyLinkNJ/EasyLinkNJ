@@ -16,13 +16,13 @@ public class Order extends Model {
     @Column(name = "orderId")
     public String orderId;
 
-    // 关联用户表
-    @Column(name = "Address")
-    public Address address;
-
     // 订单创建时间
     @Column(name = "time")
     public long time;
+
+    // 关联用户表
+    @Column(name = "Address")
+    public Address address;
 
     // 关联多个产品
     public List<Cart> carts;

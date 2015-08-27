@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.easylink.library.activity.ExFragmentActivity;
 import com.easylink.library.plugin.DelayBackHandler;
 import com.easylink.library.util.DensityUtil;
-import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.EasyApplication;
 import com.easylink.nj.R;
@@ -110,8 +109,6 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
             @Override
             public NjJsonResponse<Object> onTaskResponse(String jsonText) {
-
-                LogMgr.e("daisw", "jsonText: " + jsonText);
 
                 NjJsonResponse<Object> resp = new NjJsonResponse<>();
                 if (TextUtils.isEmpty(jsonText))

@@ -45,6 +45,7 @@ public abstract class NjJsonListener<T> implements HttpTaskStringListener<NjJson
             if (resp.isSuccess()) {
 
                 jsonText = jsonObj.getString("data").toString();
+
                 if(LogMgr.isDebug())
                     LogMgr.d("NjJsonListener", "jsonText = "+jsonText);
 
