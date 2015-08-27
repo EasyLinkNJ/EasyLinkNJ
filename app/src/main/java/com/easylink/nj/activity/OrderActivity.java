@@ -103,7 +103,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
                 Cart cart = mAdapter.getItem(position);
                 if (cart != null)
-                    ProductDetailActivity.startActivity(OrderActivity.this, cart.productId, true);
+                    ProductDetailActivity.startActivityFromNJ(OrderActivity.this, cart.productId, true);
             }
         });
     }

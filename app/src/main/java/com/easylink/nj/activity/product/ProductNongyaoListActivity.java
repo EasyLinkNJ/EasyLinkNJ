@@ -8,6 +8,7 @@ import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.bean.product.ProductHuafeiList;
+import com.easylink.nj.bean.product.ProductNongyao;
 import com.easylink.nj.bean.product.ProductNongyaoList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
@@ -39,7 +40,7 @@ public class ProductNongyaoListActivity extends ProductListActivity<ProductNongy
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-
+        ProductDetailActivity.startActivityFromNY(this, ((ProductNongyao) getAdapterItem(position)).getId(), false);
     }
 
     public static void startActivity(Activity activity, String companyId){

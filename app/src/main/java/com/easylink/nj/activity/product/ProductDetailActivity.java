@@ -28,7 +28,24 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     private ProductDetail mDetail;
     private TextView mTvCartCount;
     private int mCartCount;
-    private boolean mOnlyGlance;
+    private boolean mOnlyGlance;// 只是浏览
+
+    public enum ProductType {
+
+        NJ("农机"), NY("农药"), ZZ("种子"), HF("化肥");
+
+        private String desc;
+
+        ProductType(String desc) {
+
+            this.desc = desc;
+        }
+
+        public String getDesc() {
+
+            return desc;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +160,10 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
     private void loadDataFromServer() {
 
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getProductDetail(getIntent().getStringExtra("productId")), ProductDetail.class);
+        ProductType type = (ProductType) getIntent().getSerializableExtra("productType");
+        String id = getIntent().getStringExtra("productId");
+
+        executeHttpTaskByUiSwitch(0, NjHttpUtil.getDetail(type, id), ProductDetail.class);
     }
 
     @Override
@@ -163,11 +183,39 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
         return true;
     }
 
-    public static void startActivity(Activity act, String productId, boolean onlyGlance) {
+    public static void startActivityFromNJ(Activity act, String id, boolean onlyGlance) {
+
+        startActivity(act, ProductType.NJ, id, onlyGlance);
+    }
+
+    public static void startActivityFromNY(Activity act, String id, boolean onlyGlance) {
+
+        startActivity(act, ProductType.NY, id, onlyGlance);
+    }
+
+    public static void startActivityFromZZ(Activity act, String id, boolean onlyGlance) {
+
+        startActivity(act, ProductType.ZZ, id, onlyGlance);
+    }
+
+    public static void startActivityFromHF(Activity act, String id, boolean onlyGlance) {
+
+        startActivity(act, ProductType.HF, id, onlyGlance);
+    }
+
+    /**
+     * @param act
+     * @param type
+     * @param productId
+     * @param onlyGlance 只是浏览
+     */
+    private static void startActivity(Activity act, ProductType type, String productId, boolean onlyGlance) {
 
         if (act == null)
             return;
+
         Intent intent = new Intent(act, ProductDetailActivity.class);
+        intent.putExtra("productType", type);
         intent.putExtra("productId", productId);
         intent.putExtra("onlyGlance", onlyGlance);
         act.startActivity(intent);

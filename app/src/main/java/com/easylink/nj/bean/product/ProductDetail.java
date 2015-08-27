@@ -16,22 +16,22 @@ public class ProductDetail {
     private String price = TextUtil.TEXT_EMPTY;// 设备单价
     private int stock;// 库存数量
     private int listorder;// 排序号
-    private String mainpic;// 主图url
-    private String smainpic;// 主图url，缩略参数传入时
-    private String brand_name;// 品牌名称
-    private String cate_name;// 分类名称
-    private String url;// 线上地址
+    private String mainpic = TextUtil.TEXT_EMPTY;// 主图url
+    private String smainpic = TextUtil.TEXT_EMPTY;// 主图url，缩略参数传入时
+    private String brand_name = TextUtil.TEXT_EMPTY;// 品牌名称
+    private String cate_name = TextUtil.TEXT_EMPTY;// 分类名称
+    private String url = TextUtil.TEXT_EMPTY;// 线上地址
 
-    private String ct_0;// 参数详情名称0
-    private String ct_1;// 参数详情名称1，如 基本参数
-    private String ct_2;// 参数详情名称2，如 性能特点
-    private String ct_3;// 参数详情名称3，如 结构特点
-    private String ct_4;// 参数详情名称4，如 施工案例
-    private String content_0;// 参数详情0
-    private String content_1;// 参数详情1，如 基本参数
-    private String content_2;// 参数详情2，如 性能特点
-    private String content_3;// 参数详情3，如 结构特点
-    private String content_4;// 参数详情4，如 施工案例
+    private String ct_0 = TextUtil.TEXT_EMPTY;// 参数详情名称0
+    private String ct_1 = TextUtil.TEXT_EMPTY;// 参数详情名称1，如 基本参数
+    private String ct_2 = TextUtil.TEXT_EMPTY;// 参数详情名称2，如 性能特点
+    private String ct_3 = TextUtil.TEXT_EMPTY;// 参数详情名称3，如 结构特点
+    private String ct_4 = TextUtil.TEXT_EMPTY;// 参数详情名称4，如 施工案例
+    private String content_0 = TextUtil.TEXT_EMPTY;// 参数详情0
+    private String content_1 = TextUtil.TEXT_EMPTY;// 参数详情1，如 基本参数
+    private String content_2 = TextUtil.TEXT_EMPTY;// 参数详情2，如 性能特点
+    private String content_3 = TextUtil.TEXT_EMPTY;// 参数详情3，如 结构特点
+    private String content_4 = TextUtil.TEXT_EMPTY;// 参数详情4，如 施工案例
 
     public String getId() {
 

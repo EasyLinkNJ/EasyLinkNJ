@@ -51,7 +51,7 @@ public class ProductListActivity1 extends NjHttpXlvActivity<ProductList> {
 
                 ProductItem product = adapter.getItem(position);
                 if (product != null)
-                    ProductDetailActivity.startActivity(ProductListActivity1.this, "1"/*product.getId()*/, false);
+                    ProductDetailActivity.startActivityFromNJ(ProductListActivity1.this, "1"/*product.getId()*/, false);
             }
         });
 

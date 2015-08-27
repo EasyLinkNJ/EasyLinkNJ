@@ -23,4 +23,9 @@ public interface HttpApi {
     String URL_PRODUCT_HUAFEI_LIST = URL_BASE + "huafei/list";
     String URL_PRODUCT_NONGYAO_LIST = URL_BASE + "nongyao/list";
     String URL_PRODUCT_ZHONGZI_LIST = URL_BASE + "zhongzi/list";
+
+    String URL_DETAIL_NONGJI_LIST = URL_BASE + "nongji/detail";
+    String URL_DETAIL_NONGYAO_LIST = URL_BASE + "nongyao/detail";
+    String URL_DETAIL_HUAFEI_LIST = URL_BASE + "huafei/detail";
+    String URL_DETAIL_ZHONGZI_LIST = URL_BASE + "zhongzi/detail";
 }

@@ -83,7 +83,7 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
         int vId = clickView.getId();
         if (vId == R.id.rlRootView) {// convert view
 
-            ProductDetailActivity.startActivity(getActivity(), cart.productId, true);
+            ProductDetailActivity.startActivityFromNJ(getActivity(), cart.productId, true);
         } else if (vId == R.id.ivAdd) {// add view
 
             cart.count = cart.count + 1;

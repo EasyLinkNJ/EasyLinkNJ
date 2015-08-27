@@ -64,6 +64,7 @@ public class ProductNongjiListActivity extends NjFragmentActivity implements OnI
     @Override
     public void onItemViewClick(int position, View clickView) {
 
+        ProductDetailActivity.startActivityFromNJ(this, "1"/*product.getId()*/, false);
     }
 
     public static void startActivity(Activity activity){

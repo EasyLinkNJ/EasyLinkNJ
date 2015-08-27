@@ -80,7 +80,7 @@ public class CartActivity extends NjHttpActivity<Cart> {
         int vId = clickView.getId();
         if (vId == R.id.rlRootView) {// convert view
 
-            ProductDetailActivity.startActivity(CartActivity.this, cart.productId, true);
+            ProductDetailActivity.startActivityFromNJ(this, cart.productId, true);
         } else if (vId == R.id.ivAdd) {// add view
 
             cart.count = cart.count + 1;
