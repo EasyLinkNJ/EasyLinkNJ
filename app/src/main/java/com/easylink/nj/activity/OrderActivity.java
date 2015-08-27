@@ -16,6 +16,7 @@ import com.alibaba.fastjson.JSON;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
+import com.easylink.nj.EasyApplication;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
@@ -25,6 +26,9 @@ import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
 import com.easylink.nj.bean.product.PostOrder;
+import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.httptask.NjJsonListener;
+import com.easylink.nj.httptask.NjJsonResponse;
 import com.easylink.nj.utils.DBManager;
 import com.easylink.nj.utils.DialogUtil;
 import com.easylink.nj.view.BaseDialog;
@@ -276,9 +280,37 @@ public class OrderActivity extends NjHttpActivity<Order> {
             }
             postOrder.setOrderjs(orderItems);
             String json = JSON.toJSONString(postOrder);
+            json = json.substring(json.indexOf("["));
 
             if (LogMgr.isDebug())
-                LogMgr.e("daisw", "post order json: " + json);
+                LogMgr.e("daisw", json);
+
+            String userToken = EasyApplication.getCommonPrefs().getUserToken();
+            executeHttpTask(0, NjHttpUtil.getPostOrder(userToken, order.address.name, order.address.phone, order.address.address, json), new NjJsonListener<Object>(Object.class) {
+
+                @Override
+                public void onTaskPre() {
+
+                }
+
+                @Override
+                public NjJsonResponse<Object> onTaskResponse(String jsonText) {
+
+                    if (LogMgr.isDebug())
+                        LogMgr.e("daisw", "onTaskResponse: " + jsonText);
+                    return super.onTaskResponse(jsonText);
+                }
+
+                @Override
+                public void onTaskResult(Object result) {
+
+                }
+
+                @Override
+                public void onTaskFailed(int failedCode, String msg) {
+
+                }
+            });
         } catch (Exception e) {
 
             e.printStackTrace();
