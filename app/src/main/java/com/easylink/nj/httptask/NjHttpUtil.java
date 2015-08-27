@@ -11,6 +11,19 @@ import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 public class NjHttpUtil extends BaseHttpUtil {
 
     /**
+     * 农机品牌列表
+     * @return
+     */
+    public static HttpTaskParams getBrandNongjiList(){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_NONGJI_LIST);
+//        htp.addParam("p", String.valueOf(page));
+//        htp.addParam("ps", String.valueOf(limitSize));
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
      * 化肥品牌列表
      * @param page
      * @param limitSize
@@ -122,6 +135,17 @@ public class NjHttpUtil extends BaseHttpUtil {
         htp.addParam("p", String.valueOf(page));
         htp.addParam("ps", String.valueOf(limitSize));
         htp.addParam("company_id", companyId);
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 农机分类列表
+     * @return
+     */
+    public static HttpTaskParams getCategoryNongjiList(){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_CATEGORY_NONGJI_LIST);
         setSignParam(htp);
         return htp;
     }

@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
+        android:id="@+id/llToolbar"
         android:layout_width="match_parent"
         android:layout_height="36dp"
         android:orientation="horizontal"
@@ -37,13 +39,24 @@
             android:text="类型"/>
     </LinearLayout>
     <View
+        android:id="@+id/vToolbarLine"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1px"
         android:background="#B2CCCCCC"/>
     <FrameLayout
-        android:id="@+id/flContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
+        <FrameLayout
+            android:id="@+id/flContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+        <View
+            android:id="@+id/vLoadingShadow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#5f000000"
+            android:visibility="invisible"/>
     </FrameLayout>
+
 </LinearLayout>

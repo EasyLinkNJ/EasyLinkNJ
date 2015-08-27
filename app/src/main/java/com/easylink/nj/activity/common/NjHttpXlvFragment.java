@@ -18,9 +18,9 @@ import java.util.List;
  */
 public abstract class NjHttpXlvFragment<T> extends NjHttpFragment<T>{
 
-    private final int HTTP_TASK_WHAT_UI = -1;
-    private final int HTTP_TASK_WHAT_PULL = -2;
-    private final int HTTP_TASK_WHAT_MORE = -3;
+    public final int HTTP_TASK_WHAT_UI = -1;
+    public final int HTTP_TASK_WHAT_PULL = -2;
+    public final int HTTP_TASK_WHAT_MORE = -3;
     private final int LIMIT_SIZE = 10;
     private XListView mXlv;
     private ExAdapter mAdapter;

@@ -20,6 +20,7 @@ public class ProductListNongjiFragment extends ProductListFragment<ProductNongji
 
     private String mBrand = TextUtil.TEXT_EMPTY;//品牌
     private String mCategory = TextUtil.TEXT_EMPTY;//名称
+
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
@@ -41,6 +42,26 @@ public class ProductListNongjiFragment extends ProductListFragment<ProductNongji
     @Override
     public void onItemViewClick(int position, View clickView) {
 
+    }
+
+    public void updateListByBrand(String brand){
+
+        if(isAdded()){
+
+            mBrand = TextUtil.filterNull(brand);
+            abortAllHttpTask();
+            loadDataFromServer();
+        }
+    }
+
+    public void updateListByCategory(String category){
+
+        if(isAdded()){
+
+            mCategory = TextUtil.filterNull(category);
+            abortAllHttpTask();
+            loadDataFromServer();
+        }
     }
 
     public static ProductListNongjiFragment newInstance(Context context){
