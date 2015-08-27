@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/7/23.
  */
-public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList>{
+public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList> {
 
     private EditText mEt;
     private ProductListAdapter adapter;
@@ -90,12 +90,12 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList>{
 
                 String content = s.toString();
                 abortAllHttpTask();
-                if(TextUtil.isEmptyTrim(content)){
+                if (TextUtil.isEmptyTrim(content)) {
 
                     adapter.clear();
                     adapter.notifyDataSetChanged();
                     switchInvisible();
-                }else{
+                } else {
 
                     loadDataFromServer();
                 }
