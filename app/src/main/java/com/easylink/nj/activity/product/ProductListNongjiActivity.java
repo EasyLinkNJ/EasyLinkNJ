@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class ProductListNongjiActivity extends NjFragmentActivity implements OnItemViewClickListener, View.OnClickListener{
+public class ProductListNongjiActivity extends NjFragmentActivity implements View.OnClickListener{
 
     private LinearLayout mLlToolbar;
     private View mVToolbarLine;
@@ -82,20 +82,14 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements OnI
     }
 
     @Override
-    public void onItemViewClick(int position, View clickView) {
-
-        ProductDetailActivity.startActivityFromNJ(this, "1"/*product.getId()*/, false);
-    }
-
-    @Override
     public void onClick(View v) {
 
         switch (v.getId()){
             case R.id.tvBrand:
-                showBrandList();
+                showBrandList(true);
                 break;
             case R.id.tvCategory:
-                showCategoryList();
+                showCategoryList(true);
                 break;
         }
     }
@@ -118,31 +112,31 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements OnI
         mPwList.onItemClick(position);
     }
 
-    private void showBrandList(){
+    private void showBrandList(boolean fromClick){
 
         if(mBrandList == null || mBrandList.isEmpty()){
 
-            executeBrandsHttpTask();
+            if(fromClick)
+                executeBrandsHttpTask();
         }else{
 
             initPopList();
             mPwList.updateBrand(mBrandList);
             mPwList.showAsDropDown(mVToolbarLine);
-            ViewUtil.showView(mVLoadingShadow);
         }
     }
 
-    private void showCategoryList(){
+    private void showCategoryList(boolean fromClick){
 
         if(mCategoryList == null || mCategoryList.isEmpty()){
 
-            executeCategoryHttpTask();
+            if(fromClick)
+                executeCategoryHttpTask();
         }else{
 
             initPopList();
             mPwList.updateCategory(mCategoryList);
             mPwList.showAsDropDown(mVToolbarLine);
-            ViewUtil.showView(mVLoadingShadow);
         }
     }
 
@@ -162,7 +156,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements OnI
 
                 dismissLoadingPop();
                 mBrandList = result;
-                showBrandList();
+                showBrandList(false);
             }
 
             @Override
@@ -189,7 +183,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements OnI
 
                 dismissLoadingPop();
                 mCategoryList = result;
-                showCategoryList();
+                showCategoryList(false);
             }
 
             @Override
@@ -252,7 +246,6 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements OnI
                 @Override
                 public void onDismiss() {
 
-                    ViewUtil.hideView(mVLoadingShadow);
                 }
             });
         }

@@ -8,6 +8,7 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
+import com.easylink.nj.bean.product.ProductNongji;
 import com.easylink.nj.bean.product.ProductNongjiList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
@@ -42,6 +43,8 @@ public class ProductListNongjiFragment extends ProductListFragment<ProductNongji
     @Override
     public void onItemViewClick(int position, View clickView) {
 
+        ProductNongji nj = (ProductNongji) getAdapterItem(position);
+        ProductDetailActivity.startActivityFromNJ(getActivity(), nj.getId(), false);
     }
 
     public void updateListByBrand(String brand){
