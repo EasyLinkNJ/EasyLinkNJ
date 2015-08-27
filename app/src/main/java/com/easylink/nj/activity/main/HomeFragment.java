@@ -13,6 +13,7 @@ import com.easylink.nj.activity.product.BrandListHuafeiActivity;
 import com.easylink.nj.activity.product.BrandListNongjiActivity;
 import com.easylink.nj.activity.product.BrandListNongyaoActivity;
 import com.easylink.nj.activity.product.BrandListZhongziActivity;
+import com.easylink.nj.activity.product.ProductListNongjiActivity;
 import com.easylink.nj.view.ClickScaleAnimRelativeLayout;
 
 /**
@@ -45,7 +46,8 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandListNongjiActivity.startActivity(getActivity());
+//                BrandListNongjiActivity.startActivity(getActivity());
+                ProductListNongjiActivity.startActivity(getActivity());
             }
         });
 

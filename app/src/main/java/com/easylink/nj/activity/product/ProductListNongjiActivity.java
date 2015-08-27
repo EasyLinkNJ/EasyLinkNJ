@@ -39,6 +39,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements OnI
     protected void initContentView() {
 
         initTabViews();
+        addFragment(R.id.flContent, ProductListNongjiFragment.newInstance(this));
     }
 
     private void initTabViews() {

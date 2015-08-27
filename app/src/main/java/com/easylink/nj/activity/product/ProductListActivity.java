@@ -5,10 +5,7 @@ import android.os.Bundle;
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
-import com.easylink.nj.adapter.ProductListAdapter;
-import com.easylink.nj.adapter.product.BrandAdapter;
-import com.easylink.nj.bean.product.BrandItem;
-import com.easylink.nj.bean.product.Product;
+import com.easylink.nj.adapter.product.ProductListAdapter;
 import com.easylink.nj.bean.product.ProductItem;
 
 /**

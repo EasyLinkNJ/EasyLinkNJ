@@ -16,7 +16,7 @@ import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
-import com.easylink.nj.bean.product.ProductList;
+import com.easylink.nj.bean.product.ProductNongjiList;
 import com.easylink.nj.utils.DBManager;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
-public class CartListFragment extends NjHttpFragment<ProductList> {
+public class CartListFragment extends NjHttpFragment<ProductNongjiList> {
 
     private ListView mLvCarts;
     //    private CartGridAdapter mAdapter;
@@ -147,7 +147,7 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
     }
 
     @Override
-    public boolean invalidateContent(int what, ProductList productList) {
+    public boolean invalidateContent(int what, ProductNongjiList productList) {
 
         return true;
     }

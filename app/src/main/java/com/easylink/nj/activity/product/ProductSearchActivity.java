@@ -16,9 +16,9 @@ import com.easylink.library.util.SoftInputHandler;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
-import com.easylink.nj.adapter.ProductListAdapter;
+import com.easylink.nj.adapter.product.ProductListAdapter;
 import com.easylink.nj.bean.product.ProductItem;
-import com.easylink.nj.bean.product.ProductList;
+import com.easylink.nj.bean.product.ProductNongjiList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/7/23.
  */
-public class ProductSearchActivity extends NjHttpXlvActivity<ProductList>{
+public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList> {
 
     private EditText mEt;
     private ProductListAdapter adapter;
@@ -90,12 +90,12 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductList>{
 
                 String content = s.toString();
                 abortAllHttpTask();
-                if(TextUtil.isEmptyTrim(content)){
+                if (TextUtil.isEmptyTrim(content)) {
 
                     adapter.clear();
                     adapter.notifyDataSetChanged();
                     switchInvisible();
-                }else{
+                } else {
 
                     loadDataFromServer();
                 }
@@ -112,11 +112,11 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductList>{
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return ProductList.class;
+        return ProductNongjiList.class;
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductList result) {
+    protected List<?> getListOnInvalidateContent(ProductNongjiList result) {
 
         return result == null ? null : result.getList();
     }

@@ -1,4 +1,4 @@
-package com.easylink.nj.adapter;
+package com.easylink.nj.adapter.product;
 
 import android.net.Uri;
 import android.view.View;
@@ -8,7 +8,6 @@ import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
 import com.easylink.nj.R;
-import com.easylink.nj.bean.product.Product;
 import com.easylink.nj.bean.product.ProductItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 
