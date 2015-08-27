@@ -13,6 +13,7 @@ import com.easylink.nj.R;
 import com.easylink.nj.activity.OrderActivity;
 import com.easylink.nj.activity.common.NjHttpFragment;
 import com.easylink.nj.activity.product.ProductDetailActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 import com.easylink.nj.adapter.CartListAdapter;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.product.ProductList;
@@ -83,7 +84,10 @@ public class CartListFragment extends NjHttpFragment<ProductList> {
         int vId = clickView.getId();
         if (vId == R.id.rlRootView) {// convert view
 
-            ProductDetailActivity.startActivityFromNJ(getActivity(), cart.productId, true);
+            for (ProductType type : ProductType.values())
+                if (type.getDesc().equals(cart.type))
+                    ProductDetailActivity.startActivity(getActivity(), type, cart.productId, true);
+
         } else if (vId == R.id.ivAdd) {// add view
 
             cart.count = cart.count + 1;

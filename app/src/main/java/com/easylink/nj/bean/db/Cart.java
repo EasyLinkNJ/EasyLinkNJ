@@ -34,8 +34,7 @@ public class Cart extends Model {
     @Column(name = "orderId")
     public String orderId;
 
-//    @Column(name = "introTitle_0")
-//    public String introTitle_0;
-//    @Column(name = "intro_0")
-//    public String intro_0;
+    // 类型(product、nongyao、zhongzi、huafei)
+    @Column(name = "type")
+    public String type;
 }

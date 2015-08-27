@@ -29,10 +29,11 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     private TextView mTvCartCount;
     private int mCartCount;
     private boolean mOnlyGlance;// 只是浏览
+    private ProductType mType;
 
     public enum ProductType {
 
-        NJ("农机"), NY("农药"), ZZ("种子"), HF("化肥");
+        NJ("product"), NY("nongyao"), ZZ("zhongzi"), HF("huafei");
 
         private String desc;
 
@@ -43,7 +44,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
         public String getDesc() {
 
-            return desc;
+            return this.desc;
         }
     }
 
@@ -76,6 +77,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     protected void initData() {
 
         mOnlyGlance = getIntent().getBooleanExtra("onlyGlance", false);
+        mType = (ProductType) getIntent().getSerializableExtra("productType");
     }
 
     @Override
@@ -130,7 +132,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                     ViewUtil.showView(mTvCartCount);
 
                     Cart cart = DBManager.getInstance().getCart(mDetail.getId());
-                    if (cart == null) {//该产品在DB中不存在
+                    if (cart == null) {// 该产品在DB中不存在
 
                         cart = new Cart();
                         cart.productId = mDetail.getId();
@@ -138,10 +140,9 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                         cart.imgUrl = mDetail.getMainpic();
                         cart.price = mDetail.getPrice();
                         cart.count = 1;
-//                        cart.introTitle_0 = mDetail.getCt_0();
-//                        cart.intro_0 = mDetail.getContent_0();
+                        cart.type = mType.getDesc();
                         cart.save();
-                    } else {//存在，更新数量
+                    } else {// 存在，更新数量
 
                         cart.count = cart.count + 1;
                         cart.save();
@@ -160,10 +161,8 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
     private void loadDataFromServer() {
 
-        ProductType type = (ProductType) getIntent().getSerializableExtra("productType");
         String id = getIntent().getStringExtra("productId");
-
-        executeHttpTaskByUiSwitch(0, NjHttpUtil.getDetail(type, id), ProductDetail.class);
+        executeHttpTaskByUiSwitch(0, NjHttpUtil.getDetail(mType, id), ProductDetail.class);
     }
 
     @Override
@@ -209,7 +208,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
      * @param productId
      * @param onlyGlance 只是浏览
      */
-    private static void startActivity(Activity act, ProductType type, String productId, boolean onlyGlance) {
+    public static void startActivity(Activity act, ProductType type, String productId, boolean onlyGlance) {
 
         if (act == null)
             return;
