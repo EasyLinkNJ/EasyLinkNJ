@@ -7,8 +7,6 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
-import com.easylink.nj.bean.product.ProductHuafei;
-import com.easylink.nj.bean.product.ProductNongyaoList;
 import com.easylink.nj.bean.product.ProductZhongzi;
 import com.easylink.nj.bean.product.ProductZhongziList;
 import com.easylink.nj.httptask.NjHttpUtil;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class ProductZhongziListActivity extends ProductListActivity<ProductZhongziList> implements OnItemViewClickListener{
+public class ProductListZhongziActivity extends ProductListActivity<ProductZhongziList> implements OnItemViewClickListener{
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
@@ -47,7 +45,7 @@ public class ProductZhongziListActivity extends ProductListActivity<ProductZhong
     public static void startActivity(Activity activity, String companyId){
 
         Intent intent = new Intent();
-        intent.setClass(activity, ProductZhongziListActivity.class);
+        intent.setClass(activity, ProductListZhongziActivity.class);
         intent.putExtra("companyId", companyId);
         activity.startActivity(intent);
     }

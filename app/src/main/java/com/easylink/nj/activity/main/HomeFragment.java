@@ -6,28 +6,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.easylink.library.activity.ExFragment;
-import com.easylink.library.adapter.ExAdapter;
-import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.http.params.HttpTaskParams;
-import com.easylink.library.view.listview.XListView;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.common.NjHttpXlvFragment;
-import com.easylink.nj.activity.news.NewsDetailActivity;
-import com.easylink.nj.activity.product.BrandHuafeiListActivity;
-import com.easylink.nj.activity.product.BrandListActivity;
-import com.easylink.nj.activity.product.BrandNongjiListActivity;
-import com.easylink.nj.activity.product.BrandNongyaoListActivity;
-import com.easylink.nj.activity.product.BrandZhongziListActivity;
-import com.easylink.nj.adapter.NewsListAdapter;
-import com.easylink.nj.bean.news.News;
-import com.easylink.nj.bean.news.NewsList;
-import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.activity.product.BrandListHuafeiActivity;
+import com.easylink.nj.activity.product.BrandListNongjiActivity;
+import com.easylink.nj.activity.product.BrandListNongyaoActivity;
+import com.easylink.nj.activity.product.BrandListZhongziActivity;
 import com.easylink.nj.view.ClickScaleAnimRelativeLayout;
-
-import java.util.List;
 
 /**
  * Created by yihaibin on 15/7/14.
@@ -59,7 +45,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandNongjiListActivity.startActivity(getActivity());
+                BrandListNongjiActivity.startActivity(getActivity());
             }
         });
 
@@ -68,7 +54,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandNongyaoListActivity.startActivity(getActivity());
+                BrandListNongyaoActivity.startActivity(getActivity());
             }
         });
 
@@ -77,7 +63,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandHuafeiListActivity.startActivity(getActivity());
+                BrandListHuafeiActivity.startActivity(getActivity());
             }
         });
 
@@ -86,7 +72,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandZhongziListActivity.startActivity(getActivity());
+                BrandListZhongziActivity.startActivity(getActivity());
             }
         });
     }

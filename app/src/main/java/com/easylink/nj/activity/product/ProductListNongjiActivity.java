@@ -7,20 +7,13 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjFragmentActivity;
-import com.easylink.nj.activity.common.NjHttpFragmentActivity;
-import com.easylink.nj.bean.news.NewsList;
-import com.easylink.nj.bean.product.ProductList;
-import com.easylink.nj.httptask.NjHttpUtil;
-
-import java.util.List;
 
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class ProductNongjiListActivity extends NjFragmentActivity implements OnItemViewClickListener, View.OnClickListener{
+public class ProductListNongjiActivity extends NjFragmentActivity implements OnItemViewClickListener, View.OnClickListener{
 
     private TextView mTvBrand, mTvCategory;
 
@@ -70,7 +63,7 @@ public class ProductNongjiListActivity extends NjFragmentActivity implements OnI
     public static void startActivity(Activity activity){
 
         Intent intent = new Intent();
-        intent.setClass(activity, ProductNongjiListActivity.class);
+        intent.setClass(activity, ProductListNongjiActivity.class);
         activity.startActivity(intent);
     }
 }

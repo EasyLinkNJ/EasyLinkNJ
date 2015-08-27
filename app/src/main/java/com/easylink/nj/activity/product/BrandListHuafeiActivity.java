@@ -6,9 +6,7 @@ import android.view.View;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
-import com.easylink.nj.bean.news.NewsList;
-import com.easylink.nj.bean.product.BrandNongyao;
-import com.easylink.nj.bean.product.BrandZhongzi;
+import com.easylink.nj.bean.product.BrandHuafei;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -16,32 +14,38 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class BrandZhongziListActivity extends BrandListActivity<List<BrandZhongzi>> implements OnItemViewClickListener{
+public class BrandListHuafeiActivity extends BrandListActivity<List<BrandHuafei>> implements OnItemViewClickListener{
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getBrandZhongziList(page, limit);
+        return NjHttpUtil.getBrandHuafeiList(page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return BrandZhongzi.class;
+        return BrandHuafei.class;
     }
+
+//    @Override
+//    protected List<?> getListOnInvalidateContent(BrandHuafeiList result) {
+//
+//        return result == null ? null : result.getList();
+//    }
 
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        BrandZhongzi pn = (BrandZhongzi) getAdapterItem(position);
-        if(pn != null)
-            ProductZhongziListActivity.startActivity(this, pn.getId());
+        BrandHuafei bh = (BrandHuafei) getAdapterItem(position);
+        if(bh != null)
+            ProductListHuafeiActivity.startActivity(this, bh.getId());
     }
 
     public static void startActivity(Activity activity){
 
         Intent intent = new Intent();
-        intent.setClass(activity, BrandZhongziListActivity.class);
+        intent.setClass(activity, BrandListHuafeiActivity.class);
         activity.startActivity(intent);
     }
 }

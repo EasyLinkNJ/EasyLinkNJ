@@ -7,10 +7,8 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
-import com.easylink.nj.bean.news.NewsList;
-import com.easylink.nj.bean.product.ProductHuafei;
-import com.easylink.nj.bean.product.ProductHuafeiList;
 import com.easylink.nj.bean.product.ProductNongyao;
+import com.easylink.nj.bean.product.ProductNongyaoList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -18,22 +16,22 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class ProductHuafeiListActivity extends ProductListActivity<ProductHuafeiList> implements OnItemViewClickListener{
+public class ProductListNongyaoActivity extends ProductListActivity<ProductNongyaoList> implements OnItemViewClickListener{
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductHuafeiList(TextUtil.filterNull(getIntent().getStringExtra("companyId")), page, limit);
+        return NjHttpUtil.getProductNongyaoList(TextUtil.filterNull(getIntent().getStringExtra("companyId")), page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return ProductHuafeiList.class;
+        return ProductNongyaoList.class;
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductHuafeiList result) {
+    protected List<?> getListOnInvalidateContent(ProductNongyaoList result) {
 
         return result == null ? null : result.getList();
     }
@@ -41,13 +39,13 @@ public class ProductHuafeiListActivity extends ProductListActivity<ProductHuafei
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductDetailActivity.startActivityFromHF(this, ((ProductHuafei) getAdapterItem(position)).getId(), false);
+        ProductDetailActivity.startActivityFromNY(this, ((ProductNongyao) getAdapterItem(position)).getId(), false);
     }
 
     public static void startActivity(Activity activity, String companyId){
 
         Intent intent = new Intent();
-        intent.setClass(activity, ProductHuafeiListActivity.class);
+        intent.setClass(activity, ProductListNongyaoActivity.class);
         intent.putExtra("companyId", companyId);
         activity.startActivity(intent);
     }

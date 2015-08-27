@@ -41,35 +41,35 @@
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
         <activity
-            android:name=".activity.product.BrandNongjiListActivity"
+            android:name=".activity.product.BrandListNongjiActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.BrandNongyaoListActivity"
+            android:name=".activity.product.BrandListNongyaoActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.BrandHuafeiListActivity"
+            android:name=".activity.product.BrandListHuafeiActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.BrandZhongziListActivity"
+            android:name=".activity.product.BrandListZhongziActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.ProductHuafeiListActivity"
+            android:name=".activity.product.ProductListHuafeiActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.ProductNongyaoListActivity"
+            android:name=".activity.product.ProductListNongyaoActivity"
             android:screenOrientation="portrait" />
         <activity
 
-            android:name=".activity.product.ProductZhongziListActivity"
+            android:name=".activity.product.ProductListZhongziActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.ProductNongjiListActivity"
+            android:name=".activity.product.ProductListNongjiActivity"
             android:screenOrientation="portrait" />
 
         <activity
