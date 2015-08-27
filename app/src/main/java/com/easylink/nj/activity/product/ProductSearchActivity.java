@@ -17,7 +17,6 @@ import com.easylink.library.util.TextUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
 import com.easylink.nj.adapter.ProductListAdapter;
-import com.easylink.nj.bean.product.Product;
 import com.easylink.nj.bean.product.ProductItem;
 import com.easylink.nj.bean.product.ProductList;
 import com.easylink.nj.httptask.NjHttpUtil;

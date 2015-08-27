@@ -16,6 +16,7 @@ import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 import com.easylink.nj.adapter.OrderAdapter;
 import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
@@ -103,7 +104,9 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
                 Cart cart = mAdapter.getItem(position);
                 if (cart != null)
-                    ProductDetailActivity.startActivityFromNJ(OrderActivity.this, cart.productId, true);
+                    for (ProductType type : ProductType.values())
+                        if (type.getDesc().equals(cart.type))
+                            ProductDetailActivity.startActivity(OrderActivity.this, type, cart.productId, true);
             }
         });
     }
