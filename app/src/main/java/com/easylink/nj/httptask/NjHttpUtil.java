@@ -56,6 +56,29 @@ public class NjHttpUtil extends BaseHttpUtil {
     }
 
     /**
+     * 农机产品列表
+     * @param brand
+     * @param cateId
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductNongjiList(String brand, String cateId, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGJI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        if(!TextUtil.isEmpty(brand))
+            htp.addParam("company_id", brand);
+
+        if(!TextUtil.isEmpty(cateId))
+            htp.addParam("cate_id", cateId);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
      * 化肥产品列表
      * @param page
      * @param limitSize
@@ -103,6 +126,7 @@ public class NjHttpUtil extends BaseHttpUtil {
         return htp;
     }
 
+//--------------------------------------------------------------------------------------
     /**
      * 获取新闻列表
      *
@@ -147,7 +171,7 @@ public class NjHttpUtil extends BaseHttpUtil {
 
     public static HttpTaskParams getProductList(int page, int limitSize) {
 
-        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGJI_LIST);
         htp.addParam("p", String.valueOf(page));
         htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
@@ -156,7 +180,7 @@ public class NjHttpUtil extends BaseHttpUtil {
 
     public static HttpTaskParams getProductListByCateId(int page, int limitSize, String cateId){
 
-        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGJI_LIST);
         htp.addParam("p", String.valueOf(page));
         htp.addParam("ps", String.valueOf(limitSize));
         htp.addParam("cate_id", cateId);
@@ -166,7 +190,7 @@ public class NjHttpUtil extends BaseHttpUtil {
 
     public static HttpTaskParams getProductListByKey(int page, int limitSize, String key){
 
-        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGJI_LIST);
         htp.addParam("p", String.valueOf(page));
         htp.addParam("ps", String.valueOf(limitSize));
         htp.addParam("keyword", TextUtil.filterNull(key));
@@ -176,7 +200,7 @@ public class NjHttpUtil extends BaseHttpUtil {
 
     public static HttpTaskParams getProductList() {
 
-        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_LIST);
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGJI_LIST);
         setSignParam(htp);
 
         return htp;
@@ -187,7 +211,7 @@ public class NjHttpUtil extends BaseHttpUtil {
         String url = "";
         switch (type) {
             case NJ:
-                url = URL_DETAIL_NONGJI_LIST;
+                url = URL_DETAIL_NONGJI;
                 break;
             case NY:
                 url = URL_DETAIL_NONGYAO_LIST;

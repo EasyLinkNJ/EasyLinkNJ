@@ -8,7 +8,6 @@ import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
 import com.easylink.nj.R;
-import com.easylink.nj.bean.product.Product;
 import com.easylink.nj.bean.product.ProductItem;
 import com.facebook.drawee.view.SimpleDraweeView;
 

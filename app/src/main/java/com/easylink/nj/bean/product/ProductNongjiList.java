@@ -7,12 +7,12 @@ import java.util.ArrayList;
 /**
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class ProductList {
+public class ProductNongjiList {
 
     private String sum;// 当前条件下的总数
     private int p;// 当前页码
     private int ps;// 当前返回的每页数量
-    private ArrayList<Product> list;// 列表
+    private ArrayList<ProductNongji> list;// 列表
 
     public String getSum() {
 
@@ -29,9 +29,9 @@ public class ProductList {
         return ps;
     }
 
-    public ArrayList<Product> getList() {
+    public ArrayList<ProductNongji> getList() {
 
-        return list == null ? new ArrayList<Product>(0) : list;
+        return list == null ? new ArrayList<ProductNongji>(0) : list;
     }
 
     public void setSum(String sum) {
@@ -49,9 +49,9 @@ public class ProductList {
         this.ps = ps;
     }
 
-    public void setList(ArrayList<Product> list) {
+    public void setList(ArrayList<ProductNongji> list) {
 
-        this.list = list == null ? new ArrayList<Product>(0) : list;
+        this.list = list == null ? new ArrayList<ProductNongji>(0) : list;
     }
 
     @Override

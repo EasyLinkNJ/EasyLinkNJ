@@ -5,7 +5,7 @@ import com.easylink.library.util.TextUtil;
 /**
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class Product implements ProductItem{
+public class ProductNongji implements ProductItem{
 
     private String id = TextUtil.TEXT_EMPTY;// 编号
     private String title = TextUtil.TEXT_EMPTY;// 设备全称
