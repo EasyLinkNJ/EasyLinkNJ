@@ -79,7 +79,7 @@ public class OrderListAdapter extends ExAdapter<Order> {
                 mTvTotalPrice.setText("总价：￥" + price);
             } catch (Exception e) {
 
-//                mTvTotalPrice.setText("总价：面议");
+                mTvTotalPrice.setText("总价：面议");
             }
         }
     }
