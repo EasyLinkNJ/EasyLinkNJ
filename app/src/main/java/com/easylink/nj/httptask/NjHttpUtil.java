@@ -32,8 +32,8 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getBrandHuafeiList(int page, int limitSize){
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_HUAFEI_LIST);
-        htp.addParam("p", String.valueOf(page));
-        htp.addParam("ps", String.valueOf(limitSize));
+//        htp.addParam("p", String.valueOf(page));
+//        htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
         return htp;
     }
@@ -47,8 +47,8 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getBrandNongyaoList(int page, int limitSize){
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_NONGYAO_LIST);
-        htp.addParam("p", String.valueOf(page));
-        htp.addParam("ps", String.valueOf(limitSize));
+//        htp.addParam("p", String.valueOf(page));
+//        htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
         return htp;
     }
@@ -62,8 +62,8 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getBrandZhongziList(int page, int limitSize){
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_ZHONGZI_LIST);
-        htp.addParam("p", String.valueOf(page));
-        htp.addParam("ps", String.valueOf(limitSize));
+//        htp.addParam("p", String.valueOf(page));
+//        htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
         return htp;
     }

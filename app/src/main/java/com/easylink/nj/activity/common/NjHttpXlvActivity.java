@@ -2,6 +2,7 @@ package com.easylink.nj.activity.common;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.widget.ListView;
 
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.http.params.HttpTaskParams;
@@ -25,6 +26,7 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
     private ExAdapter mAdapter;
     private int mCurrentPage = 1;
     private boolean mPullEnable = true;
+    private boolean mLoadMoreEnable = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,7 +133,9 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
             if(mPullEnable)
                 mXlv.setPullRefreshEnable(data != null && list.size() > 0);
 
-            mXlv.setPullLoadEnable(data != null && list.size() >= LIMIT_SIZE);
+            if(mLoadMoreEnable)
+                mXlv.setPullLoadEnable(data != null && list.size() >= LIMIT_SIZE);
+
             mCurrentPage = 1;
             return list != null && list.size() > 0;
 
@@ -184,4 +188,10 @@ public abstract class NjHttpXlvActivity<T> extends NjHttpActivity<T>{
 
         mPullEnable = enable;
     }
+
+    public void setLoadmoreEnable(boolean enable){
+
+        mLoadMoreEnable = enable;
+    }
+
 }

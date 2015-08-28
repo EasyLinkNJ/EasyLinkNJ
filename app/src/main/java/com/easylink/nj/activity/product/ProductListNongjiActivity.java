@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
+import com.easylink.library.util.DeviceUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjFragmentActivity;
@@ -26,6 +27,7 @@ import com.easylink.nj.bean.product.CategoryNongji;
 import com.easylink.nj.httptask.NjHttpUtil;
 import com.easylink.nj.httptask.NjJsonListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,12 +35,15 @@ import java.util.List;
  */
 public class ProductListNongjiActivity extends NjFragmentActivity implements View.OnClickListener{
 
+    private final int HTTP_TASK_BRAND = 1;
+    private final int HTTP_TASK_CATEGORY = 2;
+
     private LinearLayout mLlToolbar;
     private View mVToolbarLine;
     private TextView mTvBrand, mTvCategory;
     private PopupWindow mPwLoading;
     private ProductListNongjiPop mPwList;
-    private View mVLoadingShadow;
+//    private View mVLoadingShadow;
     private List<BrandNongji> mBrandList;
     private List<CategoryNongji> mCategoryList;
     private ProductListNongjiFragment mNongjiListFragment;
@@ -73,7 +78,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
         mLlToolbar = (LinearLayout) findViewById(R.id.llToolbar);
         mVToolbarLine = findViewById(R.id.vToolbarLine);
-        mVLoadingShadow = findViewById(R.id.vLoadingShadow);
+//        mVLoadingShadow = findViewById(R.id.vLoadingShadow);
         mTvBrand = (TextView) findViewById(R.id.tvBrand);
         mTvBrand.setOnClickListener(this);
 
@@ -116,8 +121,14 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
         if(mBrandList == null || mBrandList.isEmpty()){
 
-            if(fromClick)
-                executeBrandsHttpTask();
+            if(DeviceUtil.isNetworkEnable()){
+
+                if(fromClick)
+                    executeBrandsHttpTask();
+            }else{
+
+                showToast(R.string.toast_network_none);
+            }
         }else{
 
             initPopList();
@@ -130,8 +141,14 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
         if(mCategoryList == null || mCategoryList.isEmpty()){
 
-            if(fromClick)
-                executeCategoryHttpTask();
+            if(DeviceUtil.isNetworkEnable()){
+
+                if(fromClick)
+                    executeCategoryHttpTask();
+            }else{
+
+                showToast(R.string.toast_network_none);
+            }
         }else{
 
             initPopList();
@@ -142,13 +159,13 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
     private void executeBrandsHttpTask(){
 
-        executeHttpTask(1, NjHttpUtil.getBrandNongjiList(), new NjJsonListener<List<BrandNongji>>(BrandNongji.class) {
+        executeHttpTask(HTTP_TASK_BRAND, NjHttpUtil.getBrandNongjiList(), new NjJsonListener<List<BrandNongji>>(BrandNongji.class) {
 
             @Override
             public void onTaskPre() {
 
                 showLoadingPopup(mLlToolbar);
-                ViewUtil.showView(mVLoadingShadow);
+//                ViewUtil.showView(mVLoadingShadow);
             }
 
             @Override
@@ -156,6 +173,14 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
                 dismissLoadingPop();
                 mBrandList = result;
+                if(mBrandList == null)
+                    mBrandList = new ArrayList<BrandNongji>();
+
+                BrandNongji bnj = new BrandNongji();
+                bnj.setId("");
+                bnj.setCn_brand("全部");
+                mBrandList.add(0, bnj);
+
                 showBrandList(false);
             }
 
@@ -169,13 +194,13 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
     private void executeCategoryHttpTask(){
 
-        executeHttpTask(1, NjHttpUtil.getCategoryNongjiList(), new NjJsonListener<List<CategoryNongji>>(CategoryNongji.class) {
+        executeHttpTask(HTTP_TASK_CATEGORY, NjHttpUtil.getCategoryNongjiList(), new NjJsonListener<List<CategoryNongji>>(CategoryNongji.class) {
 
             @Override
             public void onTaskPre() {
 
                 showLoadingPopup(mLlToolbar);
-                ViewUtil.showView(mVLoadingShadow);
+//                ViewUtil.showView(mVLoadingShadow);
             }
 
             @Override
@@ -183,6 +208,14 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
                 dismissLoadingPop();
                 mCategoryList = result;
+                if(mCategoryList == null)
+                    mCategoryList = new ArrayList<CategoryNongji>();
+
+                CategoryNongji cnj = new CategoryNongji();
+                cnj.setId("");
+                cnj.setName("全部");
+                mCategoryList.add(0, cnj);
+
                 showCategoryList(false);
             }
 
@@ -200,7 +233,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
             initLoadingPopup();
 
         mPwLoading.showAsDropDown(v);
-        showView(mVLoadingShadow);
+//        showView(mVLoadingShadow);
     }
 
     private void initLoadingPopup() {
@@ -209,13 +242,18 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
         mPwLoading = new PopupWindow(view, -1, 100) {
             @Override
             public void dismiss() {
+
                 super.dismiss();
-//                abortHttpTask(HTTPTASK_WHAT_LOAD_CATEGORY_LIST);
-                hideView(mVLoadingShadow);
+                abortHttpTask(HTTP_TASK_BRAND);
+                abortHttpTask(HTTP_TASK_CATEGORY);
+//                hideView(mVLoadingShadow);
 //                mDealTitleSelectBar.clearTitleTvColor();
             }
 
         };
+
+        mPwLoading.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        mPwLoading.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
         mPwLoading.setFocusable(true);
         mPwLoading.setOutsideTouchable(true);
         mPwLoading.update();

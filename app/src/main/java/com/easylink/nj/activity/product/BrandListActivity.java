@@ -23,6 +23,14 @@ public abstract class BrandListActivity<T> extends NjHttpXlvActivity<T> implemen
     }
 
     @Override
+    protected void initContentView() {
+
+        super.initContentView();
+        setPullEnable(false);
+        setLoadmoreEnable(false);
+    }
+
+    @Override
     public ExAdapter getAdapterOnInitData() {
 
         BrandAdapter adapter = new BrandAdapter();
