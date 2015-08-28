@@ -24,7 +24,6 @@
         android:layout_toRightOf="@id/sdvCover"
         android:ellipsize="end"
         android:singleLine="true"
-        android:text="东风大型拖拉机"
         android:textColor="@color/black_trans54"
         android:textSize="12dp" />
 
@@ -36,7 +35,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/sdvCover"
-        android:text="￥8999.54"
         android:textColor="#f0534c"
         android:textSize="12dp" />
 
@@ -47,7 +45,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/tvPrice"
         android:layout_marginRight="20dp"
-        android:text="数量：x2"
         android:textColor="@color/black_trans54"
         android:textSize="12dp" />
 
@@ -71,7 +68,6 @@
         android:layout_marginBottom="8dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="12dp"
-        android:text="总价：￥8999.54"
         android:textColor="#f0534c"
         android:textSize="14dp"
         android:visibility="gone" />
@@ -86,7 +82,6 @@
         android:layout_toLeftOf="@+id/ivDelete"
         android:paddingBottom="10dp"
         android:paddingTop="5dp"
-        android:text="数量："
         android:textColor="@color/black_trans54"
         android:textSize="12dp" />
 
@@ -108,7 +103,6 @@
         android:layout_toLeftOf="@+id/ivAdd"
         android:background="@mipmap/bg_num"
         android:gravity="center"
-        android:text="1"
         android:textColor="@color/black_trans54"
         android:textSize="12dp" />
 

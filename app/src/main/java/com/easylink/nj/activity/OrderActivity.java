@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +17,6 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.EasyApplication;
 import com.easylink.nj.R;
@@ -34,6 +36,8 @@ import com.easylink.nj.utils.DialogUtil;
 import com.easylink.nj.view.BaseDialog;
 import com.easylink.nj.view.BaseDialog.OnViewClickListener;
 import com.easylink.nj.view.ConfirmTitleDialog;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -243,17 +247,10 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
         // 保存订单信息
         Order order = new Order();
-        order.orderId = String.valueOf(order.time);
         order.time = System.currentTimeMillis();
         order.address = mAddress;
         order.carts = mAdapter.getData();
         order.save();
-
-        for (Cart cart : order.carts) {
-
-            cart.orderId = order.orderId;
-            cart.save();
-        }
 
         postOrderInfo(order);
     }
@@ -264,9 +261,10 @@ public class OrderActivity extends NjHttpActivity<Order> {
         mTvBottomBar.setText("提醒客服处理");
     }
 
-    private void postOrderInfo(Order order) {
+    private void postOrderInfo(final Order order) {
 
         try {
+
             PostOrder postOrder = new PostOrder();
             List<PostOrder.OrderItem> orderItems = new ArrayList<>();
             PostOrder.OrderItem orderItem;
@@ -280,35 +278,48 @@ public class OrderActivity extends NjHttpActivity<Order> {
             }
             postOrder.setOrderjs(orderItems);
             String json = JSON.toJSONString(postOrder);
-            json = json.substring(json.indexOf("["));
-
-            if (LogMgr.isDebug())
-                LogMgr.e("daisw", json);
+            json = json.substring(json.indexOf("["), json.lastIndexOf("}"));
 
             String userToken = EasyApplication.getCommonPrefs().getUserToken();
+
             executeHttpTask(0, NjHttpUtil.getPostOrder(userToken, order.address.name, order.address.phone, order.address.address, json), new NjJsonListener<Object>(Object.class) {
-
-                @Override
-                public void onTaskPre() {
-
-                }
 
                 @Override
                 public NjJsonResponse<Object> onTaskResponse(String jsonText) {
 
-                    if (LogMgr.isDebug())
-                        LogMgr.e("daisw", "onTaskResponse: " + jsonText);
-                    return super.onTaskResponse(jsonText);
+                    NjJsonResponse<Object> resp = new NjJsonResponse<>();
+                    if (TextUtils.isEmpty(jsonText))
+                        return resp;
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(jsonText);
+                        jsonObject = jsonObject.getJSONObject("data");
+                        String orderId = jsonObject.getString("id");
+
+                        order.orderId = orderId;
+                        order.save();
+                        for (Cart cart : order.carts) {
+
+                            cart.orderId = orderId;
+                            cart.save();
+                        }
+
+                        mMainHandler.sendEmptyMessage(101);
+
+                    } catch (Exception e) {
+
+                        e.printStackTrace();
+                    }
+                    return resp;
                 }
 
                 @Override
                 public void onTaskResult(Object result) {
-
                 }
 
                 @Override
                 public void onTaskFailed(int failedCode, String msg) {
-
                 }
             });
         } catch (Exception e) {
@@ -316,6 +327,18 @@ public class OrderActivity extends NjHttpActivity<Order> {
             e.printStackTrace();
         }
     }
+
+    private Handler mMainHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            if (msg.what == 101) {
+
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 
     @Override
     public boolean invalidateContent(int what, Order order) {

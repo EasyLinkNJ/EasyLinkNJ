@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.easylink.library.adapter.ExAdapter;
 import com.easylink.library.adapter.ExViewHolder;
 import com.easylink.library.adapter.ExViewHolderBase;
+import com.easylink.library.util.TextUtil;
+import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.bean.db.Cart;
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -26,6 +28,7 @@ public class OrderAdapter extends ExAdapter<Cart> {
 
         private SimpleDraweeView mSdvCover;
         private TextView mTvOrderId, mTvTitle, mTvPrice, mTvNum, mTvTotalPrice;
+        private View mVDivider;
 
         @Override
         public int getConvertViewRid() {
@@ -47,6 +50,7 @@ public class OrderAdapter extends ExAdapter<Cart> {
 
             mSdvCover = (SimpleDraweeView) convertView.findViewById(R.id.sdvCover);
             mTvOrderId = (TextView) convertView.findViewById(R.id.tvOrderId);
+            mVDivider = convertView.findViewById(R.id.vDivider);
             mTvTitle = (TextView) convertView.findViewById(R.id.tvTitle);
             mTvPrice = (TextView) convertView.findViewById(R.id.tvPrice);
             mTvNum = (TextView) convertView.findViewById(R.id.tvSelectNum);
@@ -61,9 +65,17 @@ public class OrderAdapter extends ExAdapter<Cart> {
         @Override
         public void invalidateConvertView() {
 
-            mTvOrderId.setText("订  单  号：" + System.currentTimeMillis());// TODO 换成真实的订单号
-
             Cart cart = getItem(mPosition);
+            if (mPosition == 0 && TextUtil.isNotEmpty(cart.orderId)) {
+
+                mTvOrderId.setText("订  单  号：" + cart.orderId);
+                ViewUtil.showView(mTvOrderId);
+                ViewUtil.showView(mVDivider);
+            } else {
+
+                ViewUtil.goneView(mTvOrderId);
+                ViewUtil.goneView(mVDivider);
+            }
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
             mTvPrice.setText(cart.price);
@@ -71,11 +83,15 @@ public class OrderAdapter extends ExAdapter<Cart> {
 
             try {
 
-//                int price = Integer.valueOf(cart.price.substring(0, cart.price.indexOf("万"))) * cart.count;
-//                mTvTotalPrice.setText("总价：￥" + price + "万");
+                if (cart.price.contains("万")) {
 
-                int price = Integer.valueOf(cart.price) * cart.count;
-                mTvTotalPrice.setText("总价：￥" + price);
+                    int price = Integer.valueOf(cart.price.substring(0, cart.price.indexOf("万"))) * cart.count;
+                    mTvTotalPrice.setText("总价：￥" + price + "万");
+                } else {
+
+                    int price = Integer.valueOf(cart.price) * cart.count;
+                    mTvTotalPrice.setText("总价：￥" + price);
+                }
             } catch (Exception e) {
 
                 mTvTotalPrice.setText("总价：面议");
