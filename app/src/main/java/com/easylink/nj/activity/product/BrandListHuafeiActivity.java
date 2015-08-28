@@ -7,6 +7,7 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.nj.bean.product.BrandHuafei;
+import com.easylink.nj.bean.product.BrandItem;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -37,9 +38,14 @@ public class BrandListHuafeiActivity extends BrandListActivity<List<BrandHuafei>
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        BrandHuafei bh = (BrandHuafei) getAdapterItem(position);
-        if(bh != null)
-            ProductListHuafeiActivity.startActivity(this, bh.getId());
+        BrandItem item = getBrandItem(position);
+
+        if (item != null) {
+
+            BrandHuafei bh = (BrandHuafei) item;
+            if (bh != null)
+                ProductListHuafeiActivity.startActivity(this, bh.getId());
+        }
     }
 
     public static void startActivity(Activity activity){

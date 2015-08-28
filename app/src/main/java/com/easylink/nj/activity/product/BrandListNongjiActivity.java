@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/25.
  */
+@Deprecated
 public class BrandListNongjiActivity extends BrandListActivity<NewsList> implements OnItemViewClickListener{
 
     @Override

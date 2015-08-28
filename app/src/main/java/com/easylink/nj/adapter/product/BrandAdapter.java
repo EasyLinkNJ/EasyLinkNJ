@@ -31,7 +31,8 @@ public class BrandAdapter extends ExAdapter<BrandItem> {
         @Override
         public int getConvertViewRid() {
 
-            return R.layout.act_product_brand_item_common;
+//            return R.layout.act_product_brand_item_common;
+            return R.layout.act_product_product_item_common;
         }
 
         @Override

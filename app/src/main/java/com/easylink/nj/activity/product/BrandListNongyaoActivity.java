@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
+import com.easylink.nj.bean.product.BrandItem;
 import com.easylink.nj.bean.product.BrandNongyao;
 import com.easylink.nj.httptask.NjHttpUtil;
 
@@ -31,9 +32,14 @@ public class BrandListNongyaoActivity extends BrandListActivity<List<BrandNongya
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        BrandNongyao pn = (BrandNongyao) getAdapterItem(position);
-        if(pn != null)
-            ProductListNongyaoActivity.startActivity(this, pn.getId());
+        BrandItem item = getBrandItem(position);
+
+        if (item != null) {
+
+            BrandNongyao bn = (BrandNongyao) item;
+            if (bn != null)
+                ProductListNongyaoActivity.startActivity(this, bn.getId());
+        }
     }
 
     public static void startActivity(Activity activity){
