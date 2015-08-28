@@ -43,8 +43,7 @@ public class BrandListHuafeiActivity extends BrandListActivity<List<BrandHuafei>
         if (item != null) {
 
             BrandHuafei bh = (BrandHuafei) item;
-            if (bh != null)
-                ProductListHuafeiActivity.startActivity(this, bh.getId());
+            ProductListHuafeiActivity.startActivity(this, bh.getId());
         }
     }
 

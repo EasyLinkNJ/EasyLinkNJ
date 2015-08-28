@@ -9,6 +9,7 @@ import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.bean.product.ProductHuafei;
 import com.easylink.nj.bean.product.ProductHuafeiList;
+import com.easylink.nj.bean.product.ProductItem;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -39,9 +40,13 @@ public class ProductListHuafeiActivity extends ProductListActivity<ProductHuafei
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductHuafei hf = ((ProductHuafei) getAdapterItem(position));
-        if(hf != null)
+        ProductItem item = getProductItem(position);
+
+        if (item != null) {
+
+            ProductHuafei hf = (ProductHuafei) item;
             ProductDetailActivity.startActivityFromHF(this, hf.getId(), false);
+        }
     }
 
     public static void startActivity(Activity activity, String companyId){

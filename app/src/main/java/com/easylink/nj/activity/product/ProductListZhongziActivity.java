@@ -7,6 +7,7 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
+import com.easylink.nj.bean.product.ProductItem;
 import com.easylink.nj.bean.product.ProductZhongzi;
 import com.easylink.nj.bean.product.ProductZhongziList;
 import com.easylink.nj.httptask.NjHttpUtil;
@@ -39,9 +40,13 @@ public class ProductListZhongziActivity extends ProductListActivity<ProductZhong
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductZhongzi zz = ((ProductZhongzi) getAdapterItem(position));
-        if(zz != null)
+        ProductItem item = getProductItem(position);
+
+        if (item != null) {
+
+            ProductZhongzi zz = (ProductZhongzi) item;
             ProductDetailActivity.startActivityFromZZ(this, zz.getId(), false);
+        }
     }
 
     public static void startActivity(Activity activity, String companyId){

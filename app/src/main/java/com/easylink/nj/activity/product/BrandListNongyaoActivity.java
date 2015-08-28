@@ -37,8 +37,7 @@ public class BrandListNongyaoActivity extends BrandListActivity<List<BrandNongya
         if (item != null) {
 
             BrandNongyao bn = (BrandNongyao) item;
-            if (bn != null)
-                ProductListNongyaoActivity.startActivity(this, bn.getId());
+            ProductListNongyaoActivity.startActivity(this, bn.getId());
         }
     }
 

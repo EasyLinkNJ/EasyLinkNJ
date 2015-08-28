@@ -11,7 +11,7 @@ import com.easylink.nj.bean.product.ProductItem;
 /**
  * Created by yihaibin on 15/8/25.
  */
-public abstract class ProductListActivity<T> extends NjHttpXlvActivity<T> implements OnItemViewClickListener{
+public abstract class ProductListActivity<T> extends NjHttpXlvActivity<T> implements OnItemViewClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +23,15 @@ public abstract class ProductListActivity<T> extends NjHttpXlvActivity<T> implem
     @Override
     public ExAdapter getAdapterOnInitData() {
 
-        final ProductListAdapter adapter = new ProductListAdapter();
+        ProductListAdapter adapter = new ProductListAdapter();
         adapter.setOnItemViewClickListener(this);
         return adapter;
     }
 
     protected ProductItem getProductItem(int position) {
 
-        return (ProductItem)super.getAdapterItem(position);
+        Object obj = getAdapterItem(position);
+        return obj == null ? null : (ProductItem) obj;
     }
 
     @Override

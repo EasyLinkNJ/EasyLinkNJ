@@ -37,8 +37,7 @@ public class BrandListZhongziActivity extends BrandListActivity<List<BrandZhongz
         if (item != null) {
 
             BrandZhongzi bz = (BrandZhongzi) item;
-            if (bz != null)
-                ProductListZhongziActivity.startActivity(this, bz.getId());
+            ProductListZhongziActivity.startActivity(this, bz.getId());
         }
     }
 
