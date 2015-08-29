@@ -16,7 +16,7 @@ import com.easylink.library.util.DensityUtil;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.EasyApplication;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.product.ProductSearchActivity;
+import com.easylink.nj.activity.product.search.ProductSearchActivity;
 import com.easylink.nj.httptask.NjHttpUtil;
 import com.easylink.nj.httptask.NjJsonListener;
 import com.easylink.nj.httptask.NjJsonResponse;

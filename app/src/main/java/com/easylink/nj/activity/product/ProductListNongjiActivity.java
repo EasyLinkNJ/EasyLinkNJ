@@ -159,6 +159,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
     private void executeBrandsHttpTask(){
 
+        abortHttpTask(HTTP_TASK_BRAND);
         executeHttpTask(HTTP_TASK_BRAND, NjHttpUtil.getBrandNongjiList(), new NjJsonListener<List<BrandNongji>>(BrandNongji.class) {
 
             @Override
@@ -194,6 +195,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
     private void executeCategoryHttpTask(){
 
+        abortHttpTask(HTTP_TASK_CATEGORY);
         executeHttpTask(HTTP_TASK_CATEGORY, NjHttpUtil.getCategoryNongjiList(), new NjJsonListener<List<CategoryNongji>>(CategoryNongji.class) {
 
             @Override

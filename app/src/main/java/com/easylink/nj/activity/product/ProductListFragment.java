@@ -14,12 +14,12 @@ import com.easylink.nj.bean.product.ProductItem;
  */
 public abstract class ProductListFragment<T> extends NjHttpXlvFragment<T> implements OnItemViewClickListener{
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
-        super.onActivityCreated(savedInstanceState);
-        loadDataFromServer();
-    }
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//
+//        super.onActivityCreated(savedInstanceState);
+//        loadDataFromServer();
+//    }
 
     @Override
     public ExAdapter getAdapterOnInitData() {

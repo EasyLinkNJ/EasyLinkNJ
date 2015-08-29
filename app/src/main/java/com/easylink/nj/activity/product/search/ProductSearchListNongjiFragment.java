@@ -1,4 +1,4 @@
-package com.easylink.nj.activity.product;
+package com.easylink.nj.activity.product.search;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.View;
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
+import com.easylink.nj.activity.product.ProductDetailActivity;
+import com.easylink.nj.activity.product.ProductListFragment;
 import com.easylink.nj.bean.product.ProductNongji;
 import com.easylink.nj.bean.product.ProductNongjiList;
 import com.easylink.nj.httptask.NjHttpUtil;
@@ -16,24 +18,22 @@ import com.easylink.nj.httptask.NjHttpUtil;
 import java.util.List;
 
 /**
- * Created by yihaibin on 15/8/25.
+ * Created by yihaibin on 15/8/29.
  */
-public class ProductListNongjiFragment extends ProductListFragment<ProductNongjiList> implements OnItemViewClickListener{
+public class ProductSearchListNongjiFragment extends ProductSearchListFragment<ProductNongjiList> implements OnItemViewClickListener {
 
-    private String mBrand = TextUtil.TEXT_EMPTY;//品牌
-    private String mCategory = TextUtil.TEXT_EMPTY;//名称
+    private String mSearchKey = TextUtil.TEXT_EMPTY;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        loadDataFromServer();
     }
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductNongjiList(mBrand, mCategory, page, limit);
+        return NjHttpUtil.getProductNongjiSearchList(mSearchKey, page, limit);
     }
 
     @Override
@@ -52,32 +52,22 @@ public class ProductListNongjiFragment extends ProductListFragment<ProductNongji
     public void onItemViewClick(int position, View clickView) {
 
         ProductNongji nj = (ProductNongji) getAdapterItem(position);
-        if(nj != null)
+        if (nj != null)
             ProductDetailActivity.startActivityFromNJ(getActivity(), nj.getId(), false);
     }
 
-    public void updateListByBrand(String brand){
+    @Override
+    public void loadDataFromServerBySearch(String searchKey) {
 
-        if(isAdded()){
+        if(!isAdded())
+            return;
 
-            mBrand = TextUtil.filterNull(brand);
-            abortAllHttpTask();
-            loadDataFromServer();
-        }
+        mSearchKey = searchKey;
+        loadDataFromServer();
     }
 
-    public void updateListByCategory(String category){
+    public static ProductSearchListNongjiFragment newInstance(Context context) {
 
-        if(isAdded()){
-
-            mCategory = TextUtil.filterNull(category);
-            abortAllHttpTask();
-            loadDataFromServer();
-        }
-    }
-
-    public static ProductListNongjiFragment newInstance(Context context){
-
-        return (ProductListNongjiFragment) Fragment.instantiate(context, ProductListNongjiFragment.class.getName(), new Bundle());
+        return (ProductSearchListNongjiFragment) Fragment.instantiate(context, ProductSearchListNongjiFragment.class.getName(), new Bundle());
     }
 }

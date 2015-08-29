@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:qa="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/llTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/vSplit"
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="#B2CCCCCC"
+        android:layout_alignBottom="@id/llTab"/>x
+    <com.easylink.library.view.pageindicator.UnderlinePageIndicator
+        android:id="@+id/indicatorUnderLine"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_above="@id/vSplit"
+        android:background="@android:color/transparent"
+        qa:fades="false" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vpContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/llTab"/>
+
+</RelativeLayout><!-- From: file:/Users/yihaibin/work/qyer/QyerApp/qyer_app_android/QyerApp/res/layout/act_aframe_tab_viewpager.xml -->

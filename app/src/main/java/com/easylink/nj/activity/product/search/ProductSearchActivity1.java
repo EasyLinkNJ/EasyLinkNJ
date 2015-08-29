@@ -1,4 +1,4 @@
-package com.easylink.nj.activity.product;
+package com.easylink.nj.activity.product.search;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.easylink.library.util.SoftInputHandler;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpXlvActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.adapter.product.ProductListAdapter;
 import com.easylink.nj.bean.product.ProductItem;
 import com.easylink.nj.bean.product.ProductNongjiList;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/7/23.
  */
-public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList> {
+public class ProductSearchActivity1 extends NjHttpXlvActivity<ProductNongjiList> {
 
     private EditText mEt;
     private ProductListAdapter adapter;
@@ -50,7 +51,7 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList> 
 
                 ProductItem product = adapter.getItem(position);
                 if (product != null)
-                    ProductDetailActivity.startActivityFromNJ(ProductSearchActivity.this, "1"/*product.getId()*/, false);
+                    ProductDetailActivity.startActivityFromNJ(ProductSearchActivity1.this, "1"/*product.getId()*/, false);
             }
         });
 
@@ -123,7 +124,7 @@ public class ProductSearchActivity extends NjHttpXlvActivity<ProductNongjiList> 
 
     public static void startActivity(Activity act) {
 
-        Intent intent = new Intent(act, ProductSearchActivity.class);
+        Intent intent = new Intent(act, ProductSearchActivity1.class);
         act.startActivity(intent);
     }
 }

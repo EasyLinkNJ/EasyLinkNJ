@@ -2,6 +2,7 @@ package com.easylink.nj.httptask;
 
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.DeviceUtil;
+import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 
@@ -17,23 +18,6 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getBrandNongjiList(){
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_NONGJI_LIST);
-//        htp.addParam("p", String.valueOf(page));
-//        htp.addParam("ps", String.valueOf(limitSize));
-        setSignParam(htp);
-        return htp;
-    }
-
-    /**
-     * 化肥品牌列表
-     * @param page
-     * @param limitSize
-     * @return
-     */
-    public static HttpTaskParams getBrandHuafeiList(int page, int limitSize){
-
-        HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_HUAFEI_LIST);
-//        htp.addParam("p", String.valueOf(page));
-//        htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
         return htp;
     }
@@ -47,8 +31,6 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getBrandNongyaoList(int page, int limitSize){
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_NONGYAO_LIST);
-//        htp.addParam("p", String.valueOf(page));
-//        htp.addParam("ps", String.valueOf(limitSize));
         setSignParam(htp);
         return htp;
     }
@@ -62,8 +44,19 @@ public class NjHttpUtil extends BaseHttpUtil {
     public static HttpTaskParams getBrandZhongziList(int page, int limitSize){
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_ZHONGZI_LIST);
-//        htp.addParam("p", String.valueOf(page));
-//        htp.addParam("ps", String.valueOf(limitSize));
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 化肥品牌列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getBrandHuafeiList(int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_BRAND_HUAFEI_LIST);
         setSignParam(htp);
         return htp;
     }
@@ -87,22 +80,6 @@ public class NjHttpUtil extends BaseHttpUtil {
         if(!TextUtil.isEmpty(cateId))
             htp.addParam("cate_id", cateId);
 
-        setSignParam(htp);
-        return htp;
-    }
-
-    /**
-     * 化肥产品列表
-     * @param page
-     * @param limitSize
-     * @return
-     */
-    public static HttpTaskParams getProductHuafeiList(String companyId, int page, int limitSize){
-
-        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_HUAFEI_LIST);
-        htp.addParam("p", String.valueOf(page));
-        htp.addParam("ps", String.valueOf(limitSize));
-        htp.addParam("company_id", companyId);
         setSignParam(htp);
         return htp;
     }
@@ -140,6 +117,94 @@ public class NjHttpUtil extends BaseHttpUtil {
     }
 
     /**
+     * 化肥产品列表
+     * @param page
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductHuafeiList(String companyId, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_HUAFEI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        htp.addParam("company_id", companyId);
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 农机产品搜索列表
+     * @param searchKey
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductNongjiSearchList(String searchKey, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGJI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        if(!TextUtil.isEmpty(searchKey))
+            htp.addParam("keyword", searchKey);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 农药产品搜索列表
+     * @param searchKey
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductNongyaoSearchList(String searchKey, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_NONGYAO_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        if(!TextUtil.isEmpty(searchKey))
+            htp.addParam("keyword", searchKey);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 种子产品搜索列表
+     * @param searchKey
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductZhongziSearchList(String searchKey, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_ZHONGZI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        if(!TextUtil.isEmpty(searchKey))
+            htp.addParam("keyword", searchKey);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
+     * 化肥产品搜索列表
+     * @param searchKey
+     * @param limitSize
+     * @return
+     */
+    public static HttpTaskParams getProductHuafeiSearchList(String searchKey, int page, int limitSize){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PRODUCT_HUAFEI_LIST);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
+        if(!TextUtil.isEmpty(searchKey))
+            htp.addParam("keyword", searchKey);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    /**
      * 农机分类列表
      * @return
      */
@@ -149,6 +214,7 @@ public class NjHttpUtil extends BaseHttpUtil {
         setSignParam(htp);
         return htp;
     }
+
 
 //--------------------------------------------------------------------------------------
     /**
