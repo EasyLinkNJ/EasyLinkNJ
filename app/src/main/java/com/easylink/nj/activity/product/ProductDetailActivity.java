@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.CartActivity;
+import com.easylink.nj.activity.OrderActivity;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.product.ProductDetail;
@@ -120,6 +121,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                 @Override
                 public void onClick(View v) {
 
+                    onBuyClickCallback();
                 }
             });
             findViewById(R.id.tvAdd).setOnClickListener(new View.OnClickListener() {
@@ -127,30 +129,41 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                 @Override
                 public void onClick(View v) {
 
-                    mCartCount++;
-                    mTvCartCount.setText(String.valueOf(mCartCount));
-                    ViewUtil.showView(mTvCartCount);
-
-                    Cart cart = DBManager.getInstance().getCart(mType.getDesc(), mDetail.getId());
-                    if (cart == null) {// 该产品在DB中不存在
-
-                        cart = new Cart();
-                        cart.productId = mDetail.getId();
-                        cart.name = mDetail.getTitle();
-                        cart.imgUrl = mDetail.getMainpic();
-                        cart.price = mDetail.getPrice();
-                        cart.count = 1;
-                        cart.type = mType.getDesc();
-                        cart.save();
-                    } else {// 存在，更新数量
-
-                        cart.count = cart.count + 1;
-                        cart.save();
-                    }
-                    showToast("已添加");
+                    onAddToCartClickCallback();
                 }
             });
         }
+    }
+
+    private void onBuyClickCallback() {
+
+        if (mDetail != null)
+            OrderActivity.startActivity(this, mDetail);
+    }
+
+    private void onAddToCartClickCallback() {
+
+        mCartCount++;
+        mTvCartCount.setText(String.valueOf(mCartCount));
+        ViewUtil.showView(mTvCartCount);
+
+        Cart cart = DBManager.getInstance().getCart(mType.getDesc(), mDetail.getId());
+        if (cart == null) {// 该产品在DB中不存在
+
+            cart = new Cart();
+            cart.productId = mDetail.getId();
+            cart.name = mDetail.getTitle();
+            cart.imgUrl = mDetail.getMainpic();
+            cart.price = mDetail.getPrice();
+            cart.count = 1;
+            cart.type = mType.getDesc();
+            cart.save();
+        } else {// 存在，更新数量
+
+            cart.count = cart.count + 1;
+            cart.save();
+        }
+        showToast("已添加");
     }
 
     @Override
@@ -169,6 +182,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     public boolean invalidateContent(int what, ProductDetail data) {
 
         mDetail = data;
+        mDetail.setType(mType);
 
         SimpleDraweeView sdvCover = (SimpleDraweeView) findViewById(R.id.sdvCover);
         sdvCover.setImageURI(Uri.parse(data.getMainpic()));

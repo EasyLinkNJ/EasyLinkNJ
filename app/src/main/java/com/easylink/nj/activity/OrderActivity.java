@@ -28,6 +28,7 @@ import com.easylink.nj.bean.db.Address;
 import com.easylink.nj.bean.db.Cart;
 import com.easylink.nj.bean.db.Order;
 import com.easylink.nj.bean.product.PostOrder;
+import com.easylink.nj.bean.product.ProductDetail;
 import com.easylink.nj.httptask.NjHttpUtil;
 import com.easylink.nj.httptask.NjJsonListener;
 import com.easylink.nj.httptask.NjJsonResponse;
@@ -97,12 +98,31 @@ public class OrderActivity extends NjHttpActivity<Order> {
     @Override
     protected void initData() {
 
-        List<Cart> carts = DBManager.getInstance().getCarts();
+        List<Cart> carts;
+
+        ProductDetail data = (ProductDetail) getIntent().getSerializableExtra("data");
+        if (data == null) {
+
+            carts = DBManager.getInstance().getCarts();
+        } else {
+
+            carts = new ArrayList<>();
+
+            Cart cart = new Cart();
+            cart.productId = data.getId();
+            cart.name = data.getTitle();
+            cart.imgUrl = data.getMainpic();
+            cart.price = data.getPrice();
+            cart.count = 1;
+            cart.type = data.getType().getDesc();
+
+            carts.add(cart);
+        }
+
         if (carts == null || carts.isEmpty()) {
 
             switchDisable(R.mipmap.ic_order_nothing);
             hideView(mTvBottomBar);
-
             return;
         }
 
@@ -348,10 +368,17 @@ public class OrderActivity extends NjHttpActivity<Order> {
 
     public static void startActivity(Activity act) {
 
+        startActivity(act, null);
+    }
+
+    public static void startActivity(Activity act, ProductDetail data) {
+
         if (act == null)
             return;
 
-        Intent intent = new Intent(act, OrderActivity.class);
-        act.startActivity(intent);
+        Intent it = new Intent(act, OrderActivity.class);
+        if (data != null)
+            it.putExtra("data", data);
+        act.startActivity(it);
     }
 }

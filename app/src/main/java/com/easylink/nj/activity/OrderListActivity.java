@@ -38,11 +38,11 @@ public class OrderListActivity extends NjHttpActivity<Order> {
     private boolean getData() {
 
         List<Cart> orderCarts = DBManager.getInstance().getOrderCarts();
+
         if (orderCarts == null || orderCarts.isEmpty()) {
 
             switchDisable(R.mipmap.ic_order_nothing);
             hideView(mTvBottomBar);
-
             return false;
         }
 

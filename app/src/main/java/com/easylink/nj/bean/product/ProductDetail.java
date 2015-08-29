@@ -1,11 +1,16 @@
 package com.easylink.nj.bean.product;
 
 import com.easylink.library.util.TextUtil;
+import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
+
+import java.io.Serializable;
 
 /**
  * Created by KEVIN.DAI on 15/7/14.
  */
-public class ProductDetail {
+public class ProductDetail implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String id = TextUtil.TEXT_EMPTY;// 编号
     private String title = TextUtil.TEXT_EMPTY;// 设备全称
@@ -32,6 +37,18 @@ public class ProductDetail {
     private String content_2 = TextUtil.TEXT_EMPTY;// 参数详情2，如 性能特点
     private String content_3 = TextUtil.TEXT_EMPTY;// 参数详情3，如 结构特点
     private String content_4 = TextUtil.TEXT_EMPTY;// 参数详情4，如 施工案例
+
+    private ProductType type;
+
+    public ProductType getType() {
+
+        return type;
+    }
+
+    public void setType(ProductType type) {
+
+        this.type = type;
+    }
 
     public String getId() {
 
