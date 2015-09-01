@@ -3,9 +3,6 @@ package com.easylink.nj.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -16,20 +13,18 @@ import com.easylink.library.util.ViewUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.adapter.OrderAdapter;
-import com.easylink.nj.bean.db.Address;
-import com.easylink.nj.bean.db.Cart;
+import com.easylink.nj.adapter.OrderSectionAdapter;
+import com.easylink.nj.bean.OrderData;
 import com.easylink.nj.bean.db.Order;
-import com.easylink.nj.utils.DBManager;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by KEVIN.DAI on 15/7/18.
  */
 public class OrderDetailActivity extends NjHttpActivity<Order> {
 
-    private OrderAdapter mAdapter;
+    private OrderSectionAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +36,20 @@ public class OrderDetailActivity extends NjHttpActivity<Order> {
     @Override
     protected void initData() {
 
-        List<Cart> carts = DBManager.getInstance().getCart(getIntent().getLongExtra("cartId", -1));
-        mAdapter = new OrderAdapter();
-        mAdapter.setData(carts);
+        ArrayList<OrderData> datas = (ArrayList<OrderData>) getIntent().getSerializableExtra("datas");
+
+        mAdapter = new OrderSectionAdapter(false);
+        mAdapter.setData(datas);
         mAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
 
             @Override
             public void onItemViewClick(int position, View clickView) {
 
-                Cart cart = mAdapter.getItem(position);
-                if (cart != null)
+                OrderData data = mAdapter.getItem(position);
+                if (data != null)
                     for (ProductDetailActivity.ProductType type : ProductDetailActivity.ProductType.values())
-                        if (type.getDesc().equals(cart.type))
-                            ProductDetailActivity.startActivity(OrderDetailActivity.this, type, cart.productId, true);
+                        if (type.getDesc().equals(data.type))
+                            ProductDetailActivity.startActivity(OrderDetailActivity.this, type, data.productId, true);
             }
         });
     }
@@ -68,34 +64,22 @@ public class OrderDetailActivity extends NjHttpActivity<Order> {
     protected void initContentView() {
 
         ListView lvOrder = (ListView) findViewById(R.id.lvCart);
+        lvOrder.setDivider(null);
 
-        Cart cart = mAdapter.getItem(0);
-        Address address = null;
-        if (cart != null) {
+        View vHeader = ViewUtil.inflateLayout(R.layout.view_order_header);
+        EditText etPersion = (EditText) vHeader.findViewById(R.id.etPersion);
+        EditText etPhone = (EditText) vHeader.findViewById(R.id.etTel);
+        EditText etAddress = (EditText) vHeader.findViewById(R.id.etAddress);
+        etPersion.setEnabled(false);
+        etPhone.setEnabled(false);
+        etAddress.setEnabled(false);
 
-            Order order = DBManager.getInstance().getOrder(cart.orderId);
-            if (order != null)
-                address = order.address;
-        }
-        if (address != null) {// 有默认收货地址
+        OrderData data = mAdapter.getItem(0);
+        etPersion.setText(data.name);
+        etPhone.setText(data.phone);
+        etAddress.setText(data.address);
 
-            View vHeader = ViewUtil.inflateLayout(R.layout.view_order_header);
-            EditText etPersion = (EditText) vHeader.findViewById(R.id.etPersion);
-            EditText etPhone = (EditText) vHeader.findViewById(R.id.etTel);
-            EditText etAddress = (EditText) vHeader.findViewById(R.id.etAddress);
-            etPersion.setEnabled(false);
-            etPhone.setEnabled(false);
-            etAddress.setEnabled(false);
-
-            etPersion.setText(address.name);
-            etPhone.setText(address.phone);
-            String str = "[默认] ";
-            SpannableString ss = new SpannableString(str + address.address);
-            ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.bg_title_bar)), 0, str.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            etAddress.setText(ss);
-
-            lvOrder.addHeaderView(vHeader);
-        }
+        lvOrder.addHeaderView(vHeader);
         lvOrder.setAdapter(mAdapter);
 
         TextView bottomBar = (TextView) findViewById(R.id.tvBottomBar);
@@ -116,13 +100,13 @@ public class OrderDetailActivity extends NjHttpActivity<Order> {
         return true;
     }
 
-    public static void startActivity(Activity act, long cartId) {
+    public static void startActivity(Activity act, ArrayList<OrderData> datas) {
 
         if (act == null)
             return;
 
         Intent intent = new Intent(act, OrderDetailActivity.class);
-        intent.putExtra("cartId", cartId);
+        intent.putExtra("datas", datas);
         act.startActivity(intent);
     }
 }

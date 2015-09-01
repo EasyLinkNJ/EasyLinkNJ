@@ -115,7 +115,7 @@ public class AddressActivity extends NjHttpActivity<Address> {
 
                     final Address address = mAdapter.getItem(position);
 
-                    DialogUtil.getListTitleDialog(AddressActivity.this, new ListTitleDialog.OnItemClickListener() {
+                    DialogUtil.getListTitleDialog(AddressActivity.this, false, new ListTitleDialog.OnItemClickListener() {
 
                         @Override
                         public void onItemClick(Dialog dialog, int index) {

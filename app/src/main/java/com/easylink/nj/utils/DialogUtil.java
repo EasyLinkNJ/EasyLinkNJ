@@ -29,16 +29,16 @@ public class DialogUtil {
         return dialog;
     }
 
-    public static ListTitleDialog getListTitleDialog(Context context, ListTitleDialog.OnItemClickListener lins) {
+    public static ListTitleDialog getListTitleDialog(Context context, boolean isOnlyShowDel, ListTitleDialog.OnItemClickListener lins) {
 
-        ListTitleDialog dialog = new ListTitleDialog(context);
+        ListTitleDialog dialog = new ListTitleDialog(context, isOnlyShowDel);
         setDialogCancelable(dialog, true);
 
         dialog.setOnItemClickListener(lins);
         return dialog;
     }
 
-    public static void setDialogCancelable(Dialog dialog, boolean cancelable) {
+    private static void setDialogCancelable(Dialog dialog, boolean cancelable) {
 
         dialog.setCancelable(cancelable);
         dialog.setCanceledOnTouchOutside(cancelable);

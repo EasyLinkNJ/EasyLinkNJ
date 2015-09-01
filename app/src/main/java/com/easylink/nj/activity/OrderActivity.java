@@ -32,6 +32,7 @@ import com.easylink.nj.bean.product.ProductDetail;
 import com.easylink.nj.httptask.NjHttpUtil;
 import com.easylink.nj.httptask.NjJsonListener;
 import com.easylink.nj.httptask.NjJsonResponse;
+import com.easylink.nj.prefs.CommonPrefs;
 import com.easylink.nj.utils.DBManager;
 import com.easylink.nj.utils.DialogUtil;
 import com.easylink.nj.view.BaseDialog;
@@ -281,8 +282,27 @@ public class OrderActivity extends NjHttpActivity<Order> {
         mTvBottomBar.setText("提醒客服处理");
     }
 
-    private void postOrderInfo(final Order order) {
+    private void postOrderInfo(Order order) {
 
+        if (isNetworkEnable()) {
+
+            CommonPrefs prefs = EasyApplication.getCommonPrefs();
+            if (prefs.hasUserToken()) {
+
+                executePostOrder(order, prefs.getUserToken());
+            } else {
+
+                executeLogin(order);
+            }
+        } else {
+
+            showToast(R.string.toast_network_none);
+        }
+    }
+
+    private void executePostOrder(final Order order, String userToken) {
+
+        String json;
         try {
 
             PostOrder postOrder = new PostOrder();
@@ -293,59 +313,103 @@ public class OrderActivity extends NjHttpActivity<Order> {
                 orderItem = new PostOrder.OrderItem();
                 orderItem.setModid(cart.productId);
                 orderItem.setModname(cart.type);
+                orderItem.setMainpic(cart.imgUrl);
                 orderItem.setNum(String.valueOf(cart.count));
                 orderItems.add(orderItem);
             }
             postOrder.setOrderjs(orderItems);
-            String json = JSON.toJSONString(postOrder);
+            json = JSON.toJSONString(postOrder);
             json = json.substring(json.indexOf("["), json.lastIndexOf("}"));
-
-            String userToken = EasyApplication.getCommonPrefs().getUserToken();
-
-            executeHttpTask(0, NjHttpUtil.getPostOrder(userToken, order.address.name, order.address.phone, order.address.address, json), new NjJsonListener<Object>(Object.class) {
-
-                @Override
-                public NjJsonResponse<Object> onTaskResponse(String jsonText) {
-
-                    NjJsonResponse<Object> resp = new NjJsonResponse<>();
-                    if (TextUtils.isEmpty(jsonText))
-                        return resp;
-
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(jsonText);
-                        jsonObject = jsonObject.getJSONObject("data");
-                        String orderId = jsonObject.getString("id");
-
-                        order.orderId = orderId;
-                        order.save();
-                        for (Cart cart : order.carts) {
-
-                            cart.orderId = orderId;
-                            cart.save();
-                        }
-
-                        mMainHandler.sendEmptyMessage(101);
-
-                    } catch (Exception e) {
-
-                        e.printStackTrace();
-                    }
-                    return resp;
-                }
-
-                @Override
-                public void onTaskResult(Object result) {
-                }
-
-                @Override
-                public void onTaskFailed(int failedCode, String msg) {
-                }
-            });
         } catch (Exception e) {
 
-            e.printStackTrace();
+            json = null;
         }
+
+        if (json == null)
+            return;
+
+        executeHttpTask(101, NjHttpUtil.getPostOrder(userToken, order.address.name, order.address.phone, order.address.address, json), new NjJsonListener<Object>(Object.class) {
+
+            @Override
+            public NjJsonResponse<Object> onTaskResponse(String jsonText) {
+
+                NjJsonResponse<Object> resp = new NjJsonResponse<>();
+                if (TextUtils.isEmpty(jsonText))
+                    return resp;
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(jsonText);
+                    jsonObject = jsonObject.getJSONObject("data");
+                    String orderId = jsonObject.getString("id");
+
+                    order.orderId = orderId;
+                    order.save();
+                    for (Cart cart : order.carts) {
+
+                        cart.orderId = orderId;
+                        cart.save();
+                    }
+
+                    mMainHandler.sendEmptyMessage(101);
+
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                return resp;
+            }
+
+            @Override
+            public void onTaskResult(Object result) {
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+            }
+        });
+    }
+
+    private void executeLogin(final Order order) {
+
+        executeHttpTask(102, NjHttpUtil.getLoginParams(), new NjJsonListener<String>(String.class) {
+
+            @Override
+            public NjJsonResponse<String> onTaskResponse(String jsonText) {
+
+                NjJsonResponse<String> resp = new NjJsonResponse<>();
+                if (TextUtils.isEmpty(jsonText))
+                    return resp;
+
+                try {
+
+                    JSONObject jsonObject = new JSONObject(jsonText);
+                    jsonObject = jsonObject.getJSONObject("data");
+                    String onlinekey = jsonObject.getString("onlinekey");
+                    resp.setData(onlinekey);
+
+                    EasyApplication.getCommonPrefs().setUserToken(onlinekey);
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
+                return resp;
+            }
+
+            @Override
+            public void onTaskSuccess(NjJsonResponse<String> resp) {
+
+                executePostOrder(order, resp.getData());
+            }
+
+            @Override
+            public void onTaskResult(String result) {
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+            }
+        });
     }
 
     private Handler mMainHandler = new Handler() {

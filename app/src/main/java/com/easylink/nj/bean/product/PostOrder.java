@@ -31,6 +31,17 @@ public class PostOrder implements Serializable {
         private String modname = TextUtil.TEXT_EMPTY;
         private String modid = TextUtil.TEXT_EMPTY;
         private String num = TextUtil.TEXT_EMPTY;
+        private String mainpic = TextUtil.TEXT_EMPTY;
+
+        public String getMainpic() {
+
+            return mainpic;
+        }
+
+        public void setMainpic(String mainpic) {
+
+            this.mainpic = TextUtil.filterNull(mainpic);
+        }
 
         public String getModname() {
 

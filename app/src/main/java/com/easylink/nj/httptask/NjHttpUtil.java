@@ -2,7 +2,6 @@ package com.easylink.nj.httptask;
 
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.DeviceUtil;
-import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 
@@ -338,6 +337,16 @@ public class NjHttpUtil extends BaseHttpUtil {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_GET_ORDER);
         htp.addParam("onlinekey", onlinekey);
+
+        setSignParam(htp);
+        return htp;
+    }
+
+    public static HttpTaskParams getOrderDel(String orderId, String onlinekey) {
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_DEL_ORDER);
+        htp.addParam("onlinekey", onlinekey);
+        htp.addParam("id", orderId);
 
         setSignParam(htp);
         return htp;

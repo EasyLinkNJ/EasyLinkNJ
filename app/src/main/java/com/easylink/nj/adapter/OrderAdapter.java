@@ -78,7 +78,7 @@ public class OrderAdapter extends ExAdapter<Cart> {
             }
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
-            mTvPrice.setText(cart.price);
+            mTvPrice.setText("价格：" + cart.price);
             mTvNum.setText("数量：" + String.valueOf(cart.count));
 
             try {

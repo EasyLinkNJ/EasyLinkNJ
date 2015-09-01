@@ -5,13 +5,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 
+import com.easylink.library.util.DensityUtil;
 import com.easylink.nj.R;
 
 public class ListTitleDialog extends BaseDialog {
 
-    public ListTitleDialog(Context context) {
+    private boolean isOnlyShowDel = false;
+
+    public ListTitleDialog(Context context, boolean isOnlyShowDel) {
 
         super(context);
+        this.isOnlyShowDel = isOnlyShowDel;
     }
 
     @Override
@@ -24,15 +28,22 @@ public class ListTitleDialog extends BaseDialog {
     @Override
     protected void initContentView() {
 
-        findViewById(R.id.tvSetDefault).setOnClickListener(new View.OnClickListener() {
+        if (isOnlyShowDel) {
 
-            @Override
-            public void onClick(View v) {
+            findViewById(R.id.tvSetDefault).setVisibility(View.GONE);
+            findViewById(R.id.tvDelete).setPadding(0, DensityUtil.dip2px(20), 0, DensityUtil.dip2px(20));
+        } else {
 
-                if (mOnItemClickListener != null)
-                    mOnItemClickListener.onItemClick(ListTitleDialog.this, 0);
-            }
-        });
+            findViewById(R.id.tvSetDefault).setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                    if (mOnItemClickListener != null)
+                        mOnItemClickListener.onItemClick(ListTitleDialog.this, 0);
+                }
+            });
+        }
         findViewById(R.id.tvDelete).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -55,5 +66,4 @@ public class ListTitleDialog extends BaseDialog {
 
         void onItemClick(Dialog dialog, int position);
     }
-
 }

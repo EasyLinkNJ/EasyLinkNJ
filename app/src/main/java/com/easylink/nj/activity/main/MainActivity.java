@@ -1,8 +1,14 @@
 package com.easylink.nj.activity.main;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
@@ -41,8 +47,17 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
 
-        if (!EasyApplication.getCommonPrefs().hasUserToken())
+        registerNetworkReceiver();
+
+        if (isNetworkEnable() && !EasyApplication.getCommonPrefs().hasUserToken())
             executeLogin();
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        super.onDestroy();
+        unregisterNetworkReceiver();
     }
 
     @Override
@@ -61,6 +76,52 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
             mTvCartCount.setVisibility(count > 0 ? View.VISIBLE : View.INVISIBLE);
         }
     }
+
+    private void registerNetworkReceiver() {
+
+        try {
+            registerReceiver(networkStateReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private void unregisterNetworkReceiver() {
+
+        try {
+            unregisterReceiver(networkStateReceiver);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    private Handler mHandler = new Handler();
+    private BroadcastReceiver networkStateReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            ConnectivityManager connMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo info = connMgr == null ? null : connMgr.getActiveNetworkInfo();
+            if (info != null && info.isAvailable()) {
+
+                mHandler.removeCallbacks(mNetworkRunnable);
+                mHandler.postDelayed(mNetworkRunnable, 500);
+            }
+        }
+    };
+
+    private Runnable mNetworkRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+
+            if (!EasyApplication.getCommonPrefs().hasUserToken())
+                executeLogin();
+        }
+    };
 
     @Override
     protected void initData() {
@@ -105,7 +166,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
     private void executeLogin() {
 
-        executeHttpTask(0, NjHttpUtil.getLoginParams(), new NjJsonListener<Object>(Object.class) {
+        executeHttpTask(101, NjHttpUtil.getLoginParams(), new NjJsonListener<Object>(Object.class) {
 
             @Override
             public NjJsonResponse<Object> onTaskResponse(String jsonText) {
@@ -118,7 +179,7 @@ public class MainActivity extends ExFragmentActivity implements View.OnClickList
 
                     JSONObject jsonObject = new JSONObject(jsonText);
                     jsonObject = jsonObject.getJSONObject("data");
-                    String onlinekey = jsonObject.getString("onlinekey");// AVD: be4786ff2a20d583a5bb49da7ae7e918
+                    String onlinekey = jsonObject.getString("onlinekey");
                     EasyApplication.getCommonPrefs().setUserToken(onlinekey);
 
                 } catch (Exception e) {

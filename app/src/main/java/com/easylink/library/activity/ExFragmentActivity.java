@@ -527,4 +527,9 @@ public abstract class ExFragmentActivity extends FragmentActivity{
 		
 		return getClass().getName();
 	}
+
+	protected boolean isNetworkEnable() {
+
+		return DeviceUtil.isNetworkEnable();
+	}
 }

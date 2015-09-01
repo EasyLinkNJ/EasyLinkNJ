@@ -496,4 +496,9 @@ public abstract class ExActivity extends Activity {
 
 		return getClass().getName();
 	}
+
+	protected boolean isNetworkEnable() {
+
+		return DeviceUtil.isNetworkEnable();
+	}
 }

@@ -4,13 +4,15 @@
     android:id="@+id/rlRootView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:padding="5dp">
+    android:background="@drawable/selector_bg_click_white"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdvCover"
         android:layout_width="66dp"
         android:layout_height="50dp"
+        android:layout_marginTop="5dp"
         android:scaleType="centerCrop"
         fresco:placeholderImage="@mipmap/ic_launcher" />
 
@@ -24,7 +26,7 @@
         android:layout_toRightOf="@id/sdvCover"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="@color/black_trans54"
+        android:textColor="@color/black_trans87"
         android:textSize="12dp" />
 
     <TextView
@@ -35,7 +37,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@id/sdvCover"
-        android:textColor="#f0534c"
+        android:textColor="@color/black_trans87"
         android:textSize="12dp" />
 
     <TextView
@@ -45,12 +47,11 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/tvPrice"
         android:layout_marginRight="20dp"
-        android:textColor="@color/black_trans54"
+        android:textColor="@color/black_trans87"
         android:textSize="12dp" />
 
-
     <View
-        android:id="@+id/vDivider_1"
+        android:id="@+id/vDivider"
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_below="@id/sdvCover"
@@ -64,7 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/vDivider_1"
+        android:layout_below="@id/vDivider"
         android:layout_marginBottom="8dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="12dp"
@@ -76,13 +77,13 @@
         android:id="@+id/tvNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/vDivider_1"
+        android:layout_below="@id/vDivider"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:layout_toLeftOf="@+id/ivDelete"
         android:paddingBottom="10dp"
         android:paddingTop="5dp"
-        android:textColor="@color/black_trans54"
+        android:textColor="@color/black_trans87"
         android:textSize="12dp" />
 
     <ImageView
@@ -90,6 +91,7 @@
         android:layout_width="28dp"
         android:layout_height="28dp"
         android:layout_alignTop="@id/tvNum"
+        android:layout_marginBottom="10dp"
         android:layout_toLeftOf="@+id/tvCount"
         android:background="@drawable/shape_delete"
         android:scaleType="centerInside"
@@ -103,7 +105,7 @@
         android:layout_toLeftOf="@+id/ivAdd"
         android:background="@mipmap/bg_num"
         android:gravity="center"
-        android:textColor="@color/black_trans54"
+        android:textColor="@color/black_trans70"
         android:textSize="12dp" />
 
     <ImageView

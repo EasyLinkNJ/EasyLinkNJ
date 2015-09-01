@@ -78,7 +78,7 @@ public class CartListAdapter extends ExAdapter<Cart> {
             Cart cart = getItem(mPosition);
             mSdvCover.setImageURI(Uri.parse(cart.imgUrl));
             mTvTitle.setText(cart.name);
-            mTvPrice.setText(cart.price);
+            mTvPrice.setText("价格：" + cart.price);
             mTvCount.setText(String.valueOf(cart.count));
             mTvNum.setText("数量：" + String.valueOf(cart.count));
         }
