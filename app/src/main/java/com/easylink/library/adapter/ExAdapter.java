@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.Collection;
 import java.util.List;
 
 public abstract class ExAdapter<T> extends BaseAdapter {
@@ -132,6 +133,12 @@ public abstract class ExAdapter<T> extends BaseAdapter {
         if (mData != null) {
             mData.remove(position);
         }
+    }
+
+    public void removeAll(Collection<T> datas) {
+
+        if (mData != null)
+            mData.removeAll(datas);
     }
 
     public void removeAll() {

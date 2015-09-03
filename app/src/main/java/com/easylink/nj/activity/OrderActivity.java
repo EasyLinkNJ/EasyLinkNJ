@@ -271,7 +271,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
         order.time = System.currentTimeMillis();
         order.address = mAddress;
         order.carts = mAdapter.getData();
-        order.save();
+//        order.save();
 
         postOrderInfo(order);
     }
@@ -313,7 +313,6 @@ public class OrderActivity extends NjHttpActivity<Order> {
                 orderItem = new PostOrder.OrderItem();
                 orderItem.setModid(cart.productId);
                 orderItem.setModname(cart.type);
-                orderItem.setMainpic(cart.imgUrl);
                 orderItem.setNum(String.valueOf(cart.count));
                 orderItems.add(orderItem);
             }
@@ -344,7 +343,7 @@ public class OrderActivity extends NjHttpActivity<Order> {
                     String orderId = jsonObject.getString("id");
 
                     order.orderId = orderId;
-                    order.save();
+//                    order.save();
                     for (Cart cart : order.carts) {
 
                         cart.orderId = orderId;

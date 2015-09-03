@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.adapter.OnItemViewLongClickListener;
-import com.easylink.library.util.LogMgr;
 import com.easylink.nj.EasyApplication;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjHttpActivity;
@@ -78,7 +77,7 @@ public class OrderListActivity extends NjHttpActivity<Order> {
     private void loadDataFromServer() {
 
         String userToken = EasyApplication.getCommonPrefs().getUserToken();
-        executeHttpTask(101, NjHttpUtil.getMyOrder(userToken), new NjJsonListener<OrderList>(OrderList.class) {
+        executeHttpTask(101, NjHttpUtil.getMyOrder(userToken, 1, 10000), new NjJsonListener<OrderList>(OrderList.class) {
 
             @Override
             public void onTaskPre() {
@@ -190,9 +189,7 @@ public class OrderListActivity extends NjHttpActivity<Order> {
                     public void onItemClick(Dialog dialog, int index) {
 
                         dialog.dismiss();
-                        executeDelTask(mAdapter.getItem(position).orderId);
-
-                        LogMgr.e("daisw", "@@" + position);
+                        executeDelTask(position);
                     }
                 });
                 dialog.show();
@@ -200,8 +197,9 @@ public class OrderListActivity extends NjHttpActivity<Order> {
         });
     }
 
-    private void executeDelTask(String orderId) {
+    private void executeDelTask(final int pos) {
 
+        String orderId = mAdapter.getItem(pos).orderId;
         String userToken = EasyApplication.getCommonPrefs().getUserToken();
         executeHttpTask(102, NjHttpUtil.getOrderDel(orderId, userToken), new NjJsonListener<String>(String.class) {
 
@@ -227,20 +225,21 @@ public class OrderListActivity extends NjHttpActivity<Order> {
             @Override
             public void onTaskSuccess(NjJsonResponse<String> resp) {
 
-                for (int i = 0; i < mAdapter.getCount(); i++) {
+                ArrayList<OrderData> delItem = new ArrayList<>();
 
-                    OrderData data = mAdapter.getItem(i);
-                    if (data != null && data.orderId.equals(resp.getData())) {
+                int itemNum = mAdapter.getItem(pos).itemNum;
+                for (int i = pos; i < pos + itemNum + 2; i++)// 加上头和尾
+                    delItem.add(mAdapter.getItem(i));
 
-                        for (int j = i; j < i + data.itemNum + 2; j++) {// 加上头和尾
-
-                            mAdapter.remove(j);
-                            LogMgr.e("daisw", "~~" + j);
-                        }
-                    }
-                }
+                mAdapter.removeAll(delItem);
                 mAdapter.notifyDataSetChanged();
                 showToast("删除成功");
+
+                if (mAdapter.isEmpty()) {
+
+                    switchDisable(R.mipmap.ic_order_nothing);
+                    hideView(mTvBottomBar);
+                }
             }
 
             @Override

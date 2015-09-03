@@ -333,10 +333,12 @@ public class NjHttpUtil extends BaseHttpUtil {
         return htp;
     }
 
-    public static HttpTaskParams getMyOrder(String onlinekey) {
+    public static HttpTaskParams getMyOrder(String onlinekey, int page, int limitSize) {
 
         HttpTaskParams htp = HttpTaskParams.newPost(URL_GET_ORDER);
         htp.addParam("onlinekey", onlinekey);
+        htp.addParam("p", String.valueOf(page));
+        htp.addParam("ps", String.valueOf(limitSize));
 
         setSignParam(htp);
         return htp;
