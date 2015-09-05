@@ -73,6 +73,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".activity.product.ProductPpsListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.news.NewsDetailActivity"
             android:screenOrientation="portrait" />
 

@@ -31,6 +31,8 @@ public interface HttpApi {
 
     String URL_CATEGORY_NONGJI_LIST = URL_BASE + "product/cates";
 
+    String URL_PPS_NONGJI = URL_BASE + "product/ppslist";
+
     // login
     String URL_POST_LOGIN = URL_BASE + "account/loginster";
 }

@@ -300,6 +300,7 @@ public class NjHttpUtil extends BaseHttpUtil {
         String url = "";
         switch (type) {
             case NJ:
+            case NJPARTS:
                 url = URL_DETAIL_NONGJI;
                 break;
             case NY:
@@ -317,6 +318,19 @@ public class NjHttpUtil extends BaseHttpUtil {
         htp.addParam("id", id);
         setSignParam(htp);
 
+        return htp;
+    }
+
+    /**
+     * 获取产品配件列表，目前只有农机在用
+     * @param productId
+     * @return
+     */
+    public static HttpTaskParams getProductPps(String productId){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_PPS_NONGJI);
+        htp.addParam("id", productId);
+        setSignParam(htp);
         return htp;
     }
 

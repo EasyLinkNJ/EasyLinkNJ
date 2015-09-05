@@ -55,14 +55,14 @@ public class MainMineFragment extends NjFragment {
             }
         });
 
-        tv = (TextView) findViewById(R.id.tvRepair);
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //维修咨询
-            }
-        });
+//        tv = (TextView) findViewById(R.id.tvRepair);
+//        tv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                //维修咨询
+//            }
+//        });
 
         tv = (TextView) findViewById(R.id.tvAbout);
         tv.setOnClickListener(new View.OnClickListener() {

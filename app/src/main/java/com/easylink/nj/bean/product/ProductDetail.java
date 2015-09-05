@@ -1,5 +1,6 @@
 package com.easylink.nj.bean.product;
 
+import com.easylink.library.util.LogMgr;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
 
@@ -39,6 +40,7 @@ public class ProductDetail implements Serializable {
     private String content_4 = TextUtil.TEXT_EMPTY;// 参数详情4，如 施工案例
 
     private ProductType type;
+    private String pps;
 
     public ProductType getType() {
 
@@ -288,5 +290,15 @@ public class ProductDetail implements Serializable {
     public void setContent_0(String content_0) {
 
         this.content_0 = TextUtil.filterNull(content_0);
+    }
+
+    public String getPps() {
+        return pps;
+    }
+
+    public void setPps(String pps) {
+
+        LogMgr.d("bean", "productDetail set pps = "+pps);
+        this.pps = pps;
     }
 }

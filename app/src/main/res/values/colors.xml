@@ -30,4 +30,5 @@
     <color name="gray_trans50">#80CCCCCC</color>
 
     <color name="bg_red">#ec5355</color>
+    <color name="list_image_def_color">#FFF0F0F0</color>
 </resources>

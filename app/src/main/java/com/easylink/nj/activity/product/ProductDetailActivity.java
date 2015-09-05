@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -34,7 +35,7 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
 
     public enum ProductType {
 
-        NJ("product"), NY("nongyao"), ZZ("zhongzi"), HF("huafei");
+        NJ("product"), NJPARTS("productParts"), NY("nongyao"), ZZ("zhongzi"), HF("huafei");
 
         private String desc;
 
@@ -111,9 +112,10 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     @Override
     protected void initContentView() {
 
+        LinearLayout llBtnDiv = (LinearLayout) findViewById(R.id.llBtnDiv);
         if (mOnlyGlance) {
 
-            ViewUtil.goneView(findViewById(R.id.llBtnDiv));
+            ViewUtil.goneView(llBtnDiv);
         } else {
 
             findViewById(R.id.tvBuy).setOnClickListener(new View.OnClickListener() {
@@ -132,6 +134,22 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
                     onAddToCartClickCallback();
                 }
             });
+
+            if(mType != ProductType.NJ){
+
+                llBtnDiv.removeView(findViewById(R.id.tvPps));
+                llBtnDiv.removeView(findViewById(R.id.vPpsSplit));
+            }else{
+
+                findViewById(R.id.tvPps).setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+
+                        ProductPpsListActivity.startActivity(ProductDetailActivity.this, mDetail.getId());
+                    }
+                });
+            }
         }
     }
 
@@ -199,6 +217,11 @@ public class ProductDetailActivity extends NjHttpActivity<ProductDetail> {
     public static void startActivityFromNJ(Activity act, String id, boolean onlyGlance) {
 
         startActivity(act, ProductType.NJ, id, onlyGlance);
+    }
+
+    public static void startActivityFromNJParts(Activity act, String id, boolean onlyGlance) {
+
+        startActivity(act, ProductType.NJPARTS, id, onlyGlance);
     }
 
     public static void startActivityFromNY(Activity act, String id, boolean onlyGlance) {

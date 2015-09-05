@@ -210,7 +210,7 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
 
                 dismissLoadingPop();
                 mCategoryList = result;
-                if(mCategoryList == null)
+                if (mCategoryList == null)
                     mCategoryList = new ArrayList<CategoryNongji>();
 
                 CategoryNongji cnj = new CategoryNongji();
@@ -276,10 +276,13 @@ public class ProductListNongjiActivity extends NjFragmentActivity implements Vie
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    if(mPwList.getType() == ProductListNongjiPop.TYPE_BRAND)
+                    if(mPwList.getType() == ProductListNongjiPop.TYPE_BRAND){
+
                         onBrandListItemClick(position);
-                    else if(mPwList.getType() == ProductListNongjiPop.TYPE_CATEGORY)
+                    }else if(mPwList.getType() == ProductListNongjiPop.TYPE_CATEGORY){
+
                         onCategoryListItemClick(position);
+                    }
                 }
             });
             mPwList.setOnDismissListener(new PopupWindow.OnDismissListener() {
