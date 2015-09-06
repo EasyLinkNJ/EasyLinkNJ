@@ -20,7 +20,7 @@ public class BrandListZhongziActivity extends BrandListActivity<List<BrandZhongz
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getBrandZhongziList(page, limit);
+        return NjHttpUtil.getBrandZhongziList();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class BrandListZhongziActivity extends BrandListActivity<List<BrandZhongz
         if (item != null) {
 
             BrandZhongzi bz = (BrandZhongzi) item;
-            ProductListZhongziActivity.startActivity(this, bz.getId());
+            //ProductListZhongziActivity.startActivity(this, bz.getId());
         }
     }
 

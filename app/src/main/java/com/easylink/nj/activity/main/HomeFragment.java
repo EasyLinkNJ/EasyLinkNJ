@@ -13,7 +13,11 @@ import com.easylink.nj.activity.product.BrandListHuafeiActivity;
 import com.easylink.nj.activity.product.BrandListNongjiActivity;
 import com.easylink.nj.activity.product.BrandListNongyaoActivity;
 import com.easylink.nj.activity.product.BrandListZhongziActivity;
+import com.easylink.nj.activity.product.ProductListActivity;
+import com.easylink.nj.activity.product.ProductListHuafeiActivity;
 import com.easylink.nj.activity.product.ProductListNongjiActivity;
+import com.easylink.nj.activity.product.ProductListNongyaoActivity;
+import com.easylink.nj.activity.product.ProductListZhongziActivity;
 import com.easylink.nj.view.ClickScaleAnimRelativeLayout;
 
 /**
@@ -56,7 +60,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandListNongyaoActivity.startActivity(getActivity());
+                ProductListNongyaoActivity.startActivity(getActivity());
             }
         });
 
@@ -65,7 +69,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandListHuafeiActivity.startActivity(getActivity());
+                ProductListHuafeiActivity.startActivity(getActivity());
             }
         });
 
@@ -74,7 +78,7 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-                BrandListZhongziActivity.startActivity(getActivity());
+                ProductListZhongziActivity.startActivity(getActivity());
             }
         });
     }

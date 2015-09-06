@@ -27,6 +27,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/7/23.
  */
+@Deprecated
 public class ProductSearchActivity1 extends NjHttpXlvActivity<ProductNongjiList> {
 
     private EditText mEt;

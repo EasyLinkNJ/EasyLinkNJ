@@ -30,6 +30,9 @@ public interface HttpApi {
     String URL_DETAIL_ZHONGZI_LIST = URL_BASE + "zhongzi/detail";
 
     String URL_CATEGORY_NONGJI_LIST = URL_BASE + "product/cates";
+    String URL_CATEGORY_HUAFEI_LIST = URL_BASE + "huafei/cates";
+    String URL_CATEGORY_ZHONGZI_LIST = URL_BASE + "zhongzi/cates";
+    String URL_CATEGORY_NONGYAO_LIST = URL_BASE + "nongyao/cates";
 
     String URL_PPS_NONGJI = URL_BASE + "product/ppslist";
 

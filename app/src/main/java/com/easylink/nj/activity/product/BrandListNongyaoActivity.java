@@ -20,7 +20,7 @@ public class BrandListNongyaoActivity extends BrandListActivity<List<BrandNongya
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getBrandNongyaoList(page, limit);
+        return NjHttpUtil.getBrandNongyaoList();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class BrandListNongyaoActivity extends BrandListActivity<List<BrandNongya
         if (item != null) {
 
             BrandNongyao bn = (BrandNongyao) item;
-            ProductListNongyaoActivity.startActivity(this, bn.getId());
+            //ProductListNongyaoActivity.startActivity(this, bn.getId());
         }
     }
 

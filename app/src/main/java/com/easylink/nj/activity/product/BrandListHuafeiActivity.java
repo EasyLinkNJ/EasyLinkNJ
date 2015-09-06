@@ -20,7 +20,7 @@ public class BrandListHuafeiActivity extends BrandListActivity<List<BrandHuafei>
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getBrandHuafeiList(page, limit);
+        return NjHttpUtil.getBrandHuafeiList();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class BrandListHuafeiActivity extends BrandListActivity<List<BrandHuafei>
         if (item != null) {
 
             BrandHuafei bh = (BrandHuafei) item;
-            ProductListHuafeiActivity.startActivity(this, bh.getId());
+            //ProductListHuafeiActivity.startActivity(this, bh.getId());
         }
     }
 

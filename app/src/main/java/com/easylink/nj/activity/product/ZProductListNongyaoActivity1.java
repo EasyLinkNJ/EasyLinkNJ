@@ -1,13 +1,12 @@
-package com.easylink.nj.activity.product.search;
+package com.easylink.nj.activity.product;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 
+import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
-import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.activity.product.ProductListFragment;
-import com.easylink.nj.bean.product.ProductHuafei;
-import com.easylink.nj.bean.product.ProductHuafeiList;
 import com.easylink.nj.bean.product.ProductItem;
 import com.easylink.nj.bean.product.ProductNongyao;
 import com.easylink.nj.bean.product.ProductNongyaoList;
@@ -16,21 +15,20 @@ import com.easylink.nj.httptask.NjHttpUtil;
 import java.util.List;
 
 /**
- * Created by yihaibin on 15/8/29.
+ * Created by yihaibin on 15/8/25.
  */
-@Deprecated
-public class ProductListNongyaoFragment  extends ProductListFragment<ProductNongyaoList> {
+public class ZProductListNongyaoActivity1 extends ProductListActivity<ProductNongyaoList> implements OnItemViewClickListener{
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductNongyaoList(TextUtil.filterNull(getActivity().getIntent().getStringExtra("companyId")), page, limit);
+        return NjHttpUtil.getProductNongyaoList(TextUtil.filterNull(getIntent().getStringExtra("companyId")), page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return ProductHuafeiList.class;
+        return ProductNongyaoList.class;
     }
 
     @Override
@@ -47,7 +45,15 @@ public class ProductListNongyaoFragment  extends ProductListFragment<ProductNong
         if (item != null) {
 
             ProductNongyao ny = (ProductNongyao) item;
-            ProductDetailActivity.startActivityFromHF(getActivity(), ny.getId(), false);
+            ProductDetailActivity.startActivityFromNY(this, ny.getId(), false);
         }
+    }
+
+    public static void startActivity(Activity activity, String companyId){
+
+        Intent intent = new Intent();
+        intent.setClass(activity, ZProductListNongyaoActivity1.class);
+        intent.putExtra("companyId", companyId);
+        activity.startActivity(intent);
     }
 }

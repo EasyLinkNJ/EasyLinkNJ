@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_ic_main_cart"
+            android:drawableTop="@drawable/selector_ic_main_user"
             android:gravity="center"
             android:paddingBottom="5dp"
             android:text="我的"

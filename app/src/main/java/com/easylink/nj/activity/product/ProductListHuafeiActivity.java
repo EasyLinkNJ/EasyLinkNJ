@@ -2,58 +2,299 @@ package com.easylink.nj.activity.product;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
-import com.easylink.library.adapter.OnItemViewClickListener;
-import com.easylink.library.http.params.HttpTaskParams;
-import com.easylink.library.util.TextUtil;
-import com.easylink.nj.bean.product.ProductHuafei;
-import com.easylink.nj.bean.product.ProductHuafeiList;
-import com.easylink.nj.bean.product.ProductItem;
+import com.easylink.library.util.DeviceUtil;
+import com.easylink.nj.R;
+import com.easylink.nj.activity.common.NjFragmentActivity;
+import com.easylink.nj.bean.product.BrandHuafei;
+import com.easylink.nj.bean.product.CategoryHuafei;
 import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.httptask.NjJsonListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by yihaibin on 15/8/25.
  */
-public class ProductListHuafeiActivity extends ProductListActivity<ProductHuafeiList> implements OnItemViewClickListener{
+public class ProductListHuafeiActivity extends NjFragmentActivity implements View.OnClickListener{
+
+    private final int HTTP_TASK_BRAND = 1;
+    private final int HTTP_TASK_CATEGORY = 2;
+
+    private LinearLayout mLlToolbar;
+    private View mVToolbarLine;
+    private TextView mTvBrand, mTvCategory;
+    private PopupWindow mPwLoading;
+    private ProductListHuafeiPop mPwList;
+    //    private View mVLoadingShadow;
+    private List<BrandHuafei> mBrandList;
+    private List<CategoryHuafei> mCategoryList;
+    private ProductListHuafeiFragment mHuafeiListFragment;
 
     @Override
-    public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
+    protected void onCreate(Bundle savedInstanceState) {
 
-        return NjHttpUtil.getProductHuafeiList(TextUtil.filterNull(getIntent().getStringExtra("companyId")), page, limit);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.act_product_nongji_list);
     }
 
     @Override
-    public Class<?> getXlvJsonClazz() {
+    protected void initData() {
 
-        return ProductHuafeiList.class;
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductHuafeiList result) {
+    protected void initTitleView() {
 
-        return result == null ? null : result.getList();
+        addTitleMiddleTextViewWithBack("化肥列表");
     }
 
     @Override
-    public void onItemViewClick(int position, View clickView) {
+    protected void initContentView() {
 
-        ProductItem item = getProductItem(position);
+        initTabViews();
+        mHuafeiListFragment = ProductListHuafeiFragment.newInstance(this);
+        addFragment(R.id.flContent, mHuafeiListFragment);
+    }
 
-        if (item != null) {
+    private void initTabViews() {
 
-            ProductHuafei hf = (ProductHuafei) item;
-            ProductDetailActivity.startActivityFromHF(this, hf.getId(), false);
+        mLlToolbar = (LinearLayout) findViewById(R.id.llToolbar);
+        mVToolbarLine = findViewById(R.id.vToolbarLine);
+//        mVLoadingShadow = findViewById(R.id.vLoadingShadow);
+        mTvBrand = (TextView) findViewById(R.id.tvBrand);
+        mTvBrand.setOnClickListener(this);
+
+        mTvCategory = (TextView) findViewById(R.id.tvCategory);
+        mTvCategory.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.tvBrand:
+                showBrandList(true);
+                break;
+            case R.id.tvCategory:
+                showCategoryList(true);
+                break;
         }
     }
 
-    public static void startActivity(Activity activity, String companyId){
+    private void onBrandListItemClick(int position) {
+
+        BrandHuafei brand = (BrandHuafei) mPwList.getItemObject(position);
+        dismissPopList();
+        mHuafeiListFragment.updateListByBrand(brand.getId());
+        mTvBrand.setText(brand.getCn_brand());
+        mPwList.onItemClick(position);
+    }
+
+    private void onCategoryListItemClick(int position) {
+
+        CategoryHuafei category = (CategoryHuafei) mPwList.getItemObject(position);
+        dismissPopList();
+        mHuafeiListFragment.updateListByCategory(category.getId());
+        mTvCategory.setText(category.getName());
+        mPwList.onItemClick(position);
+    }
+
+    private void showBrandList(boolean fromClick){
+
+        if(mBrandList == null || mBrandList.isEmpty()){
+
+            if(DeviceUtil.isNetworkEnable()){
+
+                if(fromClick)
+                    executeBrandsHttpTask();
+            }else{
+
+                showToast(R.string.toast_network_none);
+            }
+        }else{
+
+            initPopList();
+            mPwList.updateBrand(mBrandList);
+            mPwList.showAsDropDown(mVToolbarLine);
+        }
+    }
+
+    private void showCategoryList(boolean fromClick){
+
+        if(mCategoryList == null || mCategoryList.isEmpty()){
+
+            if(DeviceUtil.isNetworkEnable()){
+
+                if(fromClick)
+                    executeCategoryHttpTask();
+            }else{
+
+                showToast(R.string.toast_network_none);
+            }
+        }else{
+
+            initPopList();
+            mPwList.updateCategory(mCategoryList);
+            mPwList.showAsDropDown(mVToolbarLine);
+        }
+    }
+
+    private void executeBrandsHttpTask(){
+
+        abortHttpTask(HTTP_TASK_BRAND);
+        executeHttpTask(HTTP_TASK_BRAND, NjHttpUtil.getBrandHuafeiList(), new NjJsonListener<List<BrandHuafei>>(BrandHuafei.class) {
+
+            @Override
+            public void onTaskPre() {
+
+                showLoadingPopup(mLlToolbar);
+//                ViewUtil.showView(mVLoadingShadow);
+            }
+
+            @Override
+            public void onTaskResult(List<BrandHuafei> result) {
+
+                dismissLoadingPop();
+                mBrandList = result;
+                if(mBrandList == null)
+                    mBrandList = new ArrayList<BrandHuafei>();
+
+                BrandHuafei bnj = new BrandHuafei();
+                bnj.setId("");
+                bnj.setCn_brand("全部");
+                mBrandList.add(0, bnj);
+
+                showBrandList(false);
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+
+                dismissLoadingPop();
+            }
+        });
+    }
+
+    private void executeCategoryHttpTask(){
+
+        abortHttpTask(HTTP_TASK_CATEGORY);
+        executeHttpTask(HTTP_TASK_CATEGORY, NjHttpUtil.getCategoryHuafeiList(), new NjJsonListener<List<CategoryHuafei>>(CategoryHuafei.class) {
+
+            @Override
+            public void onTaskPre() {
+
+                showLoadingPopup(mLlToolbar);
+//                ViewUtil.showView(mVLoadingShadow);
+            }
+
+            @Override
+            public void onTaskResult(List<CategoryHuafei> result) {
+
+                dismissLoadingPop();
+                mCategoryList = result;
+                if (mCategoryList == null)
+                    mCategoryList = new ArrayList<CategoryHuafei>();
+
+                CategoryHuafei cnj = new CategoryHuafei();
+                cnj.setId("");
+                cnj.setName("全部");
+                mCategoryList.add(0, cnj);
+
+                showCategoryList(false);
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+
+                dismissLoadingPop();
+            }
+        });
+    }
+
+    private void showLoadingPopup(View v) {
+
+        if (mPwLoading == null)
+            initLoadingPopup();
+
+        mPwLoading.showAsDropDown(v);
+//        showView(mVLoadingShadow);
+    }
+
+    private void initLoadingPopup() {
+
+        View view = getLayoutInflater().inflate((R.layout.pop_product_nongji_list_loading), null);
+        mPwLoading = new PopupWindow(view, -1, 100) {
+            @Override
+            public void dismiss() {
+
+                super.dismiss();
+                abortHttpTask(HTTP_TASK_BRAND);
+                abortHttpTask(HTTP_TASK_CATEGORY);
+//                hideView(mVLoadingShadow);
+//                mDealTitleSelectBar.clearTitleTvColor();
+            }
+
+        };
+
+        mPwLoading.setHeight(WindowManager.LayoutParams.MATCH_PARENT);
+        mPwLoading.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        mPwLoading.setFocusable(true);
+        mPwLoading.setOutsideTouchable(true);
+        mPwLoading.update();
+    }
+
+    private void dismissLoadingPop(){
+
+        if(mPwLoading != null && mPwLoading.isShowing())
+            mPwLoading.dismiss();
+    }
+
+    private void initPopList(){
+
+        if(mPwList == null){
+
+            mPwList = new ProductListHuafeiPop(this);
+            mPwList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    if(mPwList.getType() == ProductListNongjiPop.TYPE_BRAND){
+
+                        onBrandListItemClick(position);
+                    }else if(mPwList.getType() == ProductListNongjiPop.TYPE_CATEGORY){
+
+                        onCategoryListItemClick(position);
+                    }
+                }
+            });
+            mPwList.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+
+                }
+            });
+        }
+    }
+
+    private void dismissPopList(){
+
+        if(mPwList != null && mPwList.isShowing())
+            mPwList.dismiss();
+    }
+
+    public static void startActivity(Activity activity){
 
         Intent intent = new Intent();
         intent.setClass(activity, ProductListHuafeiActivity.class);
-        intent.putExtra("companyId", companyId);
         activity.startActivity(intent);
     }
 }
