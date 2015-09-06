@@ -2,6 +2,7 @@ package com.easylink.nj;
 
 import com.activeandroid.ActiveAndroid;
 import com.easylink.library.context.ExApplication;
+import com.easylink.library.util.LogMgr;
 import com.easylink.nj.prefs.CommonPrefs;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
@@ -21,6 +22,11 @@ public class EasyApplication extends ExApplication {
 
         Fresco.initialize(this);
         ActiveAndroid.initialize(this, BuildConfig.DEBUG);
+
+        if (BuildConfig.DEBUG)
+            LogMgr.turnOn();
+        else
+            LogMgr.turnOff();
     }
 
     public static CommonPrefs getCommonPrefs() {
