@@ -69,7 +69,7 @@ public class MainMineFragment extends NjFragment {
             @Override
             public void onClick(View v) {
 
-                //关于
+                AboutActivity.startActivity(getActivity());
             }
         });
     }
