@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="235dp"
                 android:scaleType="centerCrop"
-                fresco:placeholderImage="@mipmap/ic_launcher" />
+                fresco:placeholderImage="@color/list_image_def_color" />
 
             <View
                 android:id="@+id/vDivider_1"

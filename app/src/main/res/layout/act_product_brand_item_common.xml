@@ -11,7 +11,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
-        fresco:placeholderImage="@mipmap/ic_launcher" />
+        fresco:placeholderImage="@color/list_image_def_color" />
 
     <TextView
         android:id="@+id/tvName"
