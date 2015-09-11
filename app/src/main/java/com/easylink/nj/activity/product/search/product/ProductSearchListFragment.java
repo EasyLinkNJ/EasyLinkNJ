@@ -1,4 +1,4 @@
-package com.easylink.nj.activity.product.search;
+package com.easylink.nj.activity.product.search.product;
 
 import com.easylink.nj.activity.product.ProductListFragment;
 

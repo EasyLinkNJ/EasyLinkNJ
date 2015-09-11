@@ -1,4 +1,4 @@
-package com.easylink.nj.activity.product.search;
+package com.easylink.nj.activity.product.search.product;
 
 import android.view.View;
 
@@ -9,8 +9,6 @@ import com.easylink.nj.activity.product.ProductListFragment;
 import com.easylink.nj.bean.product.ProductHuafei;
 import com.easylink.nj.bean.product.ProductHuafeiList;
 import com.easylink.nj.bean.product.ProductItem;
-import com.easylink.nj.bean.product.ProductNongyao;
-import com.easylink.nj.bean.product.ProductNongyaoList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -19,12 +17,12 @@ import java.util.List;
  * Created by yihaibin on 15/8/29.
  */
 @Deprecated
-public class ProductListNongyaoFragment  extends ProductListFragment<ProductNongyaoList> {
+public class ProductListHuafeiFragment extends ProductListFragment<ProductHuafeiList> {
 
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductNongyaoList(TextUtil.filterNull(getActivity().getIntent().getStringExtra("companyId")), page, limit);
+        return NjHttpUtil.getProductHuafeiList(TextUtil.filterNull(getActivity().getIntent().getStringExtra("companyId")), page, limit);
     }
 
     @Override
@@ -34,7 +32,7 @@ public class ProductListNongyaoFragment  extends ProductListFragment<ProductNong
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductNongyaoList result) {
+    protected List<?> getListOnInvalidateContent(ProductHuafeiList result) {
 
         return result == null ? null : result.getList();
     }
@@ -46,8 +44,8 @@ public class ProductListNongyaoFragment  extends ProductListFragment<ProductNong
 
         if (item != null) {
 
-            ProductNongyao ny = (ProductNongyao) item;
-            ProductDetailActivity.startActivityFromHF(getActivity(), ny.getId(), false);
+            ProductHuafei hf = (ProductHuafei) item;
+            ProductDetailActivity.startActivityFromHF(getActivity(), hf.getId(), false);
         }
     }
 }

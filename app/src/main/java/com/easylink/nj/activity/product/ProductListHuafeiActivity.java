@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.easylink.library.util.DeviceUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjFragmentActivity;
+import com.easylink.nj.activity.product.search.brand.BrandSearchActivity;
+import com.easylink.nj.activity.product.search.category.CategorySearchActivity;
 import com.easylink.nj.bean.product.BrandHuafei;
 import com.easylink.nj.bean.product.CategoryHuafei;
 import com.easylink.nj.httptask.NjHttpUtil;
@@ -29,6 +31,9 @@ public class ProductListHuafeiActivity extends NjFragmentActivity implements Vie
     private final int HTTP_TASK_BRAND = 1;
     private final int HTTP_TASK_CATEGORY = 2;
 
+    private final int REQ_CODE_BRAND = 1;
+    private final int REQ_CODE_CATEGORY = 2;
+
     private LinearLayout mLlToolbar;
     private View mVToolbarLine;
     private TextView mTvBrand, mTvCategory;
@@ -44,6 +49,22 @@ public class ProductListHuafeiActivity extends NjFragmentActivity implements Vie
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_product_nongji_list);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK)
+            return;
+
+        if(requestCode == REQ_CODE_BRAND){
+
+            handleBrandReturn(data);
+        }else if(requestCode == REQ_CODE_CATEGORY){
+
+            handleCategoryReturn(data);
+        }
     }
 
     @Override
@@ -82,12 +103,36 @@ public class ProductListHuafeiActivity extends NjFragmentActivity implements Vie
 
         switch (v.getId()){
             case R.id.tvBrand:
-                showBrandList(true);
+//                showBrandList(true);
+                BrandSearchActivity.startActivityHF(this, REQ_CODE_BRAND);
                 break;
             case R.id.tvCategory:
-                showCategoryList(true);
+//                showCategoryList(true);
+                CategorySearchActivity.startActivityHF(this, REQ_CODE_CATEGORY);
                 break;
         }
+    }
+
+    private void handleBrandReturn(Intent data) {
+
+        if(data == null)
+            return;
+
+        String brandId = data.getStringExtra(BrandSearchActivity.EXTRA_STRING_ID);
+        String brandName = data.getStringExtra(BrandSearchActivity.EXTRA_STRING_NAME);
+        mHuafeiListFragment.updateListByBrand(brandId);
+        mTvBrand.setText(brandName);
+    }
+
+    private void handleCategoryReturn(Intent data) {
+
+        if(data == null)
+            return;
+
+        String categoryId = data.getStringExtra(CategorySearchActivity.EXTRA_STRING_ID);
+        String categoryName = data.getStringExtra(CategorySearchActivity.EXTRA_STRING_NAME);
+        mHuafeiListFragment.updateListByCategory(categoryId);
+        mTvCategory.setText(categoryName);
     }
 
     private void onBrandListItemClick(int position) {

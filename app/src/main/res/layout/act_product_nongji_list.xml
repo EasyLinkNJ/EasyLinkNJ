@@ -20,7 +20,9 @@
             android:gravity="center"
             android:textSize="14dp"
             android:textColor="@android:color/black"
-            android:text="品牌"/>
+            android:text="品牌"
+            android:singleLine="true"
+            android:ellipsize="end"/>
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -36,7 +38,9 @@
             android:layout_weight="1"
             android:textSize="14dp"
             android:textColor="@android:color/black"
-            android:text="类型"/>
+            android:text="类型"
+            android:singleLine="true"
+            android:ellipsize="end"/>
     </LinearLayout>
     <View
         android:id="@+id/vToolbarLine"

@@ -1,19 +1,16 @@
-package com.easylink.nj.activity.product.search;
+package com.easylink.nj.activity.product.search.product;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.bean.product.ProductHuafei;
-import com.easylink.nj.bean.product.ProductHuafeiList;
-import com.easylink.nj.bean.product.ProductNongji;
-import com.easylink.nj.bean.product.ProductNongjiList;
+import com.easylink.nj.bean.product.ProductNongyao;
+import com.easylink.nj.bean.product.ProductNongyaoList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -21,7 +18,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/29.
  */
-public class ProductSearchListHuafeiFragment extends ProductSearchListFragment<ProductHuafeiList> implements OnItemViewClickListener {
+public class ProductSearchListNongyaoFragment extends ProductSearchListFragment<ProductNongyaoList> implements OnItemViewClickListener {
 
     private String mSearchKey = TextUtil.TEXT_EMPTY;
 
@@ -34,17 +31,17 @@ public class ProductSearchListHuafeiFragment extends ProductSearchListFragment<P
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductHuafeiSearchList(mSearchKey, page, limit);
+        return NjHttpUtil.getProductNongyaoSearchList(mSearchKey, page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return ProductHuafeiList.class;
+        return ProductNongyaoList.class;
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductHuafeiList result) {
+    protected List<?> getListOnInvalidateContent(ProductNongyaoList result) {
 
         return result == null ? null : result.getList();
     }
@@ -52,9 +49,9 @@ public class ProductSearchListHuafeiFragment extends ProductSearchListFragment<P
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductHuafei hf = (ProductHuafei) getAdapterItem(position);
-        if (hf != null)
-            ProductDetailActivity.startActivityFromHF(getActivity(), hf.getId(), false);
+        ProductNongyao ny = (ProductNongyao) getAdapterItem(position);
+        if (ny != null)
+            ProductDetailActivity.startActivityFromNY(getActivity(), ny.getId(), false);
     }
 
     @Override
@@ -67,8 +64,8 @@ public class ProductSearchListHuafeiFragment extends ProductSearchListFragment<P
         loadDataFromServer();
     }
 
-    public static ProductSearchListHuafeiFragment newInstance(Context context) {
+    public static ProductSearchListNongyaoFragment newInstance(Context context) {
 
-        return (ProductSearchListHuafeiFragment) Fragment.instantiate(context, ProductSearchListHuafeiFragment.class.getName(), new Bundle());
+        return (ProductSearchListNongyaoFragment) instantiate(context, ProductSearchListNongyaoFragment.class.getName(), new Bundle());
     }
 }

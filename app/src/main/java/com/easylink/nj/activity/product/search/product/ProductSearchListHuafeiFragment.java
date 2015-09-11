@@ -1,18 +1,16 @@
-package com.easylink.nj.activity.product.search;
+package com.easylink.nj.activity.product.search.product;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
 import com.easylink.library.http.params.HttpTaskParams;
 import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.product.ProductDetailActivity;
-import com.easylink.nj.activity.product.ProductListFragment;
-import com.easylink.nj.bean.product.ProductNongji;
-import com.easylink.nj.bean.product.ProductNongjiList;
+import com.easylink.nj.bean.product.ProductHuafei;
+import com.easylink.nj.bean.product.ProductHuafeiList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/29.
  */
-public class ProductSearchListNongjiFragment extends ProductSearchListFragment<ProductNongjiList> implements OnItemViewClickListener {
+public class ProductSearchListHuafeiFragment extends ProductSearchListFragment<ProductHuafeiList> implements OnItemViewClickListener {
 
     private String mSearchKey = TextUtil.TEXT_EMPTY;
 
@@ -33,17 +31,17 @@ public class ProductSearchListNongjiFragment extends ProductSearchListFragment<P
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductNongjiSearchList(mSearchKey, page, limit);
+        return NjHttpUtil.getProductHuafeiSearchList(mSearchKey, page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return ProductNongjiList.class;
+        return ProductHuafeiList.class;
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductNongjiList result) {
+    protected List<?> getListOnInvalidateContent(ProductHuafeiList result) {
 
         return result == null ? null : result.getList();
     }
@@ -51,9 +49,9 @@ public class ProductSearchListNongjiFragment extends ProductSearchListFragment<P
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductNongji nj = (ProductNongji) getAdapterItem(position);
-        if (nj != null)
-            ProductDetailActivity.startActivityFromNJ(getActivity(), nj.getId(), false);
+        ProductHuafei hf = (ProductHuafei) getAdapterItem(position);
+        if (hf != null)
+            ProductDetailActivity.startActivityFromHF(getActivity(), hf.getId(), false);
     }
 
     @Override
@@ -66,8 +64,8 @@ public class ProductSearchListNongjiFragment extends ProductSearchListFragment<P
         loadDataFromServer();
     }
 
-    public static ProductSearchListNongjiFragment newInstance(Context context) {
+    public static ProductSearchListHuafeiFragment newInstance(Context context) {
 
-        return (ProductSearchListNongjiFragment) Fragment.instantiate(context, ProductSearchListNongjiFragment.class.getName(), new Bundle());
+        return (ProductSearchListHuafeiFragment) instantiate(context, ProductSearchListHuafeiFragment.class.getName(), new Bundle());
     }
 }

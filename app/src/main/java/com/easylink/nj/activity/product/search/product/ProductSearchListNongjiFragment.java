@@ -1,9 +1,8 @@
-package com.easylink.nj.activity.product.search;
+package com.easylink.nj.activity.product.search.product;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.easylink.library.adapter.OnItemViewClickListener;
@@ -12,8 +11,6 @@ import com.easylink.library.util.TextUtil;
 import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.bean.product.ProductNongji;
 import com.easylink.nj.bean.product.ProductNongjiList;
-import com.easylink.nj.bean.product.ProductZhongzi;
-import com.easylink.nj.bean.product.ProductZhongziList;
 import com.easylink.nj.httptask.NjHttpUtil;
 
 import java.util.List;
@@ -21,7 +18,7 @@ import java.util.List;
 /**
  * Created by yihaibin on 15/8/29.
  */
-public class ProductSearchListZhongziFragment extends ProductSearchListFragment<ProductZhongziList> implements OnItemViewClickListener {
+public class ProductSearchListNongjiFragment extends ProductSearchListFragment<ProductNongjiList> implements OnItemViewClickListener {
 
     private String mSearchKey = TextUtil.TEXT_EMPTY;
 
@@ -34,17 +31,17 @@ public class ProductSearchListZhongziFragment extends ProductSearchListFragment<
     @Override
     public HttpTaskParams getXlvHttpTaskParam(int page, int limit) {
 
-        return NjHttpUtil.getProductZhongziSearchList(mSearchKey, page, limit);
+        return NjHttpUtil.getProductNongjiSearchList(mSearchKey, page, limit);
     }
 
     @Override
     public Class<?> getXlvJsonClazz() {
 
-        return ProductZhongziList.class;
+        return ProductNongjiList.class;
     }
 
     @Override
-    protected List<?> getListOnInvalidateContent(ProductZhongziList result) {
+    protected List<?> getListOnInvalidateContent(ProductNongjiList result) {
 
         return result == null ? null : result.getList();
     }
@@ -52,9 +49,9 @@ public class ProductSearchListZhongziFragment extends ProductSearchListFragment<
     @Override
     public void onItemViewClick(int position, View clickView) {
 
-        ProductZhongzi nj = (ProductZhongzi) getAdapterItem(position);
+        ProductNongji nj = (ProductNongji) getAdapterItem(position);
         if (nj != null)
-            ProductDetailActivity.startActivityFromZZ(getActivity(), nj.getId(), false);
+            ProductDetailActivity.startActivityFromNJ(getActivity(), nj.getId(), false);
     }
 
     @Override
@@ -67,8 +64,8 @@ public class ProductSearchListZhongziFragment extends ProductSearchListFragment<
         loadDataFromServer();
     }
 
-    public static ProductSearchListZhongziFragment newInstance(Context context) {
+    public static ProductSearchListNongjiFragment newInstance(Context context) {
 
-        return (ProductSearchListZhongziFragment) Fragment.instantiate(context, ProductSearchListZhongziFragment.class.getName(), new Bundle());
+        return (ProductSearchListNongjiFragment) instantiate(context, ProductSearchListNongjiFragment.class.getName(), new Bundle());
     }
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/flAdvertDiv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <com.androidex.view.pager.autoscroll.AutoScrollViewPager
+        android:id="@+id/asvpAdvert"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.androidex.view.pageindicator.IconPageIndicator
+        android:id="@+id/ipiAdvert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="10dp" />
+
+</FrameLayout>

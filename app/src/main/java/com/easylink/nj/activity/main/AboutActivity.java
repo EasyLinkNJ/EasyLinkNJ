@@ -36,7 +36,7 @@ public class AboutActivity extends NjActivity {
     protected void initContentView() {
 
         TextView tv = (TextView) findViewById(R.id.tvCopyRight);
-        tv.setText("易中联 Android版 版本" + AppInfoUtil.getVersionName());
+        tv.setText(AppInfoUtil.getAppName()+" Android版 版本" + AppInfoUtil.getVersionName());
     }
 
     public static void startActivity(Activity activity){

@@ -5,43 +5,91 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 
 import com.easylink.library.activity.ExFragment;
+import com.easylink.library.adapter.OnItemViewClickListener;
+import com.easylink.library.util.DensityUtil;
+import com.easylink.library.util.DeviceUtil;
+import com.easylink.library.util.ViewUtil;
+import com.easylink.library.view.pageindicator.IconPageIndicator;
+import com.easylink.library.view.pager.autoscroll.AutoScrollViewPager;
 import com.easylink.nj.R;
-import com.easylink.nj.activity.product.BrandListHuafeiActivity;
-import com.easylink.nj.activity.product.BrandListNongjiActivity;
-import com.easylink.nj.activity.product.BrandListNongyaoActivity;
-import com.easylink.nj.activity.product.BrandListZhongziActivity;
-import com.easylink.nj.activity.product.ProductListActivity;
+import com.easylink.nj.activity.product.ProductDetailActivity;
 import com.easylink.nj.activity.product.ProductListHuafeiActivity;
 import com.easylink.nj.activity.product.ProductListNongjiActivity;
 import com.easylink.nj.activity.product.ProductListNongyaoActivity;
 import com.easylink.nj.activity.product.ProductListZhongziActivity;
+import com.easylink.nj.adapter.HomeBannerPageAdapter;
+import com.easylink.nj.bean.Banner;
+import com.easylink.nj.httptask.NjHttpUtil;
+import com.easylink.nj.httptask.NjJsonListener;
+import com.easylink.nj.prefs.SharedPrefs;
 import com.easylink.nj.view.ClickScaleAnimRelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by yihaibin on 15/7/14.
  */
 public class HomeFragment extends ExFragment{
 
+    private AutoScrollViewPager mAsvpBanner;
+    private IconPageIndicator mIpiBannerIndicator;
+    private HomeBannerPageAdapter mBannerPagerAdapter;
+    private SharedPrefs mSharePrefs;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
         setFragmentContentView(R.layout.act_main_fmt_home);
+        loadBannerFromServer();
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        if(!isHidden()){
+
+            if(mBannerPagerAdapter.getCount() > 1)
+                mAsvpBanner.startAutoScroll();
+        }
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+
+        super.onHiddenChanged(hidden);
+        if(hidden){
+
+            mAsvpBanner.stopAutoScroll();
+        }else{
+
+            if(mBannerPagerAdapter.getCount() > 1)
+                mAsvpBanner.startAutoScroll();
+        }
+    }
+
+    @Override
+    public void onStop() {
+
+        super.onStop();
+        mAsvpBanner.stopAutoScroll();
     }
 
     @Override
     protected void initData() {
 
+        mSharePrefs = new SharedPrefs(getActivity(), "bannerPrefs");
     }
 
     @Override
     protected void initContentView() {
 
-        ImageView cover = (ImageView) findViewById(R.id.ivCover);
-        cover.setImageResource(R.mipmap.ic_main_home_cover);
+        initBannerViews();
 
         ClickScaleAnimRelativeLayout csarl = null;
 
@@ -50,7 +98,6 @@ public class HomeFragment extends ExFragment{
             @Override
             public void onClick(View v) {
 
-//                BrandListNongjiActivity.startActivity(getActivity());
                 ProductListNongjiActivity.startActivity(getActivity());
             }
         });
@@ -81,6 +128,141 @@ public class HomeFragment extends ExFragment{
                 ProductListZhongziActivity.startActivity(getActivity());
             }
         });
+    }
+
+    private void initBannerViews() {
+
+        int bannerHeight = (int)(DeviceUtil.getScreenWidth() * (450 / 1080f));
+        FrameLayout flBannerDiv = (FrameLayout) findViewById(R.id.flAdvertDiv);
+        flBannerDiv.getLayoutParams().height = bannerHeight;
+
+        mAsvpBanner = (AutoScrollViewPager) findViewById(R.id.asvpAdvert);
+        ViewUtil.setViewPagerScrollDuration(mAsvpBanner, 800);
+        mAsvpBanner.setInterval(3000);
+        mAsvpBanner.setStopScrollWhenTouch(true);
+        mAsvpBanner.setCycle(true);
+
+        mBannerPagerAdapter = new HomeBannerPageAdapter();
+        mBannerPagerAdapter.setData(getInitBanners());
+        mAsvpBanner.setAdapter(mBannerPagerAdapter);
+
+        mIpiBannerIndicator = (IconPageIndicator) findViewById(R.id.ipiAdvert);
+        mIpiBannerIndicator.setIndicatorSpace(DensityUtil.dip2px(3));
+        mIpiBannerIndicator.setViewPager(mAsvpBanner);
+
+        mBannerPagerAdapter.setOnItemViewClickListener(new OnItemViewClickListener() {
+
+            @Override
+            public void onItemViewClick(int position, View view) {
+
+                onBannerItemViewClick(position);
+            }
+        });
+    }
+
+    private void onBannerItemViewClick(int position) {
+
+        Banner banner = mBannerPagerAdapter.getItem(position);
+        if(banner == null)
+            return;
+
+        if(Banner.MOD_NAME_NONGJI.equals(banner.getModname())){
+
+            ProductDetailActivity.startActivityFromNJ(getActivity(), banner.getModid(), false);
+        }else if(Banner.MOD_NAME_NONGJI_PEIJIAN.equals(banner.getModname())){
+
+            ProductDetailActivity.startActivityFromNJParts(getActivity(), banner.getModid(), false);
+        }else if(Banner.MOD_NAME_NONGYAO.equals(banner.getModname())){
+
+            ProductDetailActivity.startActivityFromNY(getActivity(), banner.getModid(), false);
+        }else if(Banner.MOD_NAME_HUAFEI.equals(banner.getModname())){
+
+            ProductDetailActivity.startActivityFromHF(getActivity(), banner.getModid(), false);
+        }else if(Banner.MOD_NAME_ZHONGZI.equals(banner.getModname())){
+
+            ProductDetailActivity.startActivityFromZZ(getActivity(), banner.getModid(), false);
+        }
+    }
+
+    private void loadBannerFromServer() {
+
+        if(DeviceUtil.isNetworkDisable())
+            return;
+
+        executeHttpTask(1, NjHttpUtil.getBannerList(), new NjJsonListener<List<Banner>>(Banner.class) {
+
+            @Override
+            public void onTaskResult(List<Banner> result) {
+
+                try{
+
+                    saveBanners((ArrayList<Banner>) result);
+                    if(result == null || result.isEmpty())
+                        result = getDefaultBanners();
+
+                    mAsvpBanner.stopAutoScroll();
+                    mBannerPagerAdapter.setData(result);
+                    mAsvpBanner.setAdapter(mBannerPagerAdapter);
+                    mBannerPagerAdapter.notifyDataSetChanged();
+
+                    mIpiBannerIndicator.notifyDataSetChanged();
+                    if(mBannerPagerAdapter.getCount() > 1)
+                        mIpiBannerIndicator.setCurrentItem(0);
+
+                }catch(Exception e){
+
+                }
+
+                if(mBannerPagerAdapter.getCount() > 1)
+                    mAsvpBanner.startAutoScroll();
+            }
+
+            @Override
+            public void onTaskFailed(int failedCode, String msg) {
+
+                //nothing
+            }
+        });
+    }
+
+    private ArrayList<Banner> getInitBanners(){
+
+        ArrayList<Banner> banners = getStorageBanners();
+        if(banners == null || banners.isEmpty())
+            banners = getDefaultBanners();
+
+        return banners;
+    }
+
+    private ArrayList<Banner> getDefaultBanners(){
+
+        ArrayList<Banner> banners = new ArrayList<Banner>();
+        Banner banner = new Banner();
+        banner.setModname(Banner.MOD_NAME_NONE);
+        banner.setPicurl("res:///" + R.mipmap.ic_main_home_cover);
+        banners.add(banner);
+        return banners;
+    }
+
+    private ArrayList<Banner> getStorageBanners(){
+
+        try{
+
+            return (ArrayList<Banner>)mSharePrefs.getSerializable("bannerKey");
+
+        }catch(Exception e){
+
+            return null;
+        }
+    }
+
+    private void saveBanners(ArrayList<Banner> banners){
+
+        try{
+            mSharePrefs.putSerializable("bannerKey", banners);
+        }catch(Exception e){
+
+        }
     }
 
     public static HomeFragment newInstance(FragmentActivity activity){
