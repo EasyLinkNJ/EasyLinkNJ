@@ -81,7 +81,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".activity.product.search.ProductSearchActivity"
+            android:name=".activity.product.search.product.ProductSearchActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".activity.product.ProductDetailActivity"
@@ -115,6 +115,12 @@
         <activity
             android:name=".activity.main.AboutActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".activity.product.search.brand.BrandSearchActivity"
+        android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.product.search.category.CategorySearchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

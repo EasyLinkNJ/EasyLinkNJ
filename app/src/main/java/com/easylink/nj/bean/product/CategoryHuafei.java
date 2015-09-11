@@ -5,7 +5,7 @@ import com.easylink.library.util.TextUtil;
 /**
  * Created by yihaibin on 15/8/28.
  */
-public class CategoryHuafei {
+public class CategoryHuafei implements CategoryItem{
 
     private String id = TextUtil.TEXT_EMPTY;
     private String name = TextUtil.TEXT_EMPTY;

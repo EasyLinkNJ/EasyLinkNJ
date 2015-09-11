@@ -23,7 +23,7 @@
             android:lineSpacingExtra="4dp"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
-            android:text=""/>
+            android:text="北京宇辰嘉业科技有限公司成立于2004年，是一家专业从事于科技开发、销售、贸易、电子商务、农业技术推广及人员培训为一体的公司。公司自成立以来，以服务质量求生存，以信誉赢市场，通过与日本TOMOE有限公司结为农机合作伙伴，长期进行农业机械设备的进口贸易，以保证公司引入世界上最先进的农机设备。公司努力提高农机服务专业化、组织化、产业化程度，以此带动大型、复式、高性能机械和先进农业技术的推广应用，提高农业生产效率和质量。本公司以“信誉至上，客户第一”为宗旨勤劳务实，求新上进，在健康、持续、稳定的轨道上公司所有员工将一如既往的以领先的技术、优质的产品、全方位的服务开创电力事业的美好未来！"/>
 
         <TextView
             android:id="@+id/tvCopyRight"
@@ -35,4 +35,5 @@
             android:textColor="@color/bg_title_bar"/>
 
     </LinearLayout>
+    <!-- 自我管理、协作创新、大众创新 -->
 </ScrollView>

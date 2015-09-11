@@ -4,11 +4,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ivCover"
+    <FrameLayout
+        android:id="@+id/flAdvertDiv"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="centerCrop"/>
+        android:layout_height="wrap_content" >
+
+        <com.easylink.library.view.pager.autoscroll.AutoScrollViewPager
+            android:id="@+id/asvpAdvert"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.easylink.library.view.pageindicator.IconPageIndicator
+            android:id="@+id/ipiAdvert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="10dp" />
+
+    </FrameLayout>
 
     <!-- clicker part -->
 

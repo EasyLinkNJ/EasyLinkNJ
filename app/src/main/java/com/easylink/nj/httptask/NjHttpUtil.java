@@ -10,6 +10,13 @@ import com.easylink.nj.activity.product.ProductDetailActivity.ProductType;
  */
 public class NjHttpUtil extends BaseHttpUtil {
 
+    public static HttpTaskParams getBannerList(){
+
+        HttpTaskParams htp = HttpTaskParams.newPost(URL_BANNER);
+        setSignParam(htp);
+        return htp;
+    }
+
     /**
      * 农机品牌列表
      * @return

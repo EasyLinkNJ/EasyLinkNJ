@@ -6,6 +6,7 @@ package com.easylink.nj.bean.product;
  */
 public interface BrandItem {
 
+    String getId();
     String getLogoUrl();
     String getSimpleName();
     String getDesc();

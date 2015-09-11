@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.easylink.library.util.DeviceUtil;
 import com.easylink.nj.R;
 import com.easylink.nj.activity.common.NjFragmentActivity;
+import com.easylink.nj.activity.product.search.brand.BrandSearchActivity;
+import com.easylink.nj.activity.product.search.category.CategorySearchActivity;
 import com.easylink.nj.bean.product.BrandNongyao;
 import com.easylink.nj.bean.product.CategoryNongyao;
 import com.easylink.nj.httptask.NjHttpUtil;
@@ -29,6 +31,9 @@ public class ProductListNongyaoActivity extends NjFragmentActivity implements Vi
     private final int HTTP_TASK_BRAND = 1;
     private final int HTTP_TASK_CATEGORY = 2;
 
+    private final int REQ_CODE_BRAND = 1;
+    private final int REQ_CODE_CATEGORY = 2;
+
     private LinearLayout mLlToolbar;
     private View mVToolbarLine;
     private TextView mTvBrand, mTvCategory;
@@ -37,13 +42,29 @@ public class ProductListNongyaoActivity extends NjFragmentActivity implements Vi
     //    private View mVLoadingShadow;
     private List<BrandNongyao> mBrandList;
     private List<CategoryNongyao> mCategoryList;
-    private ProductListNongyaoFragment mNongjiListFragment;
+    private ProductListNongyaoFragment mHuafeiListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_product_nongji_list);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode != RESULT_OK)
+            return;
+
+        if(requestCode == REQ_CODE_BRAND){
+
+            handleBrandReturn(data);
+        }else if(requestCode == REQ_CODE_CATEGORY){
+
+            handleCategoryReturn(data);
+        }
     }
 
     @Override
@@ -61,8 +82,8 @@ public class ProductListNongyaoActivity extends NjFragmentActivity implements Vi
     protected void initContentView() {
 
         initTabViews();
-        mNongjiListFragment = ProductListNongyaoFragment.newInstance(this);
-        addFragment(R.id.flContent, mNongjiListFragment);
+        mHuafeiListFragment = ProductListNongyaoFragment.newInstance(this);
+        addFragment(R.id.flContent, mHuafeiListFragment);
     }
 
     private void initTabViews() {
@@ -82,19 +103,43 @@ public class ProductListNongyaoActivity extends NjFragmentActivity implements Vi
 
         switch (v.getId()){
             case R.id.tvBrand:
-                showBrandList(true);
+//                showBrandList(true);
+                BrandSearchActivity.startActivityNY(this, REQ_CODE_BRAND);
                 break;
             case R.id.tvCategory:
-                showCategoryList(true);
+//                showCategoryList(true);
+                CategorySearchActivity.startActivityNY(this, REQ_CODE_CATEGORY);
                 break;
         }
+    }
+
+    private void handleBrandReturn(Intent data) {
+
+        if(data == null)
+            return;
+
+        String brandId = data.getStringExtra(BrandSearchActivity.EXTRA_STRING_ID);
+        String brandName = data.getStringExtra(BrandSearchActivity.EXTRA_STRING_NAME);
+        mHuafeiListFragment.updateListByBrand(brandId);
+        mTvBrand.setText(brandName);
+    }
+
+    private void handleCategoryReturn(Intent data) {
+
+        if(data == null)
+            return;
+
+        String categoryId = data.getStringExtra(CategorySearchActivity.EXTRA_STRING_ID);
+        String categoryName = data.getStringExtra(CategorySearchActivity.EXTRA_STRING_NAME);
+        mHuafeiListFragment.updateListByCategory(categoryId);
+        mTvCategory.setText(categoryName);
     }
 
     private void onBrandListItemClick(int position) {
 
         BrandNongyao brand = (BrandNongyao) mPwList.getItemObject(position);
         dismissPopList();
-        mNongjiListFragment.updateListByBrand(brand.getId());
+        mHuafeiListFragment.updateListByBrand(brand.getId());
         mTvBrand.setText(brand.getCn_brand());
         mPwList.onItemClick(position);
     }
@@ -103,7 +148,7 @@ public class ProductListNongyaoActivity extends NjFragmentActivity implements Vi
 
         CategoryNongyao category = (CategoryNongyao) mPwList.getItemObject(position);
         dismissPopList();
-        mNongjiListFragment.updateListByCategory(category.getId());
+        mHuafeiListFragment.updateListByCategory(category.getId());
         mTvCategory.setText(category.getName());
         mPwList.onItemClick(position);
     }
