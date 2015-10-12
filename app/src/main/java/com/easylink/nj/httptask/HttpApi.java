@@ -5,7 +5,7 @@ package com.easylink.nj.httptask;
  */
 public interface HttpApi {
 
-    String URL_BASE = "http://nongji.suanduoyi.com/api/";// base url
+    String URL_BASE = "http://yzlnj.com/api/";// base url
 
     String URL_BANNER = URL_BASE + "/mbanner/list";
 
